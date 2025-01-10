@@ -1,3 +1,5 @@
+/* Overall */
+
 * {
     margin: 0;
     padding: 0;
@@ -8,12 +10,14 @@ html {
     background-color: #a44d6d;
 }
 
+/* Common */
+
 .bubble {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     position: relative;
     padding: 1rem;
-    margin: 0.5rem;
+    margin: 2% 5%;
     background-color: white;
     border-radius: 2rem;
     font-family: Arial, sans-serif;
@@ -40,8 +44,18 @@ html {
     border-color: white transparent transparent transparent;
 }
 
+/* Header */
+
 #logo-image {
-    height: 2rem;
+    width: 4rem;
+    height: fit-content;
+    margin-right: auto;
+}
+
+h1 {
+    font: normal 2.75rem "Pacifico", serif;
+    color: #a44d6d;
+    padding-bottom: 0.5rem;
 }
 
 #logo-text {
@@ -51,14 +65,18 @@ html {
 }
 
 #login {
+    width: 4rem;
     background-color: #a44d6d;
     color: white;
-    font-size: large;
+    font-size: medium;
     align-self: flex-end;
-    padding: 1rem 1rem;
+    padding: 1.2rem 0;
     border: none;
-    border-radius: 2rem;
+    border-radius: 5rem;
+    margin-left: auto;
 }
+
+/* Gallery */
 
 .gallery {
     margin: 1rem;
@@ -73,19 +91,23 @@ html {
 
 .image-right {
     margin-left: auto;
+    margin-right: 4%;
 }
 
 .image-left {
     margin-top: 1rem;
+    margin-left: 4%;
     margin-right: auto;
 }
 
-h1 {
+/* Main */
+
+h2 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: xx-large;
     color: white;
     text-align: center;
-    margin: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 #signup {
@@ -93,8 +115,10 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    width: 100%;
+}
+
+#signup .bubble {
+    width: 70%;
 }
 
 input {
@@ -126,25 +150,33 @@ input {
     background-color: lavenderblush;
 }
 
+/* Media Query */
+
 @media all and (min-width: 992px) {
+    body {
+        width: 75%;
+        margin-left: auto;
+        margin-right: auto;
+    }
     header {
-        margin-top: 1rem;
+        margin: 0;
     }
     .gallery {
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        margin: 3rem 1rem 4rem 1rem;
+        margin: 0;
+        padding: 0;
+    }
+    main {
+        margin: 0;
+        padding: 0;
     }
     .gallery img {
-        max-width: 30%;
+        max-width: 20%;
     }
     .image-right {
-        margin-right: 5rem;
+        margin-right: 10rem;
     }
     
     .image-left {
-        margin-left: 5rem;
-        margin-top: 0;
+        margin-left: 10rem;
     }
 }
