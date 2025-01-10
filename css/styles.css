@@ -8,54 +8,76 @@ html {
     background-color: #a44d6d;
 }
 
-#bubble {
-    position: relative;
-    background-color: white;
+.bubble {
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 1.8rem 0.6rem 1.5rem 0.6rem;
+    justify-content: space-between;
+    position: relative;
+    padding: 1rem;
+    margin: 0.5rem;
+    background-color: white;
     border-radius: 2rem;
-    margin: .75rem .5rem 0 .5rem;
+    font-family: Arial, sans-serif;
 }
 
-#tail-left {
-    position: relative;
+.bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
     width: 0;
     height: 0;
-    border-right: 3rem solid transparent;
-    border-top: 1.2rem solid white;
-    margin-left: 2rem;
-    margin-top: -0.3rem;
+    border-style: solid;
+}
+
+.bubble.left-tail::after {
+    left: 30px;
+    border-width: 10px 30px 0 0;
+    border-color: white transparent transparent transparent;
+}
+
+.bubble.right-tail::after {
+    right: 30px;
+    border-width: 10px 0 0 30px;
+    border-color: white transparent transparent transparent;
+}
+
+#logo-image {
+    height: 2rem;
 }
 
 #logo-text {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#logo-text img {
     height: 4rem;
+    padding: 0.5rem 1rem 0rem 1rem;
+    padding-left: 1rem;
 }
 
-#login button {
+#login {
     background-color: #a44d6d;
     color: white;
     font-size: large;
-    padding: 0.6rem 1rem;
+    align-self: flex-end;
+    padding: 1rem 1rem;
     border: none;
     border-radius: 2rem;
-    transform: translateY(35%);
 }
 
-#logo-image img {
-    height: 7rem;
+.gallery {
+    margin: 1rem;
+}
+
+.gallery img {
     display: block;
-    margin: 2rem auto;
+    max-width: 60%;
+    border: 7px solid white;
+    border-radius: 3rem;
+}
+
+.image-right {
+    margin-left: auto;
+}
+
+.image-left {
+    margin-top: 1rem;
+    margin-right: auto;
 }
 
 h1 {
@@ -69,27 +91,26 @@ h1 {
 #signup {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    width: 100%;
 }
 
-#signup input {
-    height: 4rem;
-    width: 75%;
+input {
+    width: 100%;
     font-family: Arial, Helvetica, sans-serif;
     font-size: medium;
     text-align: center;
     background-color: white;
     color: gray;
-    padding: 0.5rem;
     border: none;
     border-radius: 5rem;
     outline: none;
 }
 
-#signup button {
-    height: 3rem;
-    width: 50%;
+.submit-button {
+    position: relative;
     font-family: Arial, Helvetica, sans-serif;
     font-size: small;
     font-weight: bold;
@@ -98,9 +119,32 @@ h1 {
     padding: 1rem 0.5rem;
     border: none;
     border-radius: 5rem;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
 }
 
-#signup button:hover {
+.submit-button:hover {
     background-color: lavenderblush;
+}
+
+@media all and (min-width: 992px) {
+    header {
+        margin-top: 1rem;
+    }
+    .gallery {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        margin: 3rem 1rem 4rem 1rem;
+    }
+    .gallery img {
+        max-width: 30%;
+    }
+    .image-right {
+        margin-right: 5rem;
+    }
+    
+    .image-left {
+        margin-left: 5rem;
+        margin-top: 0;
+    }
 }

@@ -9,25 +9,24 @@
 </head>
 <body>
     <header>
-        <div id="bubble">
-            <div id="logo-text">
-                <img src="./images/logo-text.webp" alt="Logo text">
-            </div>
-            <div id="login">
-                <button>Log In</button>
-            </div>
+        <div class="bubble left-tail">
+            <img id="logo-image" src="./images/logo-image.webp" alt="affinity logo image">
+            <img id="logo-text" src="./images/logo-text.webp" alt="affinity logo text">
+            <button id="login">Log In</button>
         </div>
-        <div id="tail-left"></div>
     </header>
-    <div id="logo-image">
-        <img src="./images/logo-image.webp" alt="Logo image">
+    <div class="gallery">
+        <img class="image-right" src="./images/portrait-1.webp" alt="Portrait of man">
+        <img class="image-left" src="./images/portrait-2.webp" alt="Portrait of woman">
     </div>
     <main>
         <h1>Sign up for free</h1>
         <form id="signup" action="#">
-            <input type="email" name="email" placeholder="Enter your email" required>
-            <button type="submit">Continue</button>
-        </form>
+            <div class="bubble right-tail">
+                <input type="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <button class="submit-button" type="submit">Continue</button>
+       </form>
     </main>
 </body>
 </html>
