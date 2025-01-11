@@ -46,13 +46,11 @@ h2 {
 
 input {
     width: 100%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: medium;
+    font: medium Arial, Helvetica, sans-serif;
     text-align: center;
     background-color: white;
     color: gray;
     border: none;
-    border-radius: 5rem;
     outline: none;
 }
 
