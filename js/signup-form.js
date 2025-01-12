@@ -11,23 +11,43 @@ let chat;
 
 function AddQuestion() {
     if (currIndex >= questions.length) {
-        chat.innerHTML += `<div class="bubble left left-tail"><p>Thank you for signing up!</p></div>`;
+        const thankYouBubble = document.createElement('div');
+        thankYouBubble.className = "bubble chat-bubble left left-tail";
+        thankYouBubble.innerHTML = "<p>Thank you for signing up!</p>";
+        chat.appendChild(thankYouBubble);
+
+        // Trigger animation
+        setTimeout(() => thankYouBubble.classList.add('show'), 10);
+
         return;
     }
 
     const currentQuestion = questions[currIndex];
-    chat.innerHTML += `
-        <div class="bubble left left-tail">
-            <p>${currentQuestion.question}</p>
-        </div>
-        <div class="bubble right right-tail">
-            <input type="${currentQuestion.type}" name="${currentQuestion.name}" id="${currentQuestion.name}" value="${responses[currentQuestion.name] || ''}">
-            <button type="button" class="next-btn">&#x2BAD;</button>
-        </div>
+
+    // Create the question bubble
+    const questionBubble = document.createElement('div');
+    questionBubble.className = "bubble chat-bubble left left-tail";
+    questionBubble.innerHTML = `<p>${currentQuestion.question}</p>`;
+    chat.appendChild(questionBubble);
+
+    // Create the input bubble
+    const inputBubble = document.createElement('div');
+    inputBubble.className = "bubble chat-bubble right right-tail";
+    inputBubble.innerHTML = `
+        <input type="${currentQuestion.type}" name="${currentQuestion.name}" id="${currentQuestion.name}" value="${responses[currentQuestion.name] || ''}">
+        <button type="button" class="next-btn">&#x2BAD;</button>
     `;
+    chat.appendChild(inputBubble);
+
+    // Trigger animation
+    setTimeout(() => {
+        questionBubble.classList.add('show');
+        inputBubble.classList.add('show');
+    }, 10);
 
     chat.scrollTop = chat.scrollHeight;
 }
+
 
 function HandleNextClick(event) {
     if (!event.target.classList.contains("next-btn")) return;
@@ -43,13 +63,14 @@ function HandleNextClick(event) {
     const name = questions[currIndex].name;
     responses[name] = value;
 
-    const responseBubble = `
-        <div class="bubble right right-tail">
-            <p>${value}</p>
-            <button class="next-btn" style="visibility: hidden;"></button>
-        </div>
-    `;
-    inputElement.parentElement.outerHTML = responseBubble;
+    // Replace input bubble with response bubble
+    const responseBubble = document.createElement('div');
+    responseBubble.className = "bubble chat-bubble right right-tail";
+    responseBubble.innerHTML = `<p>${value}</p>`;
+    inputElement.parentElement.replaceWith(responseBubble);
+
+    // Trigger animation
+    setTimeout(() => responseBubble.classList.add('show'), 10);
 
     currIndex++;
     AddQuestion();

@@ -4,29 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>affinity</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/index.css">
-    <link rel="icon" href="./images/favicon.ico"  type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <script src="./js/load-components.js"></script>
     <script src="./js/email-autofill.js"></script>
 </head>
 <body>
-    <header></header>
-    <div class="gallery">
-        <img class="image-right" src="./images/portrait-1.webp" alt="Portrait of man">
-        <img class="image-left" src="./images/portrait-2.webp" alt="Portrait of woman">
-    </div>
+    <header class="bubble bubble--header"></header>
     <main>
-        <h2>Sign up for free</h2>
-        <form id="signup" action="#" method="get">
-            <div class="bubble right-tail">
+        <div class="bubble bubble--right">
+            <img class="bubble__image" src="./images/portrait-1.webp" alt="portrait of woman">
+        </div>
+        <div class="bubble bubble--left">
+            <img class="bubble__image" src="./images/portrait-2.webp" alt="portrait of man">
+        </div>
+        <div class="bubble bubble--left">
+            <h2>Sign up for free!</h2>
+        </div>
+        <form action="#">
+            <div class="bubble bubble--right bubble--user">
                 <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                <button class="btn-send" type="submit">&#x2BAD;</button>
             </div>
-            <button class="submit-button" type="submit">Continue</button>
-       </form>
+        </form>
     </main>
 </body>
 </html>

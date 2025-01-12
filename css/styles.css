@@ -1,87 +1,158 @@
-/* Overall */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 * {
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 html {
-    height: 100%;
     background-color: #a44d6d;
+    margin-bottom: 2rem; /* Temporary; expands page bottom to avoid awkward cutoff */
 }
 
-/* Common */
+/* Message Bubbles */
 
 .bubble {
     display: flex;
-    justify-content: center;
     position: relative;
     padding: 1rem;
-    margin: 2% 5%;
+    border: 2px outset silver;
+    border-radius: 1.5rem;
+    margin: 1rem;
+    box-shadow: 0 0 3px 1px silver;
     background-color: white;
-    border-radius: 2rem;
-    font-family: Arial, sans-serif;
-}
-
-.bubble.left {
-    width: 50%;
-    margin-right: auto;
-}
-
-.bubble.right {
-    width: 50%;
-    margin-left: auto;
+    font: normal 1rem Arial, Helvetica, sans-serif;
 }
 
 .bubble::after {
-    content: '';
+    content: "";
     position: absolute;
-    bottom: -10px;
-    width: 0;
-    height: 0;
-    border-style: solid;
+    bottom: -11px;
+    width: 10px;
+    height: 7px;
+    border: 2px silver;
+    border-style: none outset outset outset;
+    border-radius: 0 0 100% 0;
+    box-shadow: 0 0 3px 1px silver;
+    background-color: white;
 }
 
-.bubble.left-tail::after {
-    left: 30px;
-    border-width: 10px 30px 0 0;
-    border-color: white transparent transparent transparent;
+.bubble--header {
+    justify-content: space-between;
 }
 
-.bubble.right-tail::after {
-    right: 30px;
-    border-width: 10px 0 0 30px;
-    border-color: white transparent transparent transparent;
+.bubble--left {
+    width: fit-content;
+    max-width: 60%;
+    margin-right: auto;
+}
+
+.bubble--left::after {
+    left: 17px;
+}
+
+.bubble--right {
+    width: fit-content;
+    max-width: 70vw;
+    margin-left: auto;
+}
+
+.bubble--right::after {
+    right: 17px;
+    border-radius: 0 0 0 15rem;
+}
+
+.bubble--user {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.bubble__image {
+    max-width: 45vw;
+    height: auto;
+    border-radius: 1rem;
 }
 
 /* Header */
 
-#logo-image {
-    width: 4rem;
-    max-height: 2.5rem;
-    height: fit-content;
-    display: block;
+.logo-link {
     margin-right: auto;
 }
 
-#logo-link {
-    text-decoration: none;
+.logo-img {
+    width: 4rem;
+    height: fit-content;
+    max-height: 2.5rem;
+    margin-right: auto;
 }
 
 h1 {
-    font: normal 2.75rem "Pacifico", serif;
-    color: #a44d6d;
-    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    color:#a44d6d;
+    font: normal 2.5rem "Pacifico";
+    text-shadow: 1px 1px 1px #fe94bc;
 }
 
-#login {
-    width: 4rem;
-    background-color: #a44d6d;
-    color: white;
-    font-size: medium;
+.btn-login {
     align-self: flex-end;
-    padding: 1.2rem 0;
-    border: none;
-    border-radius: 5rem;
+    width: 4rem;
+    padding: 1.4rem 0;
+    border: 2px outset #fe94bc;
+    border-radius: 50%;
     margin-left: auto;
+    box-shadow: inset 0 0 5px 2px #fe94bc;
+    background-color: #a44d6d;
+    font: normal 1rem Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+/* Main */
+
+h2 {
+    font: normal 1rem Arial, Helvetica, sans-serif;
+}
+
+input {
+    width: 100%;
+    border: none;
+    margin: auto;
+    outline: none;
+    font: normal 1rem Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: gray;
+}
+
+.btn-send {
+    padding: 0 0.5rem 0.1rem 0.5rem;
+    border: 2px outset #fe94bc;
+    border-radius: 50%;
+    margin-left: auto;
+    box-shadow: inset 0 0 5px 2px #fe94bc;
+    font: normal 1rem Arial, Helvetica, sans-serif;
+    color: white;
+    background-color: #a44d6d;
+}
+
+.btn-send:hover {
+    filter: brightness(85%);
+}
+
+/* Media Queries */
+
+@media all and (min-width: 992px) {
+    body {
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto
+    }
+    .bubble--left {
+        margin-left: 8rem;
+    }
+    .bubble--right {
+        margin-right: 8rem;
+    }
+    .bubble__image {
+        max-width: 12vw;
+    }
 }
