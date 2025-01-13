@@ -1,13 +1,58 @@
 const questions = [
-    { output: "What's your first name?", type: "text", name: "fname" },
-    { output: "Set a strong password:", type: "password", name: "password" },
-    { output: "Confirm your password:", type: "password", name: "confirm-password" },
-    { output: "When's your birthday?", type: "date", name: "dob" },
-]
+    { output: "What's your first name?", type: "text", name: "fname", autofill: "Taylor" },
+    { output: "Set a strong password:", type: "password", name: "password", autofill: "Str0ngP@ssw0rd!" },
+    { output: "Confirm your password:", type: "password", name: "confirm-password", autofill: "Str0ngP@ssw0rd!" },
+    { output: "When's your birthday?", type: "date", name: "dob", autofill: "2000-01-01" },
+];
 
 let chat;
 let currIndex = 0;
 let responses = {};
+
+// @param (string) input - User input value
+// @param (string) name - questions.name
+function ValidateUserInput(input, name) {
+    let result = { isValid: false, error: null };
+
+    if (name == "fname") {
+        if (input.trim() === "") {
+            result.error = "First name can't be empty";
+        }
+    } else if (name === "password") {
+        if (input.length < 8) {
+            result.error = "Password must be at least 8 characters long";
+        } else if (!/[A-Z]/.test(input)) {
+            result.error = "Password must include an uppercase letter";
+        } else if (!/[a-z]/.test(input)) {
+            result.error = "Password must include a lowercase letter";
+        } else if (!/[0-9]/.test(input)) {
+            result.error = "Password must include a number";
+        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(input)) {
+            result.error = "Password must include a symbol (e.g., !, @, #)";
+        }
+    } else if (name === "confirm-password") {
+        if (input !== responses["password"]) {
+            result.error = "Passwords do not match";
+        }
+    } else if (name === "dob") {
+        const dob = new Date(input);
+        const today = new Date();
+        if (dob > today) {
+            result.error = "Birthday can't be in the future";
+        }
+    }
+
+    if (result.error === null) {
+        result.isValid = true;
+    }
+
+    return result;
+}
+
+// @param (string) error - Error message from ValidateUserInput
+function ShowValidationError(error) {
+    alert(error);
+}
 
 function AddQuestion() {
     if (currIndex >= questions.length) {
@@ -40,6 +85,14 @@ function AddQuestion() {
     rightBubble.innerHTML = toggleBtn + input + sendBtn;
 
     chat.appendChild(rightBubble);
+
+    // Add listener for autofill
+    const element = rightBubble.querySelector(`#${question.name}`);
+    element.addEventListener("focus", () => {
+        if (!element.value) {
+            element.value = question.autofill;
+        }
+    });
 }
 
 function HandleNextClick(event) {
@@ -48,6 +101,12 @@ function HandleNextClick(event) {
     let name = questions[currIndex].name
     let inputElement = chat.querySelector(`#${name}`);
     let value = inputElement.value;
+
+    let result = ValidateUserInput(value, name);
+    if (!result.isValid) {
+        ShowValidationError(result.error);
+        return;
+    }
 
     responses[name] = value;
 
