@@ -107,11 +107,11 @@ h1 {
     color: white;
 }
 
-/* Main */
-
-h2 {
-    font: normal 1rem Arial, Helvetica, sans-serif;
+.btn-login:hover {
+    filter: brightness(85%);
 }
+
+/* Form */
 
 input {
     width: 100%;
@@ -123,8 +123,12 @@ input {
     color: gray;
 }
 
+input:focus {
+    color: black;
+}
+
 .btn-send {
-    padding: 0 0.5rem 0.1rem 0.5rem;
+    padding: 0 0.4rem 0.1rem 0.4rem;
     border: 2px outset #fe94bc;
     border-radius: 50%;
     margin-left: auto;
@@ -136,6 +140,36 @@ input {
 
 .btn-send:hover {
     filter: brightness(85%);
+}
+
+.btn-visibility {
+    width: fit-content;
+    padding: 0.2rem 0.25rem;
+    border: 2px outset #fe94bc;
+    border-radius: 50%;
+    box-shadow: inset 0 0 5px 2px #fe94bc;
+    color: white;
+    background-color: #a44d6d;
+}
+
+.btn-visibility:hover {
+    filter: brightness(85%);
+}
+
+/* Index Page */
+
+.index-page {
+
+    h2 {
+        font: normal 1rem Arial, Helvetica, sans-serif;
+    }
+    
+}
+
+/* Signup Page */
+
+input {
+    color: black;
 }
 
 /* Media Queries */

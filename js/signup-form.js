@@ -1,76 +1,61 @@
 const questions = [
-    { question: "What's your first name?", type: "text", name: "fname" },
-    { question: "Set a strong password:", type: "password", name: "password" },
-    { question: "Confirm your password:", type: "password", name: "confirm-password" },
-    { question: "When's your birthday?", type: "date", name: "dob" }
-];
+    { output: "What's your first name?", type: "text", name: "fname" },
+    { output: "Set a strong password:", type: "password", name: "password" },
+    { output: "Confirm your password:", type: "password", name: "confirm-password" },
+    { output: "When's your birthday?", type: "date", name: "dob" },
+]
 
-let currIndex = 0;
-const responses = {};
 let chat;
+let currIndex = 0;
+let responses = {};
 
 function AddQuestion() {
     if (currIndex >= questions.length) {
-        const thankYouBubble = document.createElement('div');
-        thankYouBubble.className = "bubble chat-bubble left left-tail";
-        thankYouBubble.innerHTML = "<p>Thank you for signing up!</p>";
-        chat.appendChild(thankYouBubble);
-
-        // Trigger animation
-        setTimeout(() => thankYouBubble.classList.add('show'), 10);
-
+        // To Do
         return;
     }
 
-    const currentQuestion = questions[currIndex];
+    // Get current question
+    let question = questions[currIndex];
 
-    // Create the question bubble
-    const questionBubble = document.createElement('div');
-    questionBubble.className = "bubble chat-bubble left left-tail";
-    questionBubble.innerHTML = `<p>${currentQuestion.question}</p>`;
-    chat.appendChild(questionBubble);
+    // Setup prompt bubble
+    let leftBubble = document.createElement("div");
+    leftBubble.className = "bubble bubble--left"
+    leftBubble.innerHTML = `<p>${question.output}</p>`;
+    chat.appendChild(leftBubble);
 
-    // Create the input bubble
-    const inputBubble = document.createElement('div');
-    inputBubble.className = "bubble chat-bubble right right-tail";
-    inputBubble.innerHTML = `
-        <input type="${currentQuestion.type}" name="${currentQuestion.name}" id="${currentQuestion.name}" value="${responses[currentQuestion.name] || ''}">
-        <button type="button" class="next-btn">&#x2BAD;</button>
-    `;
-    chat.appendChild(inputBubble);
+    // Setup user input bubble
+    let rightBubble = document.createElement("div");
+    rightBubble.className = "bubble bubble--right bubble--user";
+    let toggleBtn = '';
+    if (question.type === "password") {
+        toggleBtn = `
+            <button id="btn-visibility__icon" class="btn-visibility" type="button" onclick="TogglePasswordVisibility('${question.name}')">
+                <i  class="fa-solid fa-eye"></i>
+            </button>
+        `;
+    }
+    let input = `<input id="${question.name}" type="${question.type}" name="${question.name}">`;
+    let sendBtn = `<button class="btn-send" type="button">&#129033;</button>`;
+    rightBubble.innerHTML = toggleBtn + input + sendBtn;
 
-    // Trigger animation
-    setTimeout(() => {
-        questionBubble.classList.add('show');
-        inputBubble.classList.add('show');
-    }, 10);
-
-    chat.scrollTop = chat.scrollHeight;
+    chat.appendChild(rightBubble);
 }
 
-
 function HandleNextClick(event) {
-    if (!event.target.classList.contains("next-btn")) return;
+    if (!event.target.classList.contains("btn-send")) return;
 
-    const inputElement = chat.querySelector(`#${questions[currIndex].name}`);
-    const value = inputElement.value;
+    let name = questions[currIndex].name
+    let inputElement = chat.querySelector(`#${name}`);
+    let value = inputElement.value;
 
-    if (!value.trim()) {
-        alert("This field is required.");
-        return;
-    }
-
-    const name = questions[currIndex].name;
     responses[name] = value;
 
-    // Replace input bubble with response bubble
-    const responseBubble = document.createElement('div');
-    responseBubble.className = "bubble chat-bubble right right-tail";
-    responseBubble.innerHTML = `<p>${value}</p>`;
-    inputElement.parentElement.replaceWith(responseBubble);
-
-    // Trigger animation
-    setTimeout(() => responseBubble.classList.add('show'), 10);
+    // Swap out "sent" user message with static bubble
+    let newBubble = document.createElement("div");
+    newBubble.className = "bubble bubble--right";
+    newBubble.innerHTML = `<p>${value}</p>`;
+    inputElement.parentElement.replaceWith(newBubble);
 
     currIndex++;
     AddQuestion();

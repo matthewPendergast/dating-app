@@ -6,11 +6,12 @@ function LoadHTML(tag, path) {
                 return response.text();
             })
             .then(function(data) {
-                elements[0].innerHTML = data;
+                elements[0].innerHTML += data;
             });
     }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    LoadHTML("head", "./components/dependencies.html");
     LoadHTML("header", "./components/header.html");
 });
