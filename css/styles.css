@@ -3,12 +3,16 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-html {
-    height: 100vh;
+html, body {
+    height: 100%;
+}
+
+body {
+    position: relative;
     background-color: #a44d6d;
-    margin-bottom: 2rem; /* Temporary; expands page bottom to avoid awkward cutoff */
 }
 
 /* Message Bubbles */
@@ -44,7 +48,7 @@ html {
 
 .bubble--left {
     width: fit-content;
-    max-width: 60%;
+    max-width: 60vw;
     margin-right: auto;
 }
 
@@ -71,7 +75,7 @@ html {
 }
 
 .bubble__image {
-    max-width: 45vw;
+    max-width: 50vw;
     height: auto;
     border-radius: 1rem;
 }
@@ -130,7 +134,7 @@ input:focus {
 }
 
 .btn-send {
-    padding: 0 0.4rem 0.1rem 0.4rem;
+    padding: 0.2rem 0.4rem 0.2rem 0.4rem;
     border: 2px outset #fe94bc;
     border-radius: 50%;
     margin-left: auto;
@@ -162,18 +166,36 @@ input:focus {
 
 /* Index Page */
 
-.index-page {
-
-    h2 {
-        font: normal 1rem Arial, Helvetica, sans-serif;
-    }
-    
+.index-page h2 {
+    font: normal 1rem Arial, Helvetica, sans-serif;
 }
 
 /* Signup Page */
 
 input {
     color: black;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 1rem 0.5rem;
+    background-color: black;
+}
+
+footer p {
+    font: normal 0.75rem Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: silver;
+}
+
+.fa-brands {
+    color: silver;
 }
 
 /* Media Queries */
@@ -185,12 +207,12 @@ input {
         margin-right: auto
     }
     .bubble--left {
-        margin-left: 8rem;
+        margin-left: 7rem;
     }
     .bubble--right {
-        margin-right: 8rem;
+        margin-right: 7rem;
     }
     .bubble__image {
-        max-width: 12vw;
+        max-width: 15vw;
     }
 }

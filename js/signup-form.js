@@ -110,6 +110,10 @@ function HandleNextClick(event) {
 
     responses[name] = value;
 
+    if (questions[currIndex].type === "password") {
+        value = "●".repeat(value.length);
+    }
+
     // Swap out "sent" user message with static bubble
     let newBubble = document.createElement("div");
     newBubble.className = "bubble bubble--right";
