@@ -76,12 +76,18 @@ function AddQuestion() {
     if (question.type === "password") {
         toggleBtn = `
             <button id="btn-visibility__icon" class="btn-visibility" type="button" onclick="TogglePasswordVisibility('${question.name}')">
-                <i  class="fa-solid fa-eye"></i>
+                <i  class="fa-solid fa-eye-slash"></i>
             </button>
         `;
+        // Set input text to visible by default
+        question.type = "text";
     }
     let input = `<input id="${question.name}" type="${question.type}" name="${question.name}">`;
-    let sendBtn = `<button class="btn-send" type="button">&#129033;</button>`;
+    let sendBtn = `
+        <button class="btn-send" type="button">
+            <i class="fa-solid fa-reply"></i>
+        </button>
+        `;
     rightBubble.innerHTML = toggleBtn + input + sendBtn;
 
     chat.appendChild(rightBubble);
@@ -96,7 +102,12 @@ function AddQuestion() {
 }
 
 function HandleNextClick(event) {
-    if (!event.target.classList.contains("btn-send")) return;
+    let button = event.target;
+    if (!button.classList.contains("btn-send")) {
+        button = event.target.closest(".btn-send");
+    }
+
+    if (!button) return;
 
     let name = questions[currIndex].name
     let inputElement = chat.querySelector(`#${name}`);
@@ -110,7 +121,7 @@ function HandleNextClick(event) {
 
     responses[name] = value;
 
-    if (questions[currIndex].type === "password") {
+    if (questions[currIndex].name === "password" || questions[currIndex].name === "confirm-password") {
         value = "●".repeat(value.length);
     }
 

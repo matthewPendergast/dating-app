@@ -12,7 +12,6 @@ function LoadHTML(tag, path) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    LoadHTML("head", "./components/dependencies.html");
     LoadHTML("header", "./components/header.html");
     LoadHTML("footer", "./components/footer.html");
 });

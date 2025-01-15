@@ -8,15 +8,16 @@
 
 html, body {
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 body {
-    position: relative;
     background-color: #a44d6d;
 }
 
 main {
-    min-height: 75vh;
+    flex: 1;
 }
 
 /* Message Bubbles */
@@ -138,7 +139,7 @@ input:focus {
 }
 
 .btn-send {
-    padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+    padding: 0.2rem 0.4rem 0.3rem 0.4rem;
     border: 2px outset #fe94bc;
     border-radius: 50%;
     margin-left: auto;
@@ -150,6 +151,10 @@ input:focus {
 
 .btn-send:hover {
     filter: brightness(85%);
+}
+
+.fa-reply {
+    font-size: 0.75rem;
 }
 
 .btn-visibility {

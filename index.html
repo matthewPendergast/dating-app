@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>affinity</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/styles.css">
     <script src="./js/load-components.js"></script>
     <script src="./js/email-autofill.js"></script>
     <script src="https://kit.fontawesome.com/2ec8a002dd.js" crossorigin="anonymous"></script>
+
 </head>
 <body class="index-page">
     <header class="bubble bubble--header"></header>
@@ -22,7 +26,9 @@
         <form action="./signup.html">
             <div class="bubble bubble--right bubble--user">
                 <input type="email" name="email" id="email" placeholder="Enter your email" required>
-                <button class="btn-send" type="submit">&#129033;</button>
+                <button class="btn-send" type="submit">
+                    <i class="fa-solid fa-reply"></i>
+                </button>
             </div>
         </form>
     </main>
