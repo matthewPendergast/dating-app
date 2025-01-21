@@ -7,7 +7,6 @@
 }
 
 html, body {
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -18,6 +17,10 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-position: top;
+}
+
+main {
+  min-height: 80vh;
 }
 
 img {
@@ -104,6 +107,10 @@ img {
   margin-right: auto;
 }
 
+.logo-img:hover {
+  filter: brightness(90%);
+}
+
 h1 {
   margin-bottom: 0.5rem;
   color: #a44d6d;
@@ -125,7 +132,7 @@ h1 {
 }
 
 .btn-login:hover {
-  filter: brightness(85%);
+  filter: brightness(90%);
 }
 
 /* _form.scss */
@@ -179,9 +186,7 @@ input {
 footer {
   display: flex;
   justify-content: space-around;
-  position: relative;
   width: 100%;
-  bottom: 0;
   padding: 1rem 0.5rem;
   background-color: black;
 }
@@ -242,6 +247,9 @@ footer p {
     border-radius: 50%;
     box-shadow: 0px 0px 5px 1px;
   }
+  .col-left__profile img:hover {
+    filter: brightness(90%);
+  }
   .col-left__profile p {
     font: normal bold 0.875rem Arial, Helvetica, sans-serif;
   }
@@ -252,6 +260,9 @@ footer p {
     height: 30%;
     box-shadow: inset 0px 0px 5px;
     background-color: white;
+  }
+  .col-left__info-col:hover {
+    background-color: lightgray;
   }
   .col-left__info-col {
     display: flex;
@@ -276,7 +287,8 @@ footer p {
     display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    height: 80vh;
+    height: 75vh;
+    background-color: silver;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -286,7 +298,7 @@ footer p {
     align-items: center;
     gap: 1rem;
     height: 12vh;
-    min-height: 3rem;
+    min-height: 5rem;
     padding: 0 0.75rem;
     background-color: white;
     box-shadow: inset 0px 0px 5px 1px;
@@ -294,10 +306,15 @@ footer p {
     overflow-y: hidden;
   }
   .col-left__messages-entry img {
-    height: 9vh;
-    min-height: 70%;
+    height: 75%;
     border-radius: 50%;
     box-shadow: 0px 0px 5px 1px;
+  }
+  .selected-entry {
+    background-image: linear-gradient(90deg, silver, white, white);
+  }
+  .col-left__messages-entry:hover {
+    filter: brightness(90%);
   }
   .col-center {
     width: 60vw;
@@ -323,6 +340,9 @@ footer p {
     border-radius: 50%;
     box-shadow: 0px 0px 5px 1px;
   }
+  .col-right--header img:hover {
+    filter: brightness(90%);
+  }
   .col-right--profile {
     display: flex;
     flex-direction: column;
@@ -337,16 +357,19 @@ footer p {
     flex-direction: row;
     flex-grow: 1;
     flex-wrap: wrap;
-    background-color: white;
   }
   .profile-view--button-box {
     width: 50%;
+    background-color: white;
     box-shadow: inset 0px 0px 3px 1px;
   }
   .profile-view--button-box p {
     padding: 2.5rem 0;
     font: normal bold 0.8rem Arial, Helvetica, sans-serif;
     text-align: center;
+  }
+  .profile-view--button-box:hover {
+    filter: brightness(90%);
   }
   /* from: _chat.scss */
   .bubble--header {

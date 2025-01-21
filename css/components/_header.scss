@@ -11,6 +11,10 @@
     margin-right: auto;
 }
 
+.logo-img:hover {
+    filter: brightness(90%);
+}
+
 h1 {
     margin-bottom: 0.5rem;
     color:#a44d6d;
@@ -32,5 +36,5 @@ h1 {
 }
 
 .btn-login:hover {
-    filter: brightness(85%);
+    filter: brightness(90%);
 }
