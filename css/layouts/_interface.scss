@@ -6,7 +6,6 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: stretch;
-    gap: 1rem;
 }
 
 .col-left {
@@ -125,7 +124,7 @@
     }
 
     .selected-entry {
-        background-image: linear-gradient(90deg, silver, white, white);
+        background-image: linear-gradient(90deg, silver, white);
     }
 
     .col-left__messages-entry:hover {

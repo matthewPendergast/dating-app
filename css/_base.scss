@@ -7,6 +7,7 @@
 }
 
 html, body {
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -21,8 +22,15 @@ body {
 
 main {
     min-height: 80vh;
+    box-shadow: inset 0px 0px 20px purple;
 }
 
 img {
     height: 0; // To prevent FOUC on images
+}
+
+@media all and (min-width: 992px) {
+    html, body {
+        height: auto;
+    }
 }

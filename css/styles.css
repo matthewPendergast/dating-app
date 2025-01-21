@@ -7,6 +7,7 @@
 }
 
 html, body {
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -21,12 +22,18 @@ body {
 
 main {
   min-height: 80vh;
+  box-shadow: inset 0px 0px 20px purple;
 }
 
 img {
   height: 0;
 }
 
+@media all and (min-width: 992px) {
+  html, body {
+    height: auto;
+  }
+}
 /* _chat.scss */
 .bubble {
   display: flex;
@@ -208,7 +215,6 @@ footer p {
   flex-wrap: nowrap;
   justify-content: center;
   align-items: stretch;
-  gap: 1rem;
 }
 
 .col-left {
@@ -311,7 +317,7 @@ footer p {
     box-shadow: 0px 0px 5px 1px;
   }
   .selected-entry {
-    background-image: linear-gradient(90deg, silver, white, white);
+    background-image: linear-gradient(90deg, silver, white);
   }
   .col-left__messages-entry:hover {
     filter: brightness(90%);
