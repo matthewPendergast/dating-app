@@ -4,92 +4,41 @@
 
 <h2>Roadmap</h2>
 
-<p style="font-weight:bold;">Frontend Basics (HTML, CSS, JavaScript, Sass)</p>
+<h3>Frontend Basics (HTML, CSS, JavaScript, Sass)</h3>
 <ul>
-    <li style="list-style-type:none;">
-        <input type="checkbox" checked>
-        Index page (initial mockup of dating app interface)
-    </li>
-    <li style="list-style-type:none;">
-        <input type="checkbox" checked>
-        Signup page (basic chat/messaging system mockup for signup form)
-    </li>
+    <p>✅ Index page (initial mockup of dating app interface)</p>
+    <p>✅ Signup page (basic chat/messaging system mockup for signup form)</p>
 </ul>
 
-<p style="font-weight:bold;">Backend Basics (Node, Express, PostgreSQL)</p>
+<h3>Backend Basics (Node, Express, PostgreSQL)</h3>
 <ul>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Create a server
-    </li>
-        <li style="list-style-type:none;">
-        <input type="checkbox">
-        User signup (validate form input, store user data securely)
-    </li>
-    </li>
-        <li style="list-style-type:none;">
-        <input type="checkbox">
-        User login (authenticate credentials, manage sessions)
-    </li>
-        </li>
-        <li style="list-style-type:none;">
-        <input type="checkbox">
-        Database integration
-    </li>
-    </li>
-        </li>
-        <li style="list-style-type:none;">
-        <input type="checkbox">
-        Build basic API
-    </li>
-    </li>
-        </li>
-        <li style="list-style-type:none;">
-        <input type="checkbox">
-        Deploy backend
-    </li>
+    <p>⬜ Create a server</p>
+    <p>⬜ User signup (validate form input, store data securely)</p>
+    <p>⬜ User login (authenticate credentials, manage sessions)</p>
+    <p>⬜ Database integration</p>
+    <p>⬜ Build basic API</p>
+    <p>⬜ Deploy backend</p>
 </ul>
 
-<p style="font-weight:bold;">Expand Frontend</p>
+<h3>Expand Frontend</h3>
 <ul>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Create dashboard/landing page
-    </li>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Make user profile interface
-    </li>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Design messaging interface
-    </li>
+    <p>⬜ Create dashboard/landing page</p>
+    <p>⬜ Make user profile interface</p>
+    <p>⬜ Design messaging interface</p>
 </ul>
 
-<p style="font-weight:bold;">Expand Backend</p>
+<h3>Expand Backend</h3>
 <ul>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Implement basic messaging system
-    </li>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Create basic matching system
-    </li>
+    <p>⬜ Implement basic messaging system</p>
+    <p>⬜ Create basic matching system</p>
 </ul>
 
-<p style="font-weight:bold;">Frontend Overhaul/Polish (React, Tailwind)</p>
+<h3>Frontend Overhaul/Polish (React, Tailwind)</h3>
 <ul>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Rebuild frontend with React and Tailwind CSS (primarily to learn both)
-    </li>
+    <p>⬜ Rebuild frontend with React and Tailwind CSS (primarily to learn both)</p>
 </ul>
 
-<p style="font-weight:bold;">Future Goals</p>
+<h3>Future Goals</h3>
 <ul>
-    <li style="list-style-type:none;">
-        <input type="checkbox">
-        Simulated chat system using external API
-    </li>
+    <p>⬜ Simulated chat system using external API</p>
 </ul>
