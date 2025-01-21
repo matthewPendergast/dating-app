@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    let emailInput = document.getElementById("email");
+    const emailInput = document.getElementById("email");
     emailInput.addEventListener("focus", () => {
         if (!emailInput.value) {
             emailInput.value = "taylor.jordan@example.com";

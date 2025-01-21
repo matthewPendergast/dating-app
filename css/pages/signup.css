@@ -1,0 +1,27 @@
+.signup-page {
+
+    #email {
+        color: black;
+    }
+    
+    input {
+        color: black;
+    }
+}
+
+@media all and (min-width: 992px) {
+
+    .signup-page main {
+        flex: 1;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .bubble--header {
+        width: 48%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}

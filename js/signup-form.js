@@ -7,12 +7,12 @@ const questions = [
 
 let chat;
 let currIndex = 0;
-let responses = {};
+const responses = {};
 
 // @param (string) input - User input value
 // @param (string) name - questions.name
 function ValidateUserInput(input, name) {
-    let result = { isValid: false, error: null };
+    const result = { isValid: false, error: null };
 
     if (name == "fname") {
         if (input.trim() === "") {
@@ -61,16 +61,16 @@ function AddQuestion() {
     }
 
     // Get current question
-    let question = questions[currIndex];
+    const question = questions[currIndex];
 
     // Setup prompt bubble
-    let leftBubble = document.createElement("div");
+    const leftBubble = document.createElement("div");
     leftBubble.className = "bubble bubble--left"
     leftBubble.innerHTML = `<p>${question.output}</p>`;
     chat.appendChild(leftBubble);
 
     // Setup user input bubble
-    let rightBubble = document.createElement("div");
+    const rightBubble = document.createElement("div");
     rightBubble.className = "bubble bubble--right bubble--user";
     let toggleBtn = '';
     if (question.type === "password") {
@@ -82,8 +82,8 @@ function AddQuestion() {
         // Set input text to visible by default
         question.type = "text";
     }
-    let input = `<input id="${question.name}" type="${question.type}" name="${question.name}">`;
-    let sendBtn = `
+    const input = `<input id="${question.name}" type="${question.type}" name="${question.name}">`;
+    const sendBtn = `
         <button class="btn-send" type="button">
             <i class="fa-solid fa-reply"></i>
         </button>
@@ -109,11 +109,11 @@ function HandleNextClick(event) {
 
     if (!button) return;
 
-    let name = questions[currIndex].name
-    let inputElement = chat.querySelector(`#${name}`);
+    const name = questions[currIndex].name
+    const inputElement = chat.querySelector(`#${name}`);
     let value = inputElement.value;
 
-    let result = ValidateUserInput(value, name);
+    const result = ValidateUserInput(value, name);
     if (!result.isValid) {
         ShowValidationError(result.error);
         return;
@@ -126,7 +126,7 @@ function HandleNextClick(event) {
     }
 
     // Swap out "sent" user message with static bubble
-    let newBubble = document.createElement("div");
+    const newBubble = document.createElement("div");
     newBubble.className = "bubble bubble--right";
     newBubble.innerHTML = `<p>${value}</p>`;
     inputElement.parentElement.replaceWith(newBubble);

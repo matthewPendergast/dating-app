@@ -1,5 +1,5 @@
 function LoadHTML(tag, path) {
-    let elements = document.getElementsByTagName(tag);
+    const elements = document.getElementsByTagName(tag);
     if (elements.length > 0) {
         fetch(path)
             .then(function(response) {

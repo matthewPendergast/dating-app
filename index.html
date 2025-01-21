@@ -6,98 +6,90 @@
     <title>affinity</title>
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/pages/index.css">
+    <script src="./js/load-components.js"></script>
     <script src="./js/email-autofill.js"></script>
     <script src="https://kit.fontawesome.com/2ec8a002dd.js" crossorigin="anonymous"></script>
-
 </head>
 <body class="index-page">
-    <header>
-        <div class="index-header--left">
-            <div class="index-header__profile-bar">
-                <img src="./images/portrait-1.webp" alt="dating app profile image">
-                <p>My Profile</p>
-            </div>
-            <div class="index-header__info-bar">
-                <div class="index-header__info-bar-matches">
-                    <p>Matches</p>
-                    <p id="match-count">6</p>
+    <main id="layout">
+        <div class="col-left">
+            <div class="col-left__header">
+                <div class="col-left__profile">
+                    <img src="./images/portrait-1.webp" alt="dating app profile image">
+                    <p>My Profile</p>
                 </div>
-                <div class="index-header__info-bar-messages">
-                    <p>Messages</p>
-                    <p id="message-count">12</p>
+                <div class="col-left__info">
+                    <div class="col-left__info-col">
+                        <p>Matches</p>
+                        <p id="match-count">7</p>
+                    </div>
+                    <div class="col-left__info-col">
+                        <p>Messages</p>
+                        <p id="message-count">12</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="bubble bubble--header">
-            <a class="logo-link" href="index.html">
-                <img class="logo-img" src="./images/logo-image.webp" alt="affinity logo">
-            </a>
-            <h1>affinity</h1>
-            <button class="btn-login">Log In</button>
-        </div>
-        <div class="index-header--right">
-            <img src="./images/portrait-2.webp" alt="dating app match profile image">
-            <p>Daniel</p>
-        </div>
-    </header>
-    <main>
-        <div class="index-main--left">
-            <div class="profile-message">
-                <div class="profile-message__image">
-                    <img src="./images/portrait-2.webp" alt="dating app match image">
-                </div>
-                <div class="profile-message__info">
-                    <p class="profile-message__name">Daniel</p>
-                    <p class="profile-message__message">&#128075</p>
-                </div>
-            </div>
-            <div class="profile-message">
-                <div class="profile-message__image">
-                    <img src="./images/portrait-3.webp" alt="dating app match image">
-                </div>
-                <div class="profile-message__info">
-                    <p class="profile-message__name">Felipe</p>
-                    <p class="profile-message__message">Hey</p>
-                </div>
-            </div>
-            <div class="profile-message">
-                <div class="profile-message__image">
-                    <img src="./images/portrait-4.webp" alt="dating app match image">
-                </div>
-                <div class="profile-message__info">
-                    <p class="profile-message__name">Orlando</p>
-                    <p class="profile-message__message">hbu?</p>
-                </div>
-            </div>
-            <div class="profile-message">
-                <div class="profile-message__image">
-                    <img src="./images/portrait-5.webp" alt="dating app match image">
-                </div>
-                <div class="profile-message__info">
-                    <p class="profile-message__name">Jameson</p>
-                    <p class="profile-message__message">Lol yeah same &#128514;</p>
-                </div>
-            </div>
-            <div class="profile-message">
-                <div class="profile-message__image">
-                    <img src="./images/portrait-6.webp" alt="dating app match image">
-                </div>
-                <div class="profile-message__info">
-                    <p class="profile-message__name">Ashley</p>
-                    <p class="profile-message__message">omg SO true</p>
-                </div>
-            </div>
-            <div class="profile-message">
-                <div class="profile-message__image">
-                    <img src="./images/portrait-7.webp" alt="dating app match image">
-                </div>
-                <div class="profile-message__info">
-                    <p class="profile-message__name">Ellie</p>
-                    <p class="profile-message__message">How about Thursday?</p>
+                <div class="col-left__messages">
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-2.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Daniel</p>
+                            <p class="u-font-arial">Sign up for free!</p>
+                        </div>
+                    </div>
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-3.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Felipe</p>
+                            <p class="u-font-arial">Hey</p>
+                        </div>
+                    </div>
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-4.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Orlando</p>
+                            <p class="u-font-arial">hbu?</p>
+                        </div>
+                    </div>
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-5.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Jameson</p>
+                            <p class="u-font-arial">Lol yeah same &#128514;</p>
+                        </div>
+                    </div>
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-6.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Ashley</p>
+                            <p class="u-font-arial">omg SO true</p>
+                        </div>
+                    </div>
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-7.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Ellie</p>
+                            <p class="u-font-arial">How about Thursday?</p>
+                        </div>
+                    </div>
+                    <div class="col-left__messages-entry">
+                        <img src="./images/portrait-8.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Nathan</p>
+                            <p class="u-font-arial">You up?</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="index-main--center">
+        <div class="col-center">
+            <div class="bubble bubble--header">
+                <a class="logo-link" href="index.html">
+                    <img class="logo-img" src="./images/logo-image.webp" alt="affinity logo">
+                </a>
+                <h1>affinity</h1>
+                <button class="btn-login">Log In</button>
+            </div>
             <div class="bubble bubble--right">
                 <img class="bubble__image" src="./images/portrait-1.webp" alt="portrait of woman">
             </div>
@@ -116,28 +108,30 @@
                 </div>
             </form>
         </div>
-        <div class="index-main--right">
-            <img class="profile-view--image" src="./images/profile-1.webp" alt="dating app match image large">
-            <div class="profile-view--buttons">
-                <p>View Profile</p>
-                <p>Unmatch</p>
+        <div class="col-right">
+            <div class="col-right--header">
+                <img src="./images/portrait-2.webp">
+                <p class="u-font-arial u-font-bold">Daniel</p>
+            </div>
+            <div class="col-right--profile">
+                <img src="./images/profile-1.webp">
+                <div class="col-right--buttons">
+                    <div class="profile-view--button-box">
+                        <p>View Profile</p>
+                    </div>
+                    <div class="profile-view--button-box">
+                        <p>Video Call</p>
+                    </div>
+                    <div class="profile-view--button-box">
+                        <p>Unmatch</p>
+                    </div>
+                    <div class="profile-view--button-box">
+                        <p>Report</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-    <footer>
-        <div>
-            <p>&copy affinity 2025</p>
-        </div>
-        <div>
-            <p>All images are AI-generated</p>
-            <p>Not yet optimized for desktop</p>
-        </div>
-        <div>
-            <i class="fa-brands fa-facebook"></i>
-            <i class="fa-brands fa-x-twitter"></i>
-            <i class="fa-brands fa-instagram"></i>
-            <i class="fa-brands fa-tiktok"></i>
-        </div>
-    </footer>
+    <footer></footer>
 </body>
 </html>
