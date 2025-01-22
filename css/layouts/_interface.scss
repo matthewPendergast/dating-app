@@ -25,6 +25,19 @@
     .col-left {
         display: block;
         width: 20vw;
+        
+        ::-webkit-scrollbar {
+            width: 20px;
+        }
+    
+        ::-webkit-scrollbar-thumb {
+            background: #fe94bc;
+            border-radius: 1rem;
+        }
+    
+        ::-webkit-scrollbar-track {
+            background: #a44d6d;
+        }
     }
     
     .col-left__header {
@@ -50,6 +63,7 @@
 
         img:hover {
             filter: brightness(90%);
+            cursor: pointer;
         }
     
         p {
@@ -69,6 +83,7 @@
 
     .col-left__info-col:hover {
         background-color: lightgray;
+        cursor: pointer;
     }
     
     .col-left__info-col {
@@ -129,6 +144,7 @@
 
     .col-left__messages-entry:hover {
         filter: brightness(90%);
+        cursor: pointer;
     }
     
     .col-center {
@@ -160,6 +176,7 @@
     
         img:hover {
             filter: brightness(90%);
+            cursor: pointer;
         }
     }
     
@@ -191,6 +208,9 @@
             font: normal bold 0.8rem Arial, Helvetica, sans-serif;
             text-align: center;
         }
+        p:hover {
+            cursor: pointer;
+        }
     }
 
     .profile-view--button-box:hover {
@@ -205,10 +225,10 @@
     }
 
     .bubble--left {
-        margin-left: 4rem;
+        margin-left: 5rem;
     }
     .bubble--right {
-        margin-right: 4rem;
+        margin-right: 5rem;
     }
     .bubble__image {
         max-width: 15vw;

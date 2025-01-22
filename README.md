@@ -40,5 +40,6 @@
 
 <h3>Future Goals</h3>
 <ul>
-    <p>⬜ Simulated chat system using external API</p>
+    <p>⬜ Create mobile app (iOS/Swift)</P>
+    <p>⬜ Build simulated chat system using external API</p>
 </ul>

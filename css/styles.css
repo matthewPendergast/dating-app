@@ -22,7 +22,6 @@ body {
 
 main {
   min-height: 80vh;
-  box-shadow: inset 0px 0px 20px purple;
 }
 
 img {
@@ -112,9 +111,11 @@ img {
   height: fit-content;
   max-height: 2.5rem;
   margin-right: auto;
+  transition: transform 1s;
 }
 
 .logo-img:hover {
+  transform: scale(1.5) rotate(-15deg);
   filter: brightness(90%);
 }
 
@@ -140,6 +141,7 @@ h1 {
 
 .btn-login:hover {
   filter: brightness(90%);
+  cursor: pointer;
 }
 
 /* _form.scss */
@@ -166,6 +168,7 @@ input {
 
 .btn-send:hover {
   filter: brightness(85%);
+  cursor: pointer;
 }
 
 .fa-reply {
@@ -193,6 +196,8 @@ input {
 footer {
   display: flex;
   justify-content: space-around;
+  position: relative;
+  bottom: 0;
   width: 100%;
   padding: 1rem 0.5rem;
   background-color: black;
@@ -206,6 +211,10 @@ footer p {
 
 .fa-brands {
   color: silver;
+}
+
+.fa-brands:hover {
+  cursor: pointer;
 }
 
 /* _interface.scss */
@@ -234,6 +243,16 @@ footer p {
     display: block;
     width: 20vw;
   }
+  .col-left ::-webkit-scrollbar {
+    width: 20px;
+  }
+  .col-left ::-webkit-scrollbar-thumb {
+    background: #fe94bc;
+    border-radius: 1rem;
+  }
+  .col-left ::-webkit-scrollbar-track {
+    background: #a44d6d;
+  }
   .col-left__header {
     height: 20vh;
     min-height: 8rem;
@@ -255,6 +274,7 @@ footer p {
   }
   .col-left__profile img:hover {
     filter: brightness(90%);
+    cursor: pointer;
   }
   .col-left__profile p {
     font: normal bold 0.875rem Arial, Helvetica, sans-serif;
@@ -269,6 +289,7 @@ footer p {
   }
   .col-left__info-col:hover {
     background-color: lightgray;
+    cursor: pointer;
   }
   .col-left__info-col {
     display: flex;
@@ -321,6 +342,7 @@ footer p {
   }
   .col-left__messages-entry:hover {
     filter: brightness(90%);
+    cursor: pointer;
   }
   .col-center {
     width: 60vw;
@@ -348,6 +370,7 @@ footer p {
   }
   .col-right--header img:hover {
     filter: brightness(90%);
+    cursor: pointer;
   }
   .col-right--profile {
     display: flex;
@@ -374,6 +397,9 @@ footer p {
     font: normal bold 0.8rem Arial, Helvetica, sans-serif;
     text-align: center;
   }
+  .profile-view--button-box p:hover {
+    cursor: pointer;
+  }
   .profile-view--button-box:hover {
     filter: brightness(90%);
   }
@@ -383,10 +409,10 @@ footer p {
     margin-right: auto;
   }
   .bubble--left {
-    margin-left: 4rem;
+    margin-left: 5rem;
   }
   .bubble--right {
-    margin-right: 4rem;
+    margin-right: 5rem;
   }
   .bubble__image {
     max-width: 15vw;

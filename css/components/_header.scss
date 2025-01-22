@@ -9,9 +9,11 @@
     height: fit-content;
     max-height: 2.5rem;
     margin-right: auto;
+    transition: transform 1s;
 }
 
 .logo-img:hover {
+    transform: scale(1.5) rotate(-15deg);
     filter: brightness(90%);
 }
 
@@ -37,4 +39,5 @@ h1 {
 
 .btn-login:hover {
     filter: brightness(90%);
+    cursor: pointer;
 }
