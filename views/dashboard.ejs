@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>affinity</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="load-components.js"></script>
+    <script src="email-autofill.js"></script>
+    <script src="https://kit.fontawesome.com/2ec8a002dd.js" crossorigin="anonymous"></script>
+</head>
+<body class="index-page">
+    <main id="layout">
+        <div class="col-left">
+            <div class="col-left__header">
+                <div class="col-left__profile">
+                    <img src="portrait-1.webp" alt="dating app profile image">
+                    <p>My Profile</p>
+                </div>
+                <div class="col-left__info">
+                    <div class="col-left__info-col">
+                        <p>Matches</p>
+                        <p id="match-count">11</p>
+                    </div>
+                    <div class="col-left__info-col">
+                        <p>Messages</p>
+                        <p id="message-count">13</p>
+                    </div>
+                </div>
+                <div class="col-left__messages">
+                    <div class="col-left__messages-entry selected-entry">
+                        <img src="portrait-2.webp">
+                        <div>
+                            <p class="u-font-arial u-font-bold">Daniel</p>
+                            <p class="u-font-arial">Sign up for free!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-center">
+            <div class="bubble bubble--header">
+                <a class="logo-link" href="index">
+                    <img class="logo-img" src="logo-image.webp" alt="affinity logo">
+                </a>
+                <h1> Welcome
+                    <% if (user) { %>
+                        user!
+                    <% } else { %>
+                        !
+                    <% } %>
+                </h1>
+                <a href="/logout">Log Out</a>
+            </div>
+            <div class="bubble bubble--right">
+                <img class="bubble__image" src="portrait-1.webp" alt="portrait of woman">
+            </div>
+            <div class="bubble bubble--left">
+                <img class="bubble__image" src="portrait-2.webp" alt="portrait of man">
+            </div>
+            <div class="bubble bubble--left">
+                <h2>Sign up for free!</h2>
+            </div>
+            <form action="/register" method="POST">
+                <div class="bubble bubble--right bubble--user">
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                    <button class="btn-send" type="submit">
+                        <i class="fa-solid fa-reply"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-right">
+            <div class="col-right--header">
+                <img src="portrait-2.webp">
+                <p class="u-font-arial u-font-bold">Daniel</p>
+            </div>
+            <div class="col-right--profile">
+                <img src="profile-1.webp">
+                <div class="col-right--buttons">
+                    <div class="profile-view--button-box">
+                        <p>View Profile</p>
+                    </div>
+                    <div class="profile-view--button-box">
+                        <p>Video Call</p>
+                    </div>
+                    <div class="profile-view--button-box">
+                        <p>Unmatch</p>
+                    </div>
+                    <div class="profile-view--button-box">
+                        <p>Report</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer></footer>
+</body>
+</html>

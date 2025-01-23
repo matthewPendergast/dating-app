@@ -27,16 +27,7 @@
         width: 20vw;
         
         ::-webkit-scrollbar {
-            width: 20px;
-        }
-    
-        ::-webkit-scrollbar-thumb {
-            background: #fe94bc;
-            border-radius: 1rem;
-        }
-    
-        ::-webkit-scrollbar-track {
-            background: #a44d6d;
+            width: 0;
         }
     }
     

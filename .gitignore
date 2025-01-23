@@ -1,4 +1,11 @@
+# Dependencies
+node_modules
+
 # Development
+.env
+app.db
+app.db-shm
+app.db-wal
 css/reference.css
 roadmap.txt
 test.html

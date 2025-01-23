@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>affinity - sign up</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pages/signup.css">
+    <script src="retrieve-email.js"></script>
+    <!-- <script src="signup-form.js"></script> -->
+    <script src="toggle-password-visibility.js"></script>
+    <script src="https://kit.fontawesome.com/2ec8a002dd.js" crossorigin="anonymous"></script>
+</head>
+<body class="signup-page">
+    <header class="bubble bubble--header">
+        <a class="logo-link" href="index">
+            <img class="logo-img" src="logo-image.webp" alt="affinity logo">
+        </a>
+        <h1>affinity</h1>
+        <button class="btn-login">Log In</button>
+    </header>
+    <main>
+        <form action="/register" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+            <button>Signup</button>
+        </form>
+    </main>
+    <footer>
+        <div>
+            <p>&copy affinity 2025</p>
+        </div>
+        <div>
+            <p>All images are AI-generated</p>
+        </div>
+        <div>
+            <i class="fa-brands fa-facebook"></i>
+            <i class="fa-brands fa-x-twitter"></i>
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-tiktok"></i>
+        </div>
+    </footer>
+</body>
+</html>

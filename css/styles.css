@@ -244,14 +244,7 @@ footer p {
     width: 20vw;
   }
   .col-left ::-webkit-scrollbar {
-    width: 20px;
-  }
-  .col-left ::-webkit-scrollbar-thumb {
-    background: #fe94bc;
-    border-radius: 1rem;
-  }
-  .col-left ::-webkit-scrollbar-track {
-    background: #a44d6d;
+    width: 0;
   }
   .col-left__header {
     height: 20vh;
