@@ -1,76 +1,17 @@
-require("dotenv").config();
+const express = require("express");
+const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const cookieParser = require("cookie-parser");
-const express = require("express");
-const app = express();
 const db = require("better-sqlite3")("app.db");
 
-// Setup database
-db.pragma("journal_mode = WAL");
-const createTables = db.transaction(() => {
-    db.prepare(`
-        CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username STRING NOT NULL UNIQUE,
-        password STRING NOT NULL
-        )    
-    `).run();
-});
-createTables();
-
-app.set("view engine", "ejs");
-app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
-app.use(express.static("components"));
-app.use(express.static("css"));
-app.use(express.static("js"));
-app.use(express.static("images"));
-
-app.use(function (req, res, next) {
-    // Try to decode incoming cookie
-    try {
-        const decoded = jwt.verify(req.cookies.app, process.env.JWTVAL);
-        req.user = decoded;
-    } catch(err) {
-        req.user = false;
-    }
-    res.locals.user = req.user;    
-    next();
-});
-
-app.get("/", (req, res) => {
-    if (req.user) {
-        // If user is logged in, redirect to dashboard
-        return res.render("dashboard");
-    }
-    res.render("index");
-});
-
-app.get("/index", (req, res) => {
-    res.render("index");
-});
-
-app.get("/signup", (req, res) => {
-    res.render("signup");
-});
-
-app.get("/login", (req, res) => {
-    res.render("login");
-});
-
-app.get("/logout", (req, res) => {
-    res.clearCookie("app");
-    res.redirect("/index");
-});
-
-app.post("/login", (req, res) => {
+router.post("/login", (req, res) => {
     if (typeof req.body.username !== "string") {
         req.body.username = "";
     }
     if (typeof req.body.email !== "string") {
         req.body.email = "";
     }
+
     const userStatement = db.prepare("SELECT * FROM users WHERE username = ?");
     const user = userStatement.get(req.body.username);
     
@@ -91,7 +32,7 @@ app.post("/login", (req, res) => {
     res.redirect("/");
 });
 
-app.post("/register", (req, res) => {
+router.post("/register", (req, res) => {
     if (typeof req.body.username !== "string") {
         req.body.username = "";
     }
@@ -130,4 +71,9 @@ app.post("/register", (req, res) => {
     res.redirect("/");
 });
 
-app.listen(3000);
+router.get("/logout", (req, res) => {
+    res.clearCookie("app");
+    res.redirect("/index");
+});
+
+module.exports = router;
