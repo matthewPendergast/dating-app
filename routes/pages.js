@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pages = [
-    "index", "signup"
+    "index"
 ];
 
 pages.forEach((page) => {

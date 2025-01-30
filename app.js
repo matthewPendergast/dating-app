@@ -22,6 +22,7 @@ const createTables = db.transaction(() => {
 createTables();
 
 app.set("view engine", "ejs");
+app.set("views", "./views");
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static("public"));
