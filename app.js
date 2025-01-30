@@ -5,6 +5,7 @@ const express = require("express");
 const app = express();
 const pageRoutes = require("./routes/pages");
 const authRoutes = require("./routes/auth");
+const PORT = process.env.PORT || 3000;
 const db = require("better-sqlite3")("app.db");
 
 // Setup database
@@ -48,4 +49,4 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.listen(3000, () => console.log("Server running on http://localhost:3000"));
+app.listen(PORT, () => console.log(`Server running on ${PORT}`));
