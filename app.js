@@ -21,6 +21,25 @@ const createTables = db.transaction(() => {
 });
 createTables();
 
+// Enable LiveReload in production
+const isDev = process.env.NODE_ENV !== "production";
+
+if (isDev) {
+    const livereload = require("livereload");
+    const connectLivereload = require("connect-livereload");
+    const liveReloadServer = livereload.createServer();
+
+    liveReloadServer.watch(__dirname + "/views");
+    liveReloadServer.watch(__dirname + "/public");
+    app.use(connectLivereload());
+
+    liveReloadServer.server.once("connection", () => {
+        setTimeout(() => {
+            liveReloadServer.refresh("index");
+        }, 100);
+    });
+}
+
 app.set("view engine", "ejs");
 app.set("views", "./views");
 app.use(express.urlencoded({extended: false}));
