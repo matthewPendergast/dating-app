@@ -1,8 +1,7 @@
-const express = require("express");
+import express from "express";
+
 const router = express.Router();
-const pages = [
-    "index"
-];
+const pages = ["index", "signup"];
 
 pages.forEach((page) => {
     router.get(`/${page}`, (req, res) => {
@@ -10,4 +9,5 @@ pages.forEach((page) => {
     });
 });
 
-module.exports = router;
+// Change module.exports to export default
+export default router;

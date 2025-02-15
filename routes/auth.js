@@ -1,8 +1,10 @@
-const express = require("express");
+import express from "express";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import Database from "better-sqlite3";
+
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const db = require("better-sqlite3")("app.db");
+const db = new Database("app.db");
 
 router.post("/login", (req, res) => {
     if (typeof req.body.username !== "string") {
@@ -14,19 +16,32 @@ router.post("/login", (req, res) => {
 
     const userStatement = db.prepare("SELECT * FROM users WHERE username = ?");
     const user = userStatement.get(req.body.username);
-    
+
+    if (!user) {
+        // To Do: Show error that user doesn't exist
+        return res.render("login");
+    }
+
     const match = bcrypt.compareSync(req.body.password, user.password);
     if (!match) {
         // To Do: show error
-        return res.render("login")
+        return res.render("login");
     }
 
-    const tokenValue = jwt.sign({exp: Math.floor(Date.now() / 1000) + 86400, userID: user.id, username: user.username}, process.env.JWTVAL);
+    const tokenValue = jwt.sign(
+        {
+            exp: Math.floor(Date.now() / 1000) + 86400, // 1 day expiration
+            userID: user.id,
+            username: user.username,
+        },
+        process.env.JWTVAL
+    );
+
     res.cookie("app", tokenValue, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
-        maxAge: 86400000,
+        maxAge: 86400000, // 1 day
     });
 
     res.redirect("/");
@@ -40,12 +55,13 @@ router.post("/register", (req, res) => {
         req.body.email = "";
     }
 
-    // Check is username already exists
+    // Check if username already exists
     const usernameStatement = db.prepare("SELECT * FROM users WHERE username = ?");
     const check = usernameStatement.get(req.body.username);
 
     if (check) {
         // To Do: display error showing username already exists
+        return res.render("signup"); // Assuming this page handles signup errors
     }
 
     // Encrypt user's password
@@ -60,11 +76,15 @@ router.post("/register", (req, res) => {
     const user = lookup.get(result.lastInsertRowid);
 
     // Log the user in, give cookie
-    const tokenValue = jwt.sign({
-        exp: Math.floor(Date.now() / 1000) + 86400,
-        userID: user.id,
-        username: user.username
-    }, process.env.JWTVAL);
+    const tokenValue = jwt.sign(
+        {
+            exp: Math.floor(Date.now() / 1000) + 86400,
+            userID: user.id,
+            username: user.username,
+        },
+        process.env.JWTVAL
+    );
+
     res.cookie("app", tokenValue, {
         httpOnly: true,
         secure: true,
@@ -80,4 +100,5 @@ router.get("/logout", (req, res) => {
     res.redirect("/index");
 });
 
-module.exports = router;
+// Change module.exports to export default
+export default router;
