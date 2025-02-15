@@ -15,13 +15,12 @@ const createTables = db.transaction(() => {
         CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username STRING NOT NULL UNIQUE,
-        password STRING NOT NULL
-        )    
+        password STRING NOT NULL)    
     `).run();
 });
 createTables();
 
-// Enable LiveReload in production
+// Enable LiveReload in development
 const isDev = process.env.NODE_ENV !== "production";
 
 if (isDev) {

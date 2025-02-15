@@ -7,7 +7,7 @@
 <h3>Frontend Basics (HTML, CSS, JavaScript, Sass)</h3>
 <ul>
     <p>✅ Index page (initial mockup of dating app interface)</p>
-    <p>✅ Signup page (basic chat/messaging system mockup for signup form)</p>
+    <p>⬜ Signup page (basic chat/messaging system mockup for signup form)</p>
     <p>⬜ Login page</p>
 </ul>
 
@@ -16,7 +16,7 @@
     <p>✅ Create a server, host site on Render</p>
     <p>⬜ User signup (validate form input, store data securely)</p>
     <p>⬜ User login (authenticate credentials, manage sessions)</p>
-    <p>⬜ Database integration</p>
+    <p>⬜ Database integration (switch to PostgreSQL)</p>
     <p>⬜ Build basic API</p>
     <p>⬜ Security (input sanitization, rate-limiting)</p>
     <p>⬜ Deploy production-ready backend</p>

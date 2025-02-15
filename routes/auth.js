@@ -60,7 +60,11 @@ router.post("/register", (req, res) => {
     const user = lookup.get(result.lastInsertRowid);
 
     // Log the user in, give cookie
-    const tokenValue = jwt.sign({exp: Math.floor(Date.now() / 1000) + 86400, userID: user.id, username: user.username}, process.env.JWTVAL);
+    const tokenValue = jwt.sign({
+        exp: Math.floor(Date.now() / 1000) + 86400,
+        userID: user.id,
+        username: user.username
+    }, process.env.JWTVAL);
     res.cookie("app", tokenValue, {
         httpOnly: true,
         secure: true,
