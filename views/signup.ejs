@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/pages/signup.css">
     <script src="/js/retrieve-email.js"></script>
-    <!-- <script src="/js/signup-form.js"></script> -->
+    <script src="/js/signup-form.js"></script>
     <script src="/js/toggle-password-visibility.js"></script>
     <script src="https://kit.fontawesome.com/2ec8a002dd.js" crossorigin="anonymous"></script>
 </head>
@@ -21,12 +21,34 @@
         <button class="btn-login">Log In</button>
     </header>
     <main>
+        <% if (typeof errors !== "undefined" && errors.length > 0) { %>
+            <div class="error-messages">
+                <ul>
+                    <% errors.forEach(error => { %>
+                        <li><%= error %></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>        
         <form action="/register" method="POST">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+            <input type="text" id="username" name="username" maxlength="20" autofocus required>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-            <button>Signup</button>
+            <input type="password" id="password" name="password" maxlength="20" required>
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" maxlength="20" required>
+            <label for="last_name">Last Name (optional)</label>
+            <input type="text" id="last_name" name="last_name" maxlength="20">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob" required>
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+                <option value="">Prefer not to say</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <button type="submit">Signup</button>
         </form>
     </main>
     <footer>

@@ -1,78 +1,140 @@
-const express = require("express");
+import express from "express";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { pool } from "../app.js";
+
 const router = express.Router();
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const db = require("better-sqlite3")("app.db");
 
-router.post("/login", (req, res) => {
-    if (typeof req.body.username !== "string") {
-        req.body.username = "";
+router.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const userQuery = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+        const user = userQuery.rows[0];
+
+        if (!user) {
+            return res.render("login", { errors: ["User not found."] });
+        }
+
+        const match = bcrypt.compareSync(password, user.password);
+        if (!match) {
+            return res.render("login", { errors: ["Incorrect password."] });
+        }
+
+        const tokenValue = jwt.sign(
+            {
+                exp: Math.floor(Date.now() / 1000) + 86400,
+                userID: user.id,
+                username: user.username,
+            },
+            process.env.JWTVAL
+        );
+
+        res.cookie("app", tokenValue, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+            maxAge: 86400000
+        });
+
+        res.redirect("/");
+    } catch (error) {
+        console.error(error);
+        res.render("login", { errors: ["An error occurred. Please try again."] });
     }
-    if (typeof req.body.email !== "string") {
-        req.body.email = "";
-    }
-
-    const userStatement = db.prepare("SELECT * FROM users WHERE username = ?");
-    const user = userStatement.get(req.body.username);
-    
-    const match = bcrypt.compareSync(req.body.password, user.password);
-    if (!match) {
-        // To Do: show error
-        return res.render("login")
-    }
-
-    const tokenValue = jwt.sign({exp: Math.floor(Date.now() / 1000) + 86400, userID: user.id, username: user.username}, process.env.JWTVAL);
-    res.cookie("app", tokenValue, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict",
-        maxAge: 86400000,
-    });
-
-    res.redirect("/");
 });
 
-router.post("/register", (req, res) => {
-    if (typeof req.body.username !== "string") {
-        req.body.username = "";
-    }
-    if (typeof req.body.email !== "string") {
-        req.body.email = "";
-    }
+router.post("/register", async (req, res) => {
+    const { username, password, first_name, last_name, dob, gender } = req.body;
+    let errors = [];
 
-    // Check is username already exists
-    const usernameStatement = db.prepare("SELECT * FROM users WHERE username = ?");
-    const check = usernameStatement.get(req.body.username);
-
-    if (check) {
-        // To Do: display error showing username already exists
+    // Validate Inputs (Same as before)
+    const usernameRegex = /^[A-Za-z0-9]+$/;
+    if (!username || username.length < 3 || !usernameRegex.test(username)) {
+        errors.push("Username must be at least 3 characters long and contain only letters and numbers.");
     }
 
-    // Encrypt user's password
-    const salt = bcrypt.genSaltSync(10);
-    req.body.password = bcrypt.hashSync(req.body.password, salt);
+    if (!password || password.length < 8 || 
+        !/[A-Z]/.test(password) || 
+        !/[a-z]/.test(password) || 
+        !/[0-9]/.test(password) || 
+        !/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        errors.push("Password must be at least 8 characters long and include an uppercase letter, lowercase letter, number, and symbol.");
+    }
 
-    // Insert form values into database
-    const statement = db.prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    const result = statement.run(req.body.username, req.body.password);
+    const nameRegex = /^[A-Za-z]+$/;
+    if (first_name && !nameRegex.test(first_name)) {
+        errors.push("First name can only contain letters.");
+    }
+    if (last_name && !nameRegex.test(last_name)) {
+        errors.push("Last name can only contain letters.");
+    }
 
-    const lookup = db.prepare("SELECT * FROM users WHERE ROWID = ?");
-    const user = lookup.get(result.lastInsertRowid);
+    if (!dob) {
+        errors.push("Date of birth is required.");
+    } else {
+        const dobDate = new Date(dob);
+        const today = new Date();
+        const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
-    // Log the user in, give cookie
-    const tokenValue = jwt.sign({
-        exp: Math.floor(Date.now() / 1000) + 86400,
-        userID: user.id,
-        username: user.username
-    }, process.env.JWTVAL);
-    res.cookie("app", tokenValue, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "strict", // related to CSRF (cross-site request forgery) attacks
-        maxAge: 86400000, // cookie is good for 1 day
-    });
+        if (dobDate > minAgeDate) {
+            errors.push("You must be at least 18 years old to sign up.");
+        }
+    }
 
-    res.redirect("/");
+    const validGenders = ["male", "female", "other", ""];
+    if (!validGenders.includes(gender)) {
+        errors.push("Invalid gender selection.");
+    }
+
+    // Check if Username Exists
+    try {
+        const userExists = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
+
+        if (userExists.rowCount > 0) {
+            errors.push("Username is already taken.");
+        }
+
+        // If errors exist, re-render signup page with error messages
+        if (errors.length > 0) {
+            return res.render("signup", { errors });
+        }
+
+        // Hash the Password
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+
+        // Insert the User into PostgreSQL
+        const newUser = await pool.query(
+            "INSERT INTO users (username, password, first_name, last_name, dob, gender) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, username",
+            [username, hashedPassword, first_name, last_name, dob, gender]
+        );
+
+        const user = newUser.rows[0];
+
+        // Generate JWT Token
+        const tokenValue = jwt.sign(
+            {
+                exp: Math.floor(Date.now() / 1000) + 86400, // 1 day expiration
+                userID: user.id,
+                username: user.username,
+            },
+            process.env.JWTVAL
+        );
+
+        // Set Cookie
+        res.cookie("app", tokenValue, {
+            httpOnly: true,
+            secure: true,
+            sameSite: "strict",
+            maxAge: 86400000 // 1 day
+        });
+
+        res.redirect("/index");
+    } catch (error) {
+        console.error(error);
+        res.render("signup", { errors: ["An error occurred. Please try again."] });
+    }
 });
 
 router.get("/logout", (req, res) => {
@@ -80,4 +142,5 @@ router.get("/logout", (req, res) => {
     res.redirect("/index");
 });
 
-module.exports = router;
+// Change module.exports to export default
+export default router;

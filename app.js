@@ -1,35 +1,49 @@
-require("dotenv").config();
-const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
-const express = require("express");
+import dotenv from "dotenv";
+dotenv.config();
+
+import jwt from "jsonwebtoken";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import express from "express";
+import pageRoutes from "./routes/pages.js";
+import authRoutes from "./routes/auth.js";
+import livereload from "livereload";
+import connectLivereload from "connect-livereload";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import pkg from "pg";
+const { Pool } = pkg;
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
+});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const app = express();
-const pageRoutes = require("./routes/pages");
-const authRoutes = require("./routes/auth");
 const PORT = process.env.PORT || 3000;
-const db = require("better-sqlite3")("app.db");
 
 // Setup database
-db.pragma("journal_mode = WAL");
-const createTables = db.transaction(() => {
-    db.prepare(`
-        CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username STRING NOT NULL UNIQUE,
-        password STRING NOT NULL)    
-    `).run();
-});
-createTables();
+pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        first_name VARCHAR(50),
+        last_name VARCHAR(50),
+        dob DATE,
+        gender VARCHAR(10),
+        password TEXT NOT NULL
+    )
+`);
 
 // Enable LiveReload in development
 const isDev = process.env.NODE_ENV !== "production";
 
 if (isDev) {
-    const livereload = require("livereload");
-    const connectLivereload = require("connect-livereload");
     const liveReloadServer = livereload.createServer();
-
-    liveReloadServer.watch(__dirname + "/views");
-    liveReloadServer.watch(__dirname + "/public");
+    liveReloadServer.watch(`${__dirname}/views`);
+    liveReloadServer.watch(`${__dirname}/public`);    
     app.use(connectLivereload());
 
     liveReloadServer.server.once("connection", () => {
@@ -41,31 +55,32 @@ if (isDev) {
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
-app.use(express.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static("public"));
+app.use(express.static(`${__dirname}/public`));
 
 app.use(function (req, res, next) {
-    // Try to decode incoming cookie
     try {
         const decoded = jwt.verify(req.cookies.app, process.env.JWTVAL);
         req.user = decoded;
-    } catch(err) {
+    } catch (err) {
         req.user = false;
     }
-    res.locals.user = req.user;    
+    res.locals.user = req.user;
     next();
 });
 
 app.use("/", pageRoutes);
-app.use("/", authRoutes); 
+app.use("/", authRoutes);
 
 app.get("/", (req, res) => {
     if (req.user) {
-        // If user is logged in, redirect to dashboard
         return res.render("dashboard");
     }
     res.render("index");
 });
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+
+export { pool };

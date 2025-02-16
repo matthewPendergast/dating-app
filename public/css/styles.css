@@ -340,6 +340,21 @@ footer p {
   .col-center {
     width: 60vw;
   }
+  .btn-container {
+    display: flex;
+    justify-content: center;
+  }
+  .btn-signup {
+    padding: 0.75rem;
+    border: 2px outset silver;
+    border-radius: 1.5rem;
+    box-shadow: 0 0 3px 1px silver;
+    font: normal 1.25rem Arial, Helvetica, sans-serif;
+  }
+  .btn-signup:hover {
+    filter: brightness(90%);
+    cursor: pointer;
+  }
   .col-right {
     display: block;
     width: 20vw;
