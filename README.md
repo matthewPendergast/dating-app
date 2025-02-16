@@ -14,10 +14,10 @@
 <h3>Backend Basics (Node, Express, PostgreSQL)</h3>
 <ul>
     <p>✅ Create a server, host site on Render</p>
-    <p>⬜ User signup (validate form input, store data securely)</p>
+    <p>✅ User signup (validate form input, store data securely)</p>
     <p>⬜ User login (authenticate credentials, manage sessions)</p>
-    <p>⬜ Database integration (switch to PostgreSQL)</p>
-    <p>⬜ Build basic API</p>
+    <p>✅ Database integration</p>
+    <p>✅ Build basic API</p>
     <p>⬜ Security (input sanitization, rate-limiting)</p>
     <p>⬜ Deploy production-ready backend</p>
 </ul>
