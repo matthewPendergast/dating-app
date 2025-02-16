@@ -1,12 +1,15 @@
 .signup-page {
 
-    #email {
-        color: black;
+    label {
+        font: normal 1rem Arial, Helvetica, sans-serif;
     }
     
     input {
-        color: black;
+        border-radius: 1rem;
+        font: normal 1rem Arial, Helvetica, sans-serif;
     }
+
+
 }
 
 @media all and (min-width: 992px) {

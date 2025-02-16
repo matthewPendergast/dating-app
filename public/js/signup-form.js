@@ -1,144 +1,92 @@
-const questions = [
-    { output: "What's your first name?", type: "text", name: "fname", autofill: "Taylor" },
-    { output: "Set a strong password:", type: "password", name: "password", autofill: "Str0ngP@ssw0rd!" },
-    { output: "Confirm your password:", type: "password", name: "confirm-password", autofill: "Str0ngP@ssw0rd!" },
-    { output: "When's your birthday?", type: "date", name: "dob", autofill: "2000-01-01" },
-];
+function updateDobRestriction() {
+    const dobInput = document.getElementById("dob");
 
-let chat;
-let currIndex = 0;
-const responses = {};
-
-// @param (string) input - User input value
-// @param (string) name - questions.name
-function ValidateUserInput(input, name) {
-    const result = { isValid: false, error: null };
-
-    if (name == "fname") {
-        if (input.trim() === "") {
-            result.error = "First name can't be empty";
-        }
-    } else if (name === "password") {
-        if (input.length < 8) {
-            result.error = "Password must be at least 8 characters long";
-        } else if (!/[A-Z]/.test(input)) {
-            result.error = "Password must include an uppercase letter";
-        } else if (!/[a-z]/.test(input)) {
-            result.error = "Password must include a lowercase letter";
-        } else if (!/[0-9]/.test(input)) {
-            result.error = "Password must include a number";
-        } else if (!/[!@#$%^&*(),.?":{}|<>]/.test(input)) {
-            result.error = "Password must include a symbol (e.g., !, @, #)";
-        }
-    } else if (name === "confirm-password") {
-        if (input !== responses["password"]) {
-            result.error = "Passwords do not match";
-        }
-    } else if (name === "dob") {
-        const dob = new Date(input);
+    if (dobInput) {
         const today = new Date();
-        if (dob > today) {
-            result.error = "Birthday can't be in the future";
+        const minYear = today.getFullYear() - 18;
+        const minDate = new Date(minYear, today.getMonth(), today.getDate());
+        const formattedMinDate = minDate.toISOString().split("T")[0];
+        dobInput.setAttribute("max", formattedMinDate);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    updateDobRestriction();
+    const form = document.querySelector("form");
+    const errorContainer = document.createElement("div");
+    errorContainer.classList.add("error-messages");
+    form.prepend(errorContainer);
+
+    form.addEventListener("submit", function (event) {
+         // Stop form submission if there are errors
+        event.preventDefault();
+        errorContainer.innerHTML = "";
+        let errors = [];
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const firstName = document.getElementById("first_name").value.trim();
+        const lastName = document.getElementById("last_name").value.trim();
+        const dob = document.getElementById("dob").value;
+        const gender = document.getElementById("gender").value;
+
+        // Username Validation
+        const usernameRegex = /^[A-Za-z0-9]+$/;
+        if (!usernameRegex.test(username)) {
+            errors.push("Username can only contain letters and numbers (no spaces or special characters).");
         }
-    }
+        if (username.length < 3) {
+            errors.push("Username must be at least 3 characters long.");
+        }
 
-    if (result.error === null) {
-        result.isValid = true;
-    }
+        // Password Validation
+        if (password.length < 8) {
+            errors.push("Password must be at least 8 characters long.");
+        }
+        if (!/[A-Z]/.test(password)) {
+            errors.push("Password must include at least one uppercase letter.");
+        }
+        if (!/[a-z]/.test(password)) {
+            errors.push("Password must include at least one lowercase letter.");
+        }
+        if (!/[0-9]/.test(password)) {
+            errors.push("Password must include at least one number.");
+        }
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+            errors.push("Password must include at least one symbol (e.g., !, @, #, etc.).");
+        }
 
-    return result;
-}
+        // First & Last Name Validation
+        const nameRegex = /^[A-Za-z]+$/;
+        if (firstName && !nameRegex.test(firstName)) {
+            errors.push("First name can only contain letters.");
+        }
+        if (lastName && !nameRegex.test(lastName)) {
+            errors.push("Last name can only contain letters.");
+        }
 
-// @param (string) error - Error message from ValidateUserInput
-function ShowValidationError(error) {
-    alert(error);
-}
+        // Date of Birth Validation (Must be at least 18 years old)
+        if (dob) {
+            const dobDate = new Date(dob);
+            const today = new Date();
+            const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
 
-function AddQuestion() {
-    if (currIndex >= questions.length) {
-        // To Do
-        return;
-    }
+            if (dobDate > minAgeDate) {
+                errors.push("You must be at least 18 years old to sign up.");
+            }
+        }
 
-    // Get current question
-    const question = questions[currIndex];
+        // Gender Validation
+        const validGenders = ["male", "female", "other", ""];
+        if (!validGenders.includes(gender)) {
+            errors.push("Invalid gender selection.");
+        }
 
-    // Setup prompt bubble
-    const leftBubble = document.createElement("div");
-    leftBubble.className = "bubble bubble--left"
-    leftBubble.innerHTML = `<p>${question.output}</p>`;
-    chat.appendChild(leftBubble);
-
-    // Setup user input bubble
-    const rightBubble = document.createElement("div");
-    rightBubble.className = "bubble bubble--right bubble--user";
-    let toggleBtn = '';
-    if (question.type === "password") {
-        toggleBtn = `
-            <button id="btn-visibility__icon" class="btn-visibility" type="button" onclick="TogglePasswordVisibility('${question.name}')">
-                <i  class="fa-solid fa-eye-slash"></i>
-            </button>
-        `;
-        // Set input text to visible by default
-        question.type = "text";
-    }
-    const input = `<input id="${question.name}" type="${question.type}" name="${question.name}">`;
-    const sendBtn = `
-        <button class="btn-send" type="button">
-            <i class="fa-solid fa-reply"></i>
-        </button>
-        `;
-    rightBubble.innerHTML = toggleBtn + input + sendBtn;
-
-    chat.appendChild(rightBubble);
-
-    // Add listener for autofill
-    const element = rightBubble.querySelector(`#${question.name}`);
-    element.addEventListener("focus", () => {
-        if (!element.value) {
-            element.value = question.autofill;
+        // Show Errors if Any Exist
+        if (errors.length > 0) {
+            errorContainer.innerHTML = `<ul>${errors.map(err => `<li>${err}</li>`).join("")}</ul>`;
+        } else {
+            form.submit();
         }
     });
-}
-
-function HandleNextClick(event) {
-    let button = event.target;
-    if (!button.classList.contains("btn-send")) {
-        button = event.target.closest(".btn-send");
-    }
-
-    if (!button) return;
-
-    const name = questions[currIndex].name
-    const inputElement = chat.querySelector(`#${name}`);
-    let value = inputElement.value;
-
-    const result = ValidateUserInput(value, name);
-    if (!result.isValid) {
-        ShowValidationError(result.error);
-        return;
-    }
-
-    responses[name] = value;
-
-    if (questions[currIndex].name === "password" || questions[currIndex].name === "confirm-password") {
-        value = "●".repeat(value.length);
-    }
-
-    // Swap out "sent" user message with static bubble
-    const newBubble = document.createElement("div");
-    newBubble.className = "bubble bubble--right";
-    newBubble.innerHTML = `<p>${value}</p>`;
-    inputElement.parentElement.replaceWith(newBubble);
-
-    currIndex++;
-    AddQuestion();
-}
-
-function Initialize() {
-    chat = document.getElementsByTagName("main")[0];
-    AddQuestion();
-    chat.addEventListener("click", HandleNextClick);
-}
-
-document.addEventListener("DOMContentLoaded", Initialize);
+});

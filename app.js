@@ -2,33 +2,40 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import jwt from "jsonwebtoken";
+import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express from "express";
 import pageRoutes from "./routes/pages.js";
 import authRoutes from "./routes/auth.js";
-import Database from "better-sqlite3";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import pkg from "pg";
+const { Pool } = pkg;
+
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
+});
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
-const db = new Database("app.db");
 
 // Setup database
-db.pragma("journal_mode = WAL");
-const createTables = db.transaction(() => {
-    db.prepare(`
-        CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username STRING NOT NULL UNIQUE,
-        password STRING NOT NULL)    
-    `).run();
-});
-createTables();
+pool.query(`
+    CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        first_name VARCHAR(50),
+        last_name VARCHAR(50),
+        dob DATE,
+        gender VARCHAR(10),
+        password TEXT NOT NULL
+    )
+`);
 
 // Enable LiveReload in development
 const isDev = process.env.NODE_ENV !== "production";
@@ -48,6 +55,7 @@ if (isDev) {
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(`${__dirname}/public`));
@@ -74,3 +82,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+
+export { pool };
