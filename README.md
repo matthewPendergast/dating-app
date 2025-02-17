@@ -4,14 +4,14 @@
 
 <h2>Roadmap</h2>
 
-<h3>Frontend Basics (HTML, CSS, JavaScript, Sass)</h3>
+<h3>Static Frontend (HTML, CSS, JavaScript, Sass)</h3>
 <ul>
     <p>✅ Index page (initial mockup of dating app interface)</p>
     <p>⬜ Signup page (basic chat/messaging system mockup for signup form)</p>
     <p>⬜ Login page</p>
 </ul>
 
-<h3>Backend Basics (Node, Express, PostgreSQL)</h3>
+<h3>Initial Backend (Node, Express, PostgreSQL)</h3>
 <ul>
     <p>✅ Create a server, host site on Render</p>
     <p>✅ User signup (validate form input, store data securely)</p>
@@ -22,10 +22,16 @@
     <p>⬜ Deploy production-ready backend</p>
 </ul>
 
-<h3>Expand Frontend (React, Tailwind CSS)</h3>
+<h3>Convert Frontend (React, Tailwind CSS)</h3>
 <ul>
-    <p>⬜ Rebuild frontend with React and Tailwind CSS (primarily to learn both)</p>
-    <p>⬜ Create dashboard/landing page</p>
+    <p>⬜ Index page</p>
+    <p>⬜ Signup page</p>
+    <p>⬜ Login page</p>
+    <p>⬜ Dashboard/landing page</p>
+</ul>
+
+<h3>Expand Frontend</h3>
+<ul>
     <p>⬜ Make user profile interface</p>
     <p>⬜ Design messaging interface</p>
     <p>⬜ Make site responsive and polished</p>

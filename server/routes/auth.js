@@ -13,12 +13,14 @@ router.post("/login", async (req, res) => {
         const user = userQuery.rows[0];
 
         if (!user) {
-            return res.render("login", { errors: ["User not found."] });
+            return res.status(404).json({ errors: ["User not found."] });
+
         }
 
         const match = bcrypt.compareSync(password, user.password);
         if (!match) {
-            return res.render("login", { errors: ["Incorrect password."] });
+            return res.status(404).json({ errors: ["Incorrect password."] });
+
         }
 
         const tokenValue = jwt.sign(
@@ -97,7 +99,7 @@ router.post("/register", async (req, res) => {
 
         // If errors exist, re-render signup page with error messages
         if (errors.length > 0) {
-            return res.render("signup", { errors });
+            return res.status(400).json({ errors });
         }
 
         // Hash the Password

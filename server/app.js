@@ -1,15 +1,25 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+dotenv.config({ path: path.resolve(__dirname, ".env") });
+
+console.log("Loaded .env file:", path.resolve(__dirname, ".env"));
+console.log("Database URL after dotenv config:", process.env.DATABASE_URL);
+
 
 import jwt from "jsonwebtoken";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
 import pageRoutes from "./routes/pages.js";
 import authRoutes from "./routes/auth.js";
 import livereload from "livereload";
 import connectLivereload from "connect-livereload";
-import { fileURLToPath } from "url";
 import { dirname } from "path";
 import pkg from "pg";
 const { Pool } = pkg;
@@ -19,10 +29,8 @@ const pool = new Pool({
     ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : false
 });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // Setup database
 pool.query(`
@@ -53,8 +61,6 @@ if (isDev) {
     });
 }
 
-app.set("view engine", "ejs");
-app.set("views", "./views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -74,12 +80,17 @@ app.use(function (req, res, next) {
 app.use("/", pageRoutes);
 app.use("/", authRoutes);
 
-app.get("/", (req, res) => {
-    if (req.user) {
-        return res.render("dashboard");
-    }
-    res.render("index");
-});
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../client/build")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    });
+} else {
+    app.get("/", (req, res) => {
+        res.json({ message: "API is running" });
+    });
+}
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`));
 
