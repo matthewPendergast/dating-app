@@ -1,9 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Home() {
     return (
-        <h1 style={{ textAlign: "center" }}>Under construction</h1>
+        <div className="flex items-center justify-center min-h-screen bg-blue-500 text-white">
+            <h1 className="text-4xl font-bold">Under Construction</h1>
+        </div>
     );
   }
   

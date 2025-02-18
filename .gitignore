@@ -5,12 +5,11 @@ node_modules
 
 # Development
 _dev/
+build/
 template_index.html
 
 # Migration (temporary)
 server/views
-App.css
-index.css
 
 # Editor directories and files
 .vscode/*
