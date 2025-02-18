@@ -5,14 +5,12 @@ node_modules
 
 # Development
 _dev/
+template_index.html
 
 # Migration (temporary)
 server/views
-manifest.json
-robots.txt
 App.css
 index.css
-logo.svg
 
 # Editor directories and files
 .vscode/*

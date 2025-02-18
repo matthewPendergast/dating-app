@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 
 function Home() {
     return (
-      <main id="layout" className="index-page" style={{ backgroundColor: "black", minHeight: "100vh" }}>
-        <h1>Testing Home Page</h1>
-      </main>
+        <h1 style={{ textAlign: "center" }}>Under construction</h1>
     );
   }
   

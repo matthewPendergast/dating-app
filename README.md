@@ -3,12 +3,13 @@
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" height="50" title="Express.js" alt="Express.js"/>
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" height="50" title="React" alt="React"/>
     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" height="50" title="Node.js" alt="Node.js"/>
-    <!-- <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" height="50" title="Tailwind CSS" alt="Tailwind CSS"/> -->
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" height="50" title="Tailwind CSS" alt="Tailwind CSS"/>
 </div>
 
 <h1>Overview</h1>
 
 <p>This is a project I am working on to learn full-stack web and mobile app development, with plans to eventually incorporate basic AI functionality.</p>
+<p>It will be built with React, Tailwind, Node, Express, and PostgreSQL, as well as Next.js eventually--although it is currently still in the early stages of development.</p>
 
 <h2>Roadmap</h2>
 
