@@ -1,0 +1,68 @@
+[
+    {
+        "id": 2,
+        "name": "Daniel",
+        "profile-pic": "/images/fake-users/portrait-2.webp",
+        "message": "Sign up for free!"
+    },
+    {
+        "id": 3,
+        "name": "Felipe",
+        "profile-pic": "/images/fake-users/portrait-3.webp",
+        "message": "Hey"
+    },
+    {
+        "id": 4,
+        "name": "Orlando",
+        "profile-pic": "/images/fake-users/portrait-4.webp",
+        "message": "hbu?"
+    },
+    {
+        "id": 5,
+        "name": "Jameson",
+        "profile-pic": "/images/fake-users/portrait-5.webp",
+        "message": "Lol yeah same 😂"
+    },
+    {
+        "id": 6,
+        "name": "Ashley",
+        "profile-pic": "/images/fake-users/portrait-6.webp",
+        "message": "omg SO true"
+    },
+    {
+        "id": 7,
+        "name": "Ellie",
+        "profile-pic": "/images/fake-users/portrait-7.webp",
+        "message": "How about Thursday?"
+    },
+    {
+        "id": 8,
+        "name": "Nathan",
+        "profile-pic": "/images/fake-users/portrait-8.webp",
+        "message": "You up?"
+    },
+    {
+        "id": 9,
+        "name": "Wes",
+        "profile-pic": "/images/fake-users/portrait-9.webp",
+        "message": "thats wild"
+    },
+    {
+        "id": 10,
+        "name": "Aidan",
+        "profile-pic": "/images/fake-users/portrait-10.webp",
+        "message": "I'm here. Where are you?"
+    },
+    {
+        "id": 11,
+        "name": "Rico",
+        "profile-pic": "/images/fake-users/portrait-11.webp",
+        "message": "sunday im doing my 5k sorry"
+    },
+    {
+        "id": 12,
+        "name": "Lane",
+        "profile-pic": "/images/fake-users/portrait-12.webp",
+        "message": "👍"
+    }
+]
