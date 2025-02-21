@@ -3,6 +3,9 @@ import Header from "../components/Header";
 import UserSidebar from "../components/UserSidebar";
 import MatchSidebar from "../components/MatchSidebar";
 
+// Temporary until chat/message component is created
+const chatStyle = "flex h-auto min-h-[2rem] w-auto max-w-[50%] p-3 mx-[5%] my-4 rounded-[2rem] bg-white";
+
 const Dashboard = () => {
     return (
         <Layout
@@ -12,8 +15,17 @@ const Dashboard = () => {
             centerContent={
                 <>
                     <Header />
-                    <div className="flex justify-center items-center h-[70%]">
-                        <h2 className="text-5xl text-center text-white">Under Construction</h2>
+
+                    <div className="flex-col justify-center items-center h-[70%] py-4">
+                        <div className={`${chatStyle} justify-self-end`}>
+                            <img className="max-h-[25vh] w-auto rounded-3xl" src="/images/fake-users/portrait-1.webp" alt="Portrait of young woman" />
+                        </div>
+                        <div className={`${chatStyle} justify-self-start`}>
+                            <img className="max-h-[25vh] w-auto rounded-3xl" src="/images/fake-users/portrait-2.webp" alt="Portrait of young woman" />
+                        </div>
+                        <div className={`${chatStyle} justify-self-start`}>
+                            <p>Sign up for free!</p>
+                        </div>
                     </div>
                 </>
             }

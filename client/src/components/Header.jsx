@@ -5,7 +5,7 @@ const Header = () => {
                 <img src="/images/logo-image.webp" className="h-1/2" alt="affinity logo" />
             </div>
             <div className="flex justify-center items-center w-[80%]">
-                <h1 className="pacifico-regular text-5xl text-[#a44d6d] pb-2 ">affinity</h1>
+                <h1 className="pacifico-regular text-5xl text-[#a44d6d] pb-2">affinity</h1>
             </div>
             <div className="flex justify-center items-center w-[10%]">
                 {/* Login button */}

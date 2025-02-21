@@ -1,0 +1,15 @@
+name: Auto-Redeploy Render Every 15 Minutes
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}" \
+          -H "Accept: application/json" \
+          -H "Authorization: Bearer ${{ secrets.RENDER_DEPLOY_KEY }}"

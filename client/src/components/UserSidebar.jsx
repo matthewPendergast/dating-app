@@ -23,7 +23,7 @@ const UserSidebar = () => {
     return (
         <div className="flex flex-col max-h-[100vh]">
             <div className=" flex flex-col justify-center items-center h-[15vh] min-h-[5rem] bg-gradient-to-b from-[#059cff] to-[#07e6ff] shadow-[inset_0px_0px_3px_1px]">
-                <img className="h-[70%] rounded-[50%]" src={profilePic} />
+                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_1px]" src={profilePic} />
                 <p className="font-bold">My Profile</p>
             </div>
             <div className="flex h-[5vh] min-h-[2.5rem]">
