@@ -18,8 +18,6 @@ import cors from "cors";
 import express from "express";
 import pageRoutes from "./routes/pages.js";
 import authRoutes from "./routes/auth.js";
-import livereload from "livereload";
-import connectLivereload from "connect-livereload";
 import { dirname } from "path";
 import pkg from "pg";
 const { Pool } = pkg;
@@ -44,22 +42,6 @@ pool.query(`
         password TEXT NOT NULL
     )
 `);
-
-// Enable LiveReload in development
-const isDev = process.env.NODE_ENV !== "production";
-
-if (isDev) {
-    const liveReloadServer = livereload.createServer();
-    liveReloadServer.watch(`${__dirname}/views`);
-    liveReloadServer.watch(`${__dirname}/public`);    
-    app.use(connectLivereload());
-
-    liveReloadServer.server.once("connection", () => {
-        setTimeout(() => {
-            liveReloadServer.refresh("index");
-        }, 100);
-    });
-}
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: false }));

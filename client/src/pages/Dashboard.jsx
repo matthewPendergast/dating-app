@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Layout from "../layouts/DashboardLayout"
 import Header from "../components/Header";
 import UserSidebar from "../components/UserSidebar";
@@ -7,6 +8,16 @@ import MatchSidebar from "../components/MatchSidebar";
 const chatStyle = "flex h-auto min-h-[2rem] w-auto max-w-[50%] p-3 mx-[5%] my-4 rounded-[2rem] bg-white";
 
 const Dashboard = () => {
+    const [data, setData] = useState(null);
+    const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+    useEffect(() => {
+        fetch(`${API_URL}/pages/Dashboard`)
+            .then(response => response.json())
+            .then(setData)
+            .catch(() => setData(null));
+    }, []);
+
     return (
         <Layout
             leftContent={
