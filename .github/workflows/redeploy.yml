@@ -13,10 +13,10 @@ jobs:
     steps:
       - name: Trigger Render Backend Deployment
         run: |
-          curl -X POST "${{ secrets.RENDER_BACKEND_HOOK_URL }}" \
+          curl -X POST "${{ secrets.RENDER_BACKEND_ID }}" \
           -H "Accept: application/json"
 
       - name: Trigger Render Frontend Deployment
         run: |
-          curl -X POST "${{ secrets.RENDER_FRONTEND_HOOK_URL }}" \
+          curl -X POST "${{ secrets.RENDER_FRONTEND_ID }}" \
           -H "Accept: application/json"
