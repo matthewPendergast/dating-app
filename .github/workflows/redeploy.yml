@@ -8,8 +8,14 @@ jobs:
   redeploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Render Deployment
+      - name: Trigger Render Backend Deployment
         run: |
-          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_SERVICE_ID }}" \
+          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_BACKEND_ID }}" \
+          -H "Accept: application/json" \
+          -H "Authorization: Bearer ${{ secrets.RENDER_DEPLOY_KEY }}"
+
+      - name: Trigger Render Frontend Deployment
+        run: |
+          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_FRONTEND_ID }}" \
           -H "Accept: application/json" \
           -H "Authorization: Bearer ${{ secrets.RENDER_DEPLOY_KEY }}"
