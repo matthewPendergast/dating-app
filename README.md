@@ -10,7 +10,7 @@
 
 <p>This is a project I am working on to learn full-stack web and mobile app development, with plans to eventually incorporate basic AI functionality.</p>
 <p>The idea of it is to create a functional dating app clone from scratch, complete with the ability to sign up, set up your own personal profile, match with artificial users, and message back and forth with them.</p>
-<p>It is built with React, Tailwind, Node, Express, and PostgreSQL--although it is currently in the early stages of development.</p>
+<p>It is being built with React, Tailwind, Node, Express, and PostgreSQL--although it is currently in the early stages of development.</p>
 
 <h2>Roadmap</h2>
 
@@ -29,8 +29,7 @@
     <p>✅ User login (authenticate credentials)</p>
     <p>✅ Database integration</p>
     <p>✅ Build basic API</p>
-    <p>⬜ Security (input sanitization, rate-limiting)</p>
-    <p>⬜ Deploy production-ready backend</p>
+    <p>✅ Deploy production-ready backend</p>
 </ul>
 
 <h3>Convert Frontend (React, Tailwind CSS)</h3>

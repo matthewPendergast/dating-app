@@ -1,8 +1,11 @@
 name: Auto-Redeploy Render Every 15 Minutes
 
 on:
-  schedule:
-    - cron: "*/15 * * * *"
+    schedule:
+      - cron: "*/15 * * * *"
+    push:
+      branches:
+        - stable
 
 jobs:
   redeploy:
@@ -10,12 +13,10 @@ jobs:
     steps:
       - name: Trigger Render Backend Deployment
         run: |
-          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_BACKEND_ID }}" \
-          -H "Accept: application/json" \
-          -H "Authorization: Bearer ${{ secrets.RENDER_DEPLOY_KEY }}"
+          curl -X POST "${{ secrets.RENDER_BACKEND_HOOK_URL }}" \
+          -H "Accept: application/json"
 
       - name: Trigger Render Frontend Deployment
         run: |
-          curl -X POST "https://api.render.com/deploy/${{ secrets.RENDER_FRONTEND_ID }}" \
-          -H "Accept: application/json" \
-          -H "Authorization: Bearer ${{ secrets.RENDER_DEPLOY_KEY }}"
+          curl -X POST "${{ secrets.RENDER_FRONTEND_HOOK_URL }}" \
+          -H "Accept: application/json"
