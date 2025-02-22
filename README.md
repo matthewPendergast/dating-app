@@ -34,17 +34,17 @@
 
 <h3>Convert Frontend (React, Tailwind CSS)</h3>
 <ul>
+    <p>✅ Dashboard page (mockup)</p>
     <p>⬜ Index page</p>
     <p>⬜ Signup page</p>
     <p>⬜ Login page</p>
-    <p>⬜ Dashboard/landing page</p>
 </ul>
 
 <h3>Expand Frontend</h3>
 <ul>
-    <p>⬜ Make user profile interface</p>
+    <p>⬜ Implement Dashboard functionality</p>
+    <p>⬜ Make user profile interface (profile pages)</p>
     <p>⬜ Design messaging interface</p>
-    <p>⬜ Make site responsive and polished</p>
 </ul>
 
 <h3>Expand Backend</h3>
