@@ -3,6 +3,7 @@ import Layout from "../layouts/DashboardLayout"
 import Header from "../components/Header";
 import UserSidebar from "../components/UserSidebar";
 import MatchSidebar from "../components/MatchSidebar";
+import Footer from "../components/Footer";
 
 const styles = {
     bubble: "flex relative h-auto min-h-[2rem] w-auto max-w-[50%] p-3 mx-[5%] my-4 rounded-[2rem] border-gray-400 shadow-md border-[2px] bg-white",
@@ -23,7 +24,8 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <Layout
+        <>
+            <Layout
             leftContent={
                 <UserSidebar />
             }
@@ -57,7 +59,9 @@ const Dashboard = () => {
             leftClassName=""
             centerClassName="bg-gradient-to-b from-[#a44d6d] to-[#fe94bc]"
             rightClassName=""
-        />
+            />
+            <Footer />
+        </>
     );
 }
 
