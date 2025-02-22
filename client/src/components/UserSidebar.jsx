@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import MessagePreview from "./MessagePreview";
-import '../assets/styles/userSidebar.css';
 
 // To be imported properly from database later:
 const profilePic = "/images/fake-users/portrait-1.webp";
@@ -28,7 +27,7 @@ const UserSidebar = () => {
     return (
         <div className="flex flex-col max-h-[100vh]">
             <div className={styles.header}>
-                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_1px]" src={profilePic} />
+                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_1px]" src={profilePic} alt="" />
                 <p className="font-bold">My Profile</p>
             </div>
             <div className="flex h-[5vh] min-h-[2.5rem]">
@@ -41,7 +40,7 @@ const UserSidebar = () => {
                     <p className="px-2 py-1 rounded-[50%] font-semibold text-white bg-[#fe94bc]">{matches}</p>
                 </div>
             </div>
-            <div className="flex flex-col h-[79vh] overflow-x-hidden overflow-y-scroll">
+            <div className="flex flex-col h-[79vh] overflow-x-hidden overflow-y-scroll scrollbar-hide">
                 {users.map(user => (
                     <MessagePreview
                         key={user.id}

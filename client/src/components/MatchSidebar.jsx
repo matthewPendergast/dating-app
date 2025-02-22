@@ -11,11 +11,11 @@ const MatchSidebar = () => {
     return (
         <div className="flex flex-col max-h-[100vh]">
             <div className={styles.header}>
-                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_1px]" src={profilePic} />
+                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_1px]" src={profilePic} alt="" />
                 <p className="font-bold">{matchName}</p>
             </div>
-            <div className="h-[60vh] min-h-[25rem] w-full overflow-hidden flex justify-center items-center cursor-pointer">
-                <img className="w-full h-full object-cover object-center" src={selectedImage} />
+            <div className="h-[60vh] w-full overflow-hidden flex justify-center items-center cursor-pointer">
+                <img className="w-full h-full object-cover object-center" src={selectedImage} alt="" />
             </div>
             <div className="flex flex-wrap h-[25vh]">
                 {["View Profile", "Video Call", "Unmatch", "Report"].map((text) => (
