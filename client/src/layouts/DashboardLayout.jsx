@@ -6,13 +6,13 @@ const DashboardLayout = ({
 }) => {
     return (
         <div className="flex items-stretch h-screen">
-            <div className={`flex-grow hidden lg:block w-[25%] ${leftClassName}`}>
+            <div className={`flex-grow hidden lg:block w-[20%] ${leftClassName}`}>
                 {leftContent}
             </div>
-            <div className={`flex flex-col flex-grow h-full min-w-[50%] ${centerClassName}`}>
+            <div className={`flex flex-col flex-grow h-full min-w-[60%] ${centerClassName}`}>
                 {centerContent}
             </div>
-            <div className={`flex-grow hidden lg:block w-[25%] ${rightClassName}`}>
+            <div className={`flex-grow hidden lg:block w-[20%] ${rightClassName}`}>
                 {rightContent}
             </div>
         </div>
