@@ -52,17 +52,5 @@
         "name": "Aidan",
         "profile-pic": "/images/fake-users/portrait-10.webp",
         "message": "I'm here. Where are you?"
-    },
-    {
-        "id": 11,
-        "name": "Rico",
-        "profile-pic": "/images/fake-users/portrait-11.webp",
-        "message": "sunday im doing my 5k sorry"
-    },
-    {
-        "id": 12,
-        "name": "Lane",
-        "profile-pic": "/images/fake-users/portrait-12.webp",
-        "message": "👍"
     }
 ]

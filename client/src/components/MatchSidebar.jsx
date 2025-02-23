@@ -3,8 +3,11 @@ const profilePic = "/images/fake-users/portrait-2.webp";
 const selectedImage = "/images/fake-users/profile-1.webp";
 
 const styles = {
-    header: "flex flex-col justify-center items-center h-[15vh] min-h-[5rem] bg-gradient-to-b from-[#059cff] to-[#07e6ff] shadow-[inset_0px_0px_3px_1px] hover:brightness-90 cursor-pointer",
-    button: "flex justify-center items-center w-[50%] h-[50%] p-4 shadow-[inset_0px_0px_3px_1px] bg-white hover:brightness-90 cursor-pointer",
+    header: `flex flex-col justify-center items-center h-[15vh] min-h-[5rem]
+        bg-gradient-to-b from-[#059cff] to-[#07e6ff] shadow-[inset_0px_0px_3px_1px]
+        hover:brightness-90 cursor-pointer`,
+    button: `flex justify-center items-center w-[50%] h-[50%] min-h-[4rem] p-4 shadow-[inset_0px_0px_3px_1px] bg-white
+    hover:brightness-90 active:shadow-[inset_0px_0px_8px_1px] cursor-pointer`,
 };
 
 const MatchSidebar = () => {
@@ -20,7 +23,7 @@ const MatchSidebar = () => {
             <div className="flex flex-wrap h-[25vh]">
                 {["View Profile", "Video Call", "Unmatch", "Report"].map((text) => (
                     <div key={text} className={styles.button}>
-                        <p className="font-semibold">{text}</p>
+                        <p className="font-semibold text-center">{text}</p>
                     </div>
                 ))}
             </div>

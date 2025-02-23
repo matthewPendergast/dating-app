@@ -1,3 +1,7 @@
+const styles = {
+    icon: "text-white hover:brightness-90 cursor-pointer",
+}
+
 const Footer = () => {
     return (
         <footer className="flex items-center min-h-[10vh] bg-black">
@@ -8,10 +12,10 @@ const Footer = () => {
                 <p className="text-white text-center">All images are AI-generated</p>
             </div>
             <div className="flex justify-center gap-2 w-[25vw]">
-                <i class="text-white fa-brands fa-facebook hover:brightness-90 cursor-pointer"></i>
-                <i class="text-white fa-brands fa-x-twitter hover:brightness-90 cursor-pointer"></i>
-                <i class="text-white fa-brands fa-instagram hover:brightness-90 cursor-pointer"></i>
-                <i class="text-white fa-brands fa-tiktok hover:brightness-90 cursor-pointer"></i>
+                <i class={`fa-brands fa-facebook ${styles.icon}`}></i>
+                <i class={`fa-brands fa-x-twitter ${styles.icon}`}></i>
+                <i class={`fa-brands fa-instagram ${styles.icon}`}></i>
+                <i class={`fa-brands fa-tiktok ${styles.icon}`}></i>
             </div>
         </footer>
     );
