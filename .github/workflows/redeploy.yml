@@ -1,8 +1,8 @@
-name: Auto-Redeploy Render Every 15 Minutes
+name: Auto-Redeploy Render Every 12 Minutes
 
 on:
     schedule:
-      - cron: "*/15 * * * *"
+      - cron: "*/12 * * * *"
     push:
       branches:
         - stable

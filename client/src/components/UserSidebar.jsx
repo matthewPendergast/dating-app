@@ -11,7 +11,7 @@ const styles = {
         hover:brightness-90 cursor-pointer`,
     button: `flex justify-center items-center gap-2 flex-grow shadow-[inset_0px_0px_3px_1px] bg-white
         hover:brightness-90 cursor-pointer active:shadow-[inset_0px_0px_8px_1px]`,
-    messages: `flex flex-col h-[79vh] bg-gray-400 shadow-[inset_0px_0px_5px_1px]
+    messages: `flex flex-col h-[78vh] bg-gray-400 shadow-[inset_0px_0px_5px_1px]
         overflow-x-hidden overflow-y-auto custom-scrollbar-sidebar`,
 };
 
@@ -65,7 +65,7 @@ const UserSidebar = () => {
             <div className={styles.messages}>
                 {RenderMessagePreviews(activeTab === "likes" ? data.likes : data.matches)}
             </div>
-            <div className="h-[1vh] shadow-[inset_0px_0px_3px_1px]" />
+            <div className="h-[2vh] shadow-[inset_0px_0px_3px_1px]" />
         </div>
     );
 };
