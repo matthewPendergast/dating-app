@@ -9,11 +9,11 @@ const styles = {
     header: `flex flex-col justify-center items-center h-[15vh] min-h-[5rem]
         bg-gradient-to-b from-[#059cff] to-[#07e6ff] shadow-[inset_0px_0px_10px_2px]
         hover:brightness-90 cursor-pointer`,
-    button: `flex justify-center items-center gap-2 flex-grow shadow-[inset_0px_0px_6px_1px] bg-white
+    button: `flex justify-center items-center gap-2 flex-grow shadow-[inset_0px_0px_5px_1px] bg-white
         hover:brightness-90 cursor-pointer active:shadow-[inset_0px_0px_8px_1px]`,
     buttonIn: `brightness-90 shadow-[inset_0px_0px_8px_1px]`,
-    buttonOut: `brightness-100 shadow-[inset_0px_0px_6px_1px]`,
-    messages: `flex flex-col h-[78vh] bg-gray-400 shadow-[inset_0px_0px_6px_1px]
+    buttonOut: `brightness-100 shadow-[inset_0px_0px_5px_1px]`,
+    messages: `flex flex-col h-[78vh] bg-gray-400 shadow-[inset_0px_0px_5px_1px]
         overflow-x-hidden overflow-y-auto custom-scrollbar-sidebar`,
 };
 
