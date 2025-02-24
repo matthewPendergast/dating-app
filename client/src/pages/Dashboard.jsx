@@ -9,7 +9,7 @@ import "../assets/styles/scrollbar.css";
 const styles = {
     bubble: `flex items-center relative min-h-[3rem] w-auto max-w-[50%]
         p-3 mx-[5%] my-4 rounded-[2rem] border-gray-400 shadow-md border-[2px] bg-white`,
-    bubbleImg: `min-h-[10rem] min-w-[15vw]`,
+    bubbleImg: `min-h-[12rem] min-w-[15vw]`,
     after: `after:content-[''] after:absolute after:bottom-[-9px] after:w-[10px] after:h-[7px]
         after:shadow-md after:border-[2px] after:border-gray-400 after:[border-style:none_outset_outset_outset] after:bg-white`,
     tailL: `after:left-6 after:rounded-br-[15rem]`,
