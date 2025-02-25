@@ -35,16 +35,16 @@
 <h3>Convert Frontend (React, Tailwind CSS)</h3>
 <ul>
     <p>✅ Dashboard page (mockup)</p>
-    <p>⬜ Index page</p>
-    <p>⬜ Signup page</p>
+    <p>🔄 Implement Dashboard functionality</p>
+    <ul>
+        <p>✅ Image interactions (modals, Match sidebar slider)</p>
+        <p>⬜ Messaging interface (view Like/Match messages), update Match sidebar image slider</p>
+        <p>⬜ Make Match 'View Profile' interface</p>
+        <p>⬜ Make user profile interface</p>
+        <p>⬜ Implement quasi-functional Match sidebar buttons</p>
+    </ul>
     <p>⬜ Login page</p>
-</ul>
-
-<h3>Expand Frontend</h3>
-<ul>
-    <p>⬜ Implement Dashboard functionality</p>
-    <p>⬜ Make user profile interface (profile pages)</p>
-    <p>⬜ Design messaging interface</p>
+    <p>⬜ Signup page</p>
 </ul>
 
 <h3>Expand Backend</h3>
@@ -56,7 +56,7 @@
 
 <h3>Future Goals</h3>
 <ul>
-    <p>⬜ Create mobile app (React Native or Swift)</P>
     <p>⬜ Build simulated chat system using external API</p>
     <p>⬜ Matching algorithm</p>
+    <p>⬜ Create mobile app (React Native or Swift)</P>
 </ul>

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const matchName = "Daniel";
-const profilePic = "/images/fake-users/portrait-2.webp";
-const currentImage = "/images/fake-users/profile-1.webp";
+const placeholderMatch = {
+    name: "Loading...",
+    profilePic: "/images/default-profile.webp",
+    images: ["/images/default-profile.webp"],
+};
 
 const styles = {
     header: `flex flex-col justify-center items-center h-[15vh] min-h-[5rem]
@@ -13,17 +15,54 @@ const styles = {
 };
 
 const MatchSidebar = () => {
+    const [matchData, setMatchData] = useState(null);
+    const [index, setIndex] = useState(0);
     const [selectedImage, setSelectedImage] = useState(null);
+
+    useEffect(() => {
+        fetch("/matches/daniel.json")
+            .then((res) => res.json())
+            .then((data) => {
+                setMatchData(data);
+            })
+            .catch((err) => console.error("Error loading match data:", err));
+    }, []);
+
+    const data = matchData || placeholderMatch;
+
+    const prevImage = () => {
+        setIndex((prevIndex) =>
+          prevIndex === 0 ? data.images.length - 1 : prevIndex - 1
+        );
+    };
+
+    const nextImage = () => {
+        setIndex((prevIndex) => (prevIndex + 1) % data.images.length);
+    };
+
+    const imgSrc = data.images[index] || data.images[0];
 
     return (
         <div className="flex flex-col max-h-[100vh]">
             <div className={styles.header}>
-                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_2px]" src={profilePic} alt="" />
-                <p className="font-bold">{matchName}</p>
+                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_2px]" src={data.profilePic} alt={data.name} />
+                <p className="font-bold">{data.name}</p>
             </div>
-            <div className="h-[60vh] w-full overflow-hidden flex justify-center items-center hover:brightness-90 cursor-pointer">
-                <img className="w-full h-full object-cover object-center" src={currentImage} alt=""
+            <div className="relative flex justify-center items-center h-[60vh] w-full overflow-hidden cursor-pointer">
+                <button 
+                    className="absolute bottom-0 left-2 text-white p-2 rounded-full hover:brightness-90"
+                    style={{textShadow:"3px 3px black"}}
+                    onClick={prevImage}>
+                        <i className="text-2xl fa-regular fa-square-caret-left"></i>
+                    </button>
+                <img className="w-full h-full object-cover object-center" src={imgSrc} alt=""
                     onClick={(event) => setSelectedImage(event.target.src)} />
+                <button 
+                    className="absolute bottom-0 right-2 text-white p-2 rounded-full hover:brightness-90"
+                    style={{textShadow:"3px 3px black"}}
+                    onClick={nextImage}>
+                        <i className="text-2xl fa-regular fa-square-caret-right"></i>
+                    </button>
             </div>
             <div className="flex flex-wrap h-[25vh]">
                 {["View Profile", "Video Call", "Unmatch", "Report"].map((text) => (
