@@ -7,8 +7,7 @@ const styles = {
     logo: `
         absolute top-3 left-3 h-[2.5rem] w-auto object-contain
         transition-transform cursor-pointer duration-500 hover:scale-125 hover:-rotate-12 hover:brightness-90 
-        hover:duration-500 active:scale-150 active:duration-200
-    `,
+        hover:duration-500 active:scale-150 active:duration-200`,
     h1: `pacifico-regular text-5xl py-3 pb-6
         bg-gradient-to-b from-[#a44d6d] to-[#fe94bc] bg-clip-text text-transparent
         drop-shadow-[0_0_2px_pink] leading-none

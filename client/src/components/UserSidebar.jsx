@@ -17,32 +17,40 @@ const styles = {
         overflow-x-hidden overflow-y-auto custom-scrollbar-sidebar`,
 };
 
-const RenderMessagePreviews = (users) => {
+const RenderMessagePreviews = ({ users, activeMessage, setActiveMessage }) => {
     return users.map(user => (
         <MessagePreview
             key={user.id}
             name={user.name ?? "Error"}
             image={user["profile-pic"] ?? "/images/default-profile.webp"}
             message={user.message ?? "No message available"}
+            onClick={() => setActiveMessage(user.id)}
+            className={user.id === activeMessage ? "brightness-90 shadow-[inset_0px_0px_8px_1px]" : "brightness-100 shadow-[inset_0px_0px_6px_1px]"}
         />
     ));
 };
 
-
-const UserSidebar = () => {
+const UserSidebar = ({ activeMessage, setActiveMessage }) => {
     const [data, setData] = useState({ likes: [], matches: [] });
     const [activeTab, setActiveTab] = useState("matches");
 
     useEffect(() => {
-        Promise.all([
-            fetch("fake-matches.json").then(res => res.json()),
-            fetch("fake-likes.json").then(res => res.json())
-        ])
-        .then(([matchesData, likesData]) => {
-            setData({ likes: likesData, matches: matchesData });
-        })
-        .catch(error => console.error("Error loading user data:", error));
+        fetch("/fake-users-list.json")
+            .then(res => res.json())
+            .then(users => {
+                const likes = users.filter(user => user.type === "like");
+                const matches = users.filter(user => user.type === "match");
+                setData({ likes, matches });
+            })
+            .catch(error => console.error("Error loading user data:", error));
     }, []);
+
+    useEffect(() => {
+        const users = activeTab === "likes" ? data.likes : data.matches;
+        if (users.length > 0) {
+            setActiveMessage(users[0].id);
+        }
+    }, [data, activeTab, setActiveMessage]);
 
     return (
         <div className="flex flex-col max-h-[100vh]">
@@ -65,7 +73,13 @@ const UserSidebar = () => {
                 </div>
             </div>
             <div className={styles.messages}>
-                {RenderMessagePreviews(activeTab === "likes" ? data.likes : data.matches)}
+            <div className={styles.messages}>
+            <RenderMessagePreviews 
+                users={activeTab === "likes" ? data.likes : data.matches} 
+                activeMessage={activeMessage} 
+                setActiveMessage={setActiveMessage} 
+            />
+            </div>
             </div>
             <div className="h-[2vh] shadow-[inset_0px_0px_6px_1px]" />
         </div>

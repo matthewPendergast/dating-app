@@ -1,0 +1,115 @@
+[
+    {
+        "id": 1,
+        "name": "Daniel",
+        "profile-pic": "/images/fake-users/portrait-2.webp",
+        "message": "Sign up for free!",
+        "type": "match",
+        "images": [
+            "/images/fake-users/daniel-1.webp",
+            "/images/fake-users/daniel-2.webp",
+            "/images/fake-users/daniel-3.webp",
+            "/images/fake-users/daniel-4.webp"
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Felipe",
+        "profile-pic": "/images/fake-users/portrait-3.webp",
+        "message": "Hey",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-3.webp"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Orlando",
+        "profile-pic": "/images/fake-users/portrait-4.webp",
+        "message": "hbu?",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-4.webp"
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Jameson",
+        "profile-pic": "/images/fake-users/portrait-5.webp",
+        "message": "Lol yeah same 😂",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-5.webp"
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Ashley",
+        "profile-pic": "/images/fake-users/portrait-6.webp",
+        "message": "omg SO true",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-6.webp"
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Ellie",
+        "profile-pic": "/images/fake-users/portrait-7.webp",
+        "message": "How about Thursday?",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-7.webp"
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Nathan",
+        "profile-pic": "/images/fake-users/portrait-8.webp",
+        "message": "You up?",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-8.webp"
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Wes",
+        "profile-pic": "/images/fake-users/portrait-9.webp",
+        "message": "thats wild",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-9.webp"
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Aidan",
+        "profile-pic": "/images/fake-users/portrait-10.webp",
+        "message": "I'm here. Where are you?",
+        "type": "match",
+        "images": [
+            "/images/fake-users/portrait-10.webp"
+        ]
+    },
+    {
+        "id": 10,
+        "name": "Rico",
+        "profile-pic": "/images/fake-users/portrait-11.webp",
+        "message": "hey i know this might sound crazy but",
+        "type": "like",
+        "images": [
+            "/images/fake-users/portrait-11.webp"
+        ]
+    },
+    {
+        "id": 11,
+        "name": "Lane",
+        "profile-pic": "/images/fake-users/portrait-12.webp",
+        "message": "👍",
+        "type": "like",
+        "images": [
+            "/images/fake-users/portrait-12.webp"
+        ]
+    }
+]

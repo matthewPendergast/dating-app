@@ -14,19 +14,22 @@ const styles = {
     hover:brightness-90 active:shadow-[inset_0px_0px_8px_1px] cursor-pointer`,
 };
 
-const MatchSidebar = () => {
+const MatchSidebar = ({ activeMessage }) => {
     const [matchData, setMatchData] = useState(null);
     const [index, setIndex] = useState(0);
     const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
-        fetch("/matches/daniel.json")
+        fetch("/fake-users-list.json")
             .then((res) => res.json())
             .then((data) => {
-                setMatchData(data);
+                const match = data.find((m) => m.id === activeMessage);
+                if (match) {
+                    setMatchData(match);
+                }
             })
             .catch((err) => console.error("Error loading match data:", err));
-    }, []);
+    }, [activeMessage]);    
 
     const data = matchData || placeholderMatch;
 
@@ -45,7 +48,7 @@ const MatchSidebar = () => {
     return (
         <div className="flex flex-col max-h-[100vh]">
             <div className={styles.header}>
-                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_2px]" src={data.profilePic} alt={data.name} />
+                <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_2px]" src={data["profile-pic"]} alt={data.name} />
                 <p className="font-bold">{data.name}</p>
             </div>
             <div className="relative flex justify-center items-center h-[60vh] w-full overflow-hidden cursor-pointer">

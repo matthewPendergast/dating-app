@@ -14,17 +14,18 @@ const styles = {
         after:shadow-md after:border-[2px] after:border-gray-400 after:[border-style:none_outset_outset_outset] after:bg-white`,
     tailL: `after:left-6 after:rounded-br-[15rem]`,
     tailR: `after:right-6 after:rounded-bl-[15rem]`,
-    messageImage: `h-full w-full object-cover rounded-3xl hover:brightness-90 cursor-pointer`,
+    messageImage: `h-full min-h-[8rem] w-full object-cover rounded-3xl hover:brightness-90 cursor-pointer`,
 };
 
 const Dashboard = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const [activeMessage, setActiveMessage] = useState(null);
 
     return (
         <>
             <Layout
             leftContent={
-                <UserSidebar />
+                <UserSidebar activeMessage={activeMessage} setActiveMessage={setActiveMessage} />
             }
             centerContent={
                 <>
@@ -55,7 +56,7 @@ const Dashboard = () => {
                 </>
             }
             rightContent={
-                <MatchSidebar />
+                <MatchSidebar activeMessage={activeMessage} />
             }
             leftClassName=""
             centerClassName="bg-gradient-to-b from-[#a44d6d] to-[#fe94bc] shadow-[inset_0px_0px_7px_2px]"
