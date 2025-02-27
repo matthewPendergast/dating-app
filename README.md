@@ -14,7 +14,8 @@
 
 <h2>Roadmap</h2>
 
-<p>Note: Signup page and backend currently disabled/not in use while project undergoes conversion to React + Tailwind (Started: 2/17/2025)</p>
+<p align="center">🚧 <strong>Note</strong> 🚧</p>
+<p align="center">Signup page and backend currently disabled/not in use while project undergoes conversion to React + Tailwind -- will be restored later</p>
 
 <h3>Static Frontend (HTML, CSS, JavaScript, Sass)</h3>
 <ul>
@@ -38,7 +39,8 @@
     <p>🔄 Implement Dashboard functionality</p>
     <ul>
         <p>✅ Image interactions (modals, Match sidebar slider)</p>
-        <p>⬜ Messaging interface (view Like/Match messages), update Match sidebar image slider</p>
+        <p>✅ Match sidebar image slide updates alongside selected Message Preview</p>
+        <p>⬜ Messaging interface (view Like/Match messages)</p>
         <p>⬜ Make Match 'View Profile' interface</p>
         <p>⬜ Make user profile interface</p>
         <p>⬜ Implement quasi-functional Match sidebar buttons</p>

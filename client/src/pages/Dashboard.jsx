@@ -39,7 +39,7 @@ const Dashboard = () => {
                         </div>
                         <div className={`${styles.bubble} ${styles.imgBubble} ${styles.after} ${styles.tailL} self-start`}>
                             <img className={`${styles.messageImage}`}
-                                src="/images/fake-users/portrait-2.webp"
+                                src="/images/fake-users/daniel-3.webp"
                                 alt="Portrait of young man"
                                 onClick={(event) => setSelectedImage(event.target.src)} />
                         </div>
