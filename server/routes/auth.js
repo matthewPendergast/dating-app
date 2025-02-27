@@ -1,7 +1,7 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { pool } from "../app.js";
+import { pool } from "../config/db.js";
 
 const router = express.Router();
 
@@ -13,36 +13,31 @@ router.post("/login", async (req, res) => {
         const user = userQuery.rows[0];
 
         if (!user) {
-            return res.status(404).json({ errors: ["User not found."] });
-
+            return res.status(404).json({ success: false, errors: ["User not found."] });
         }
 
-        const match = bcrypt.compareSync(password, user.password);
+        const match = await bcrypt.compare(password, user.password);
         if (!match) {
-            return res.status(404).json({ errors: ["Incorrect password."] });
-
+            return res.status(401).json({ success: false, errors: ["Incorrect password."] });
         }
 
         const tokenValue = jwt.sign(
-            {
-                exp: Math.floor(Date.now() / 1000) + 86400,
-                userID: user.id,
-                username: user.username,
-            },
-            process.env.JWTVAL
+            { userID: user.id, username: user.username },
+            process.env.JWTVAL,
+            { expiresIn: "1d" }
         );
 
         res.cookie("app", tokenValue, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            maxAge: 86400000
+            maxAge: 86400000,
         });
 
-        res.redirect("/");
+        res.status(200).json({ success: true, message: "Login successful", token: tokenValue });
     } catch (error) {
         console.error(error);
-        res.render("login", { errors: ["An error occurred. Please try again."] });
+        res.status(500).json({ success: false, errors: ["An error occurred. Please try again."] });
     }
 });
 
@@ -50,7 +45,6 @@ router.post("/register", async (req, res) => {
     const { username, password, first_name, last_name, dob, gender } = req.body;
     let errors = [];
 
-    // Validate Inputs (Same as before)
     const usernameRegex = /^[A-Za-z0-9]+$/;
     if (!username || username.length < 3 || !usernameRegex.test(username)) {
         errors.push("Username must be at least 3 characters long and contain only letters and numbers.");
@@ -89,24 +83,19 @@ router.post("/register", async (req, res) => {
         errors.push("Invalid gender selection.");
     }
 
-    // Check if Username Exists
+    if (errors.length > 0) {
+        return res.status(400).json({ success: false, errors });
+    }
+
     try {
         const userExists = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
-
         if (userExists.rowCount > 0) {
-            errors.push("Username is already taken.");
+            return res.status(400).json({ success: false, errors: ["Username is already taken."] });
         }
 
-        // If errors exist, re-render signup page with error messages
-        if (errors.length > 0) {
-            return res.status(400).json({ errors });
-        }
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Hash the Password
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-
-        // Insert the User into PostgreSQL
         const newUser = await pool.query(
             "INSERT INTO users (username, password, first_name, last_name, dob, gender) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, username",
             [username, hashedPassword, first_name, last_name, dob, gender]
@@ -114,35 +103,29 @@ router.post("/register", async (req, res) => {
 
         const user = newUser.rows[0];
 
-        // Generate JWT Token
         const tokenValue = jwt.sign(
-            {
-                exp: Math.floor(Date.now() / 1000) + 86400, // 1 day expiration
-                userID: user.id,
-                username: user.username,
-            },
-            process.env.JWTVAL
+            { userID: user.id, username: user.username },
+            process.env.JWTVAL,
+            { expiresIn: "1d" }
         );
 
-        // Set Cookie
         res.cookie("app", tokenValue, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
-            maxAge: 86400000 // 1 day
+            maxAge: 86400000,
         });
 
-        res.redirect("/index");
+        res.status(201).json({ success: true, message: "User registered successfully", token: tokenValue });
     } catch (error) {
         console.error(error);
-        res.render("signup", { errors: ["An error occurred. Please try again."] });
+        res.status(500).json({ success: false, errors: ["An error occurred. Please try again."] });
     }
 });
 
 router.get("/logout", (req, res) => {
     res.clearCookie("app");
-    res.redirect("/index");
+    res.status(200).json({ success: true, message: "Logout successful" });
 });
 
-// Change module.exports to export default
 export default router;

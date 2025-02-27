@@ -22,7 +22,7 @@ const RenderMessagePreviews = ({ users, activeMessage, setActiveMessage }) => {
         <MessagePreview
             key={user.id}
             name={user.name ?? "Error"}
-            image={user["profile-pic"] ?? "/images/default-profile.webp"}
+            image={user.profilePic ?? "/images/default-profile.webp"}
             message={user.message ?? "No message available"}
             onClick={() => setActiveMessage(user.id)}
             className={user.id === activeMessage ? "brightness-90 shadow-[inset_0px_0px_8px_1px]" : "brightness-100 shadow-[inset_0px_0px_6px_1px]"}

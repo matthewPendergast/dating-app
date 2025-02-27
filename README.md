@@ -38,11 +38,10 @@
     <p>✅ Dashboard page (mockup)</p>
     <p>🔄 Implement Dashboard functionality</p>
     <ul>
-        <p>✅ Image interactions (modals, Match sidebar slider)</p>
-        <p>✅ Match sidebar image slider updates alongside selected Message Preview</p>
-        <p>⬜ Messaging interface (view Like/Match messages)</p>
-        <p>⬜ Make Match 'View Profile' interface</p>
+        <p>✅ Image interactions (modals, Match Sidebar image slider)</p>
+        <p>✅ Make Match 'View Profile' interface</p>
         <p>⬜ Make user profile interface</p>
+        <p>⬜ Messaging interface (view Like/Match messages)</p>
         <p>⬜ Implement quasi-functional Match sidebar buttons</p>
     </ul>
     <p>⬜ Login page</p>

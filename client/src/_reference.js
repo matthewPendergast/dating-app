@@ -22,3 +22,11 @@ root.render(
     <h1 style={customStyle}>Hello</h1>
   </React.StrictMode>
 );
+
+
+//
+function functionName() {
+
+}
+
+<button onClick={functionName}></button>
