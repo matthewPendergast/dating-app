@@ -39,7 +39,7 @@
     <p>🔄 Implement Dashboard functionality</p>
     <ul>
         <p>✅ Image interactions (modals, Match sidebar slider)</p>
-        <p>✅ Match sidebar image slide updates alongside selected Message Preview</p>
+        <p>✅ Match sidebar image slider updates alongside selected Message Preview</p>
         <p>⬜ Messaging interface (view Like/Match messages)</p>
         <p>⬜ Make Match 'View Profile' interface</p>
         <p>⬜ Make user profile interface</p>
