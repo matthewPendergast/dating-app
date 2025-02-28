@@ -10,10 +10,10 @@ const styles = {
         bg-gradient-to-b from-[#059cff] to-[#07e6ff] shadow-[inset_0px_0px_10px_2px]
         hover:brightness-90 cursor-pointer`,
     button: `flex justify-center items-center gap-2 flex-grow shadow-[inset_0px_0px_5px_1px] bg-white
-        hover:brightness-90 cursor-pointer active:shadow-[inset_0px_0px_8px_1px]`,
-    buttonIn: `brightness-90 shadow-[inset_0px_0px_8px_1px]`,
-    buttonOut: `brightness-100 shadow-[inset_0px_0px_5px_1px]`,
-    messages: `flex flex-col h-[78vh] bg-gray-400 shadow-[inset_0px_0px_5px_1px]
+        hover:bg-gray-200 cursor-pointer active:shadow-[inset_0px_0px_8px_1px]`,
+    buttonIn: `bg-gray-200 shadow-[inset_0px_0px_8px_1px]`,
+    buttonOut: `bg-white shadow-[inset_0px_0px_5px_1px]`,
+    messages: `flex flex-col h-[78vh] bg-gray-200 shadow-[inset_0px_0px_5px]
         overflow-x-hidden overflow-y-auto custom-scrollbar-sidebar`,
 };
 
@@ -25,7 +25,7 @@ const RenderMessagePreviews = ({ users, activeMessage, setActiveMessage }) => {
             image={user.profilePic ?? "/images/default-profile.webp"}
             message={user.message ?? "No message available"}
             onClick={() => setActiveMessage(user.id)}
-            className={user.id === activeMessage ? "brightness-90 shadow-[inset_0px_0px_8px_1px]" : "brightness-100 shadow-[inset_0px_0px_6px_1px]"}
+            className={user.id === activeMessage ? "bg-gray-200 shadow-[inset_-1px_-1px_9px_1px]" : "bg-white shadow-[inset_-1px_-1px_7px_1px]"}
         />
     ));
 };
@@ -73,13 +73,11 @@ const UserSidebar = ({ activeMessage, setActiveMessage }) => {
                 </div>
             </div>
             <div className={styles.messages}>
-            <div className={styles.messages}>
-            <RenderMessagePreviews 
-                users={activeTab === "likes" ? data.likes : data.matches} 
-                activeMessage={activeMessage} 
-                setActiveMessage={setActiveMessage} 
-            />
-            </div>
+                <RenderMessagePreviews 
+                    users={activeTab === "likes" ? data.likes : data.matches} 
+                    activeMessage={activeMessage} 
+                    setActiveMessage={setActiveMessage} 
+                />
             </div>
             <div className="h-[2vh] shadow-[inset_0px_0px_6px_1px]" />
         </div>

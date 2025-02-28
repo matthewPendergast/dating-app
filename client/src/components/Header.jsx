@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 const styles = {
-    bubble: "flex relative w-11/12 h-[15%] min-h-[5rem] p-1 rounded-[2rem] border-gray-400 shadow-md border-[2px] mt-2 mx-auto bg-white",
-    after: `after:content-[''] after:absolute after:bottom-[-9px] after:left-6 after:w-[10px] after:h-[7px]
+    bubble: "flex relative w-11/12 h-[15%] min-h-[5rem] p-1 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] mt-2 mx-auto bg-white",
+    after: `after:content-[''] after:absolute after:bottom-[-7px] after:left-7 after:w-[10px] after:h-[7px]
         after:bg-white after:shadow-md after:border-[2px] after:border-gray-400 after:[border-style:none_outset_outset_outset] after:rounded-br-[15rem]`,
     logo: `
         absolute top-3 left-3 h-[2.5rem] w-auto object-contain

@@ -2,12 +2,12 @@ import "../assets/styles/scrollbar.css";
 
 const styles = {
     bubble: `flex items-center relative max-h-[12rem] min-h-[3rem] w-auto max-w-[50%]
-        p-3 mx-[5%] my-4 rounded-[2rem] border-gray-400 shadow-md border-[2px] bg-white`,
+        p-3 mx-[5%] my-4 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] bg-white`,
     imgBubble: `flex-shrink-0 min-h-[10rem] min-w-[15vw]`,
-    after: `after:content-[''] after:absolute after:bottom-[-9px] after:w-[10px] after:h-[7px]
+    after: `after:content-[''] after:absolute after:bottom-[-7px] after:w-[10px] after:h-[7px]
         after:shadow-md after:border-[2px] after:border-gray-400 after:[border-style:none_outset_outset_outset] after:bg-white`,
-    tailL: `after:left-6 after:rounded-br-[15rem]`,
-    tailR: `after:right-6 after:rounded-bl-[15rem]`,
+    tailL: `after:left-7 after:rounded-br-[15rem]`,
+    tailR: `after:right-7 after:rounded-bl-[15rem]`,
     messageImage: `h-full min-h-[8rem] w-full object-cover rounded-3xl hover:brightness-90 cursor-pointer`,
 };
 
@@ -43,23 +43,42 @@ const CenterContent = ({ activeView, selectedMatch, setActiveView, setSelectedIm
                     <div className="flex justify-center items-center h-[25rem] w-full">
                         <img src={selectedMatch?.profilePic} alt={selectedMatch?.name} className="h-[95%] object-cover rounded-lg shadow-[0px_0px_5px_2px]" />
                     </div>
-                    <div className="flex flex-col items-center w-[50%] p-3 rounded-[2rem] border-gray-400 shadow-md border-[2px] bg-white">
+                    <div className="flex flex-col items-center w-[50%] p-3 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] bg-white">
                         <div className="flex gap-1">
                             <h2 className="font-semibold">{selectedMatch?.name || "[Error: Missing Name]"},</h2>
                             <p>{selectedMatch.age}</p>
+                            {selectedMatch.verified && <i className="fa-solid fa-circle-check text-[#059cff] self-center"></i>}
                         </div>
-                        {selectedMatch?.height && <p>{selectedMatch.height}</p>}
+                        <div className="flex gap-1">
+                            {selectedMatch?.heightft >= 0 && <p>{selectedMatch.heightft} ft</p>}
+                            {selectedMatch?.heightin >= 0 && <p>{selectedMatch.heightin} in</p>}
+                            {selectedMatch?.heightcm >= 0 && <p>/ {selectedMatch.heightcm} cm</p>}
+                        </div>
                         {selectedMatch?.lastActive && <p>Last Active: {selectedMatch.lastActive} ago</p>}
-                        {selectedMatch?.jobTitle && <p>Job: {selectedMatch.jobTitle}</p>}
-                        {selectedMatch?.school && <p>School: {selectedMatch.school}</p>}
+                        {selectedMatch?.jobTitle && <p><i className="fa-solid fa-suitcase pr-1"></i>{selectedMatch.jobTitle}</p>}
+                        {selectedMatch?.school && <p><i className="fa-solid fa-building-columns pr-1"></i>{selectedMatch.school}</p>}
                     </div>
-                    <div className="flex flex-col items-center w-[50%] rounded-[2rem] py-3 border-gray-400 shadow-md border-[2px] bg-white">
-                        <h2 className="font-semibold">About Me:</h2>
-                        <p className="w-[90%] py-2">{selectedMatch?.about || "No bio available."}</p>
-                    </div>
+                    {selectedMatch.about &&
+                        <div className="flex flex-col items-center w-[50%] rounded-[2rem] py-3 shadow-[inset_-1px_-1px_5px_1px] bg-white">
+                            <h2 className="font-semibold">About Me:</h2>
+                            <p className="w-[90%] py-2">{selectedMatch.about}</p>
+                        </div>
+                    }
+                    {selectedMatch.hasInfo &&
+                        <div className="flex flex-col items-center w-[50%] rounded-[2rem] py-3 shadow-[inset_-1px_-1px_5px_1px] bg-white">
+                            <h2 className="font-semibold">Info:</h2>
+                            {selectedMatch?.zodiac && <p><i className="fa-solid fa-scale-balanced pr-1"></i>{selectedMatch.zodiac}</p>}
+                            {selectedMatch?.education && <p><i className="fa-solid fa-graduation-cap pr-1"></i>{selectedMatch.education}</p>}
+                            {selectedMatch?.children && <p><i className="fa-solid fa-baby-carriage pr-1"></i>{selectedMatch.children}</p>}
+                            {selectedMatch?.pets && <p><i className="fa-solid fa-paw pr-1"></i>{selectedMatch.pets}</p>}
+                            {selectedMatch?.drinking && <p><i className="fa-solid fa-martini-glass pr-1"></i>{selectedMatch.drinking}</p>}
+                            {selectedMatch?.smoking && <p><i className="fa-solid fa-smoking pr-1"></i>{selectedMatch.smoking}</p>}
+                            {selectedMatch?.workout && <p><i className="fa-solid fa-dumbbell pr-1"></i>{selectedMatch.workout}</p>}
+                        </div>
+                    }
                     <button
                         onClick={() => setActiveView("messages")}
-                        className={`${styles.bubble} self-start mx-[2%] `}>
+                        className={`${styles.bubble} self-start mx-[2%] hover:brightness-90`}>
                         ← Back to Messages
                     </button>
                 </div>

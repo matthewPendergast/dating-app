@@ -78,16 +78,16 @@ const MatchSidebar = ({ activeMessage, setActiveView, setSelectedMatch }) => {
                     className="absolute bottom-0 left-2 text-white p-2 rounded-full hover:brightness-90"
                     style={{textShadow:"3px 3px black"}}
                     onClick={prevImage}>
-                        <i className="text-2xl fa-regular fa-square-caret-left"></i>
-                    </button>
+                    <i className="text-2xl fa-regular fa-square-caret-left"></i>
+                </button>
                 <img className="w-full h-full object-cover object-center" src={imgSrc} alt=""
                     onClick={() => setSelectedImage(imgSrc)} />
                 <button 
                     className="absolute bottom-0 right-2 text-white p-2 rounded-full hover:brightness-90"
                     style={{textShadow:"3px 3px black"}}
                     onClick={nextImage}>
-                        <i className="text-2xl fa-regular fa-square-caret-right"></i>
-                    </button>
+                    <i className="text-2xl fa-regular fa-square-caret-right"></i>
+                </button>
             </div>
             <div className="flex flex-wrap h-[25vh]">
                 {["View Profile", "Video Call", "Unmatch", "Report"].map((text) => (
