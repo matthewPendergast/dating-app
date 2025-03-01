@@ -40,7 +40,7 @@
     <ul>
         <p>✅ Image interactions (modals, Match Sidebar image slider)</p>
         <p>✅ Make Match 'View Profile' interface</p>
-        <p>⬜ Make user profile interface</p>
+        <p>✅ Make user profile interface</p>
         <p>⬜ Messaging interface (view Like/Match messages)</p>
         <p>⬜ Implement quasi-functional Match sidebar buttons</p>
     </ul>

@@ -69,7 +69,7 @@ const MatchSidebar = ({ activeMessage, setActiveView, setSelectedMatch }) => {
 
     return (
         <div className="flex flex-col max-h-[100vh]">
-            <div className={styles.header}>
+            <div className={styles.header} onClick={() => handleButtonClick("View Profile")}>
                 <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_2px]" src={data.profilePic} alt={data.name} />
                 <p className="font-bold">{data.name}</p>
             </div>

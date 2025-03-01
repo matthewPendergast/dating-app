@@ -1,13 +1,40 @@
 [
     {
         "id": 1,
+        "name": "Elizabeth",
+        "age": 24,
+        "verified": true,
+        "heightft": 5,
+        "heightin": 6,
+        "heightcm": 168,
+        "lastActive": "now",
+        "jobTitle": "Behavioral Analyst",
+        "school": "Local State University",
+        "about": "Always up for good company, spontaneous adventures, and meaningful connections. Let’s see where things go! ☺️",
+        "hasInfo": true,
+        "zodiac": "Libra",
+        "education": "Bachelors",
+        "children": "Don't have but want",
+        "pets": "Cat",
+        "drinking": "Sometimes",
+        "smoking": "Never",
+        "workout": "Often",
+        "profilePic": "/images/fake-users/portrait-1.webp",
+        "message": "",
+        "type": "self",
+        "images": [
+            "/images/fake-users/portrait-1.webp"
+        ]
+    },
+    {
+        "id": 2,
         "name": "Daniel",
         "age": 27,
         "verified": true,
         "heightft": 5,
         "heightin": 10,
         "heightcm": 178,
-        "lastActive": "18 hours",
+        "lastActive": "now",
         "jobTitle": "Graphic Designer",
         "school": "Local State University",
         "about": "Life’s too short not to smile. Looking for someone to share laughs, adventures, and late-night talks. Let’s make some memories!",
@@ -31,7 +58,7 @@
         ]
     },
     {
-        "id": 2,
+        "id": 3,
         "name": "Felipe",
         "age": 29,
         "verified": true,
@@ -61,7 +88,7 @@
         ]
     },
     {
-        "id": 3,
+        "id": 4,
         "name": "Orlando",
         "age": 24,
         "verified": false,
@@ -90,7 +117,7 @@
         ]
     },
     {
-        "id": 4,
+        "id": 5,
         "name": "Jameson",
         "age": 22,
         "verified": false,
@@ -118,7 +145,7 @@
         ]
     },
     {
-        "id": 5,
+        "id": 6,
         "name": "Ashley",
         "age": 23,
         "verified": true,
@@ -147,7 +174,7 @@
         ]
     },
     {
-        "id": 6,
+        "id": 7,
         "name": "Ellie",
         "age": 26,
         "verified": false,
@@ -175,7 +202,7 @@
         ]
     },
     {
-        "id": 7,
+        "id": 8,
         "name": "Nathan",
         "age": 30,
         "verified": true,
@@ -203,7 +230,7 @@
         ]
     },
     {
-        "id": 8,
+        "id": 9,
         "name": "Wes",
         "age": 22,
         "verified": false,
@@ -231,7 +258,7 @@
         ]
     },
     {
-        "id": 9,
+        "id": 10,
         "name": "Aidan",
         "age": 25,
         "verified": true,
@@ -259,7 +286,7 @@
         ]
     },
     {
-        "id": 10,
+        "id": 11,
         "name": "Samuel",
         "age": 29,
         "verified": false,
@@ -287,7 +314,7 @@
         ]
     },
     {
-        "id": 11,
+        "id": 12,
         "name": "Rico",
         "verified": false,
         "age": 33,
@@ -315,7 +342,7 @@
         ]
     },
     {
-        "id": 12,
+        "id": 13,
         "name": "Lane",
         "age": 36,
         "verified": true,
@@ -343,7 +370,7 @@
         ]
     },
     {
-        "id": 13,
+        "id": 14,
         "name": "George",
         "age": 38,
         "verified": true,
@@ -371,7 +398,7 @@
         ]
     },
     {
-        "id": 14,
+        "id": 15,
         "name": "Janice",
         "age": 22,
         "verified": true,
@@ -399,7 +426,7 @@
         ]
     },
     {
-        "id": 15,
+        "id": 16,
         "name": "Kalen",
         "age": 18,
         "verified": false,
@@ -426,7 +453,7 @@
         ]
     },
     {
-        "id": 16,
+        "id": 17,
         "name": "trev",
         "age": 20,
         "verified": false,

@@ -20,6 +20,8 @@ const Dashboard = () => {
                 <UserSidebar
                     activeMessage={activeMessage}
                     setActiveMessage={setActiveMessage}
+                    setSelectedMatch={setSelectedMatch}
+                    setActiveView={setActiveView}
                 />
             }
             centerContent={

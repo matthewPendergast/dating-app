@@ -30,17 +30,18 @@ const RenderMessagePreviews = ({ users, activeMessage, setActiveMessage }) => {
     ));
 };
 
-const UserSidebar = ({ activeMessage, setActiveMessage }) => {
-    const [data, setData] = useState({ likes: [], matches: [] });
+const UserSidebar = ({ activeMessage, setActiveMessage, setSelectedMatch, setActiveView }) => {
+    const [data, setData] = useState({ self: [], likes: [], matches: [] });
     const [activeTab, setActiveTab] = useState("matches");
 
     useEffect(() => {
         fetch("/fake-users-list.json")
             .then(res => res.json())
             .then(users => {
+                const self = users.filter(user => user.type === "self");
                 const likes = users.filter(user => user.type === "like");
                 const matches = users.filter(user => user.type === "match");
-                setData({ likes, matches });
+                setData({ self, likes, matches });
             })
             .catch(error => console.error("Error loading user data:", error));
     }, []);
@@ -54,7 +55,11 @@ const UserSidebar = ({ activeMessage, setActiveMessage }) => {
 
     return (
         <div className="flex flex-col max-h-[100vh]">
-            <div className={styles.header}>
+            <div className={styles.header} onClick={() => {
+                setSelectedMatch(data.self[0]);
+                setActiveView("View Profile");
+            }
+            }>
                 <img className="h-[70%] rounded-[50%] shadow-[0px_0px_5px_2px]" src={profilePic} alt="" />
                 <p className="font-bold">My Profile</p>
             </div>
