@@ -14,7 +14,7 @@ const styles = {
     hover:brightness-90 active:shadow-[inset_0px_0px_8px_1px] cursor-pointer`,
 };
 
-const MatchSidebar = ({ activeMessage, setActiveView, setSelectedMatch }) => {
+const MatchSidebar = ({ activeMessage, setActiveView, setSelectedMatch, setActiveSection, isMobile }) => {
     const [matchData, setMatchData] = useState(null);
     const [index, setIndex] = useState(0);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -23,7 +23,8 @@ const MatchSidebar = ({ activeMessage, setActiveView, setSelectedMatch }) => {
         fetch("/fake-users-list.json")
             .then((res) => res.json())
             .then((data) => {
-                const match = data.find((m) => m.id === activeMessage);
+                const target = activeMessage || 2;
+                const match = data.find((m) => m.id === target);
                 if (match) {
                     setMatchData(match);
                 }
@@ -37,6 +38,9 @@ const MatchSidebar = ({ activeMessage, setActiveView, setSelectedMatch }) => {
         if (matchData) {
             setSelectedMatch(matchData);
             setActiveView("profile");
+        }
+        if (isMobile) {
+            setActiveSection("center");
         }
     };
 

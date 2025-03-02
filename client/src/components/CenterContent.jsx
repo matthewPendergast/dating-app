@@ -66,8 +66,8 @@ const CenterContent = ({ activeView, selectedMatch, setActiveView, setSelectedIm
                             {selectedMatch?.heightin >= 0 && <p>{selectedMatch.heightin} in</p>}
                             {selectedMatch?.heightcm >= 0 && <p>/ {selectedMatch.heightcm} cm</p>}
                         </div>
-                        {selectedMatch?.jobTitle && <p><i className="fa-solid fa-suitcase pr-1"></i>{selectedMatch.jobTitle}</p>}
-                        {selectedMatch?.school && <p><i className="fa-solid fa-building-columns pr-1"></i>{selectedMatch.school}</p>}
+                        {selectedMatch?.jobTitle && <p><i className="fa-solid fa-suitcase pr-2"></i>{selectedMatch.jobTitle}</p>}
+                        {selectedMatch?.school && <p><i className="fa-solid fa-building-columns pr-2"></i>{selectedMatch.school}</p>}
                     </div>
                     {selectedMatch.about &&
                         <div className="flex flex-col items-center gap-1 w-[75%] rounded-[2rem] py-3 pb-5 my-1 shadow-[inset_-1px_-1px_5px_1px] bg-white">

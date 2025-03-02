@@ -10,7 +10,7 @@ const MessagePreview = ({
     const [loaded, setLoaded] = useState(false);
 
     return (
-        <div className={`flex flex-shrink-0 h-[6rem] border-gray-400 border-[1px] shadow-[inset_-1px_-1px_7px_1px] bg-white hover:bg-gray-200 active:shadow-[inset_-1px_-1px_9px_1px] cursor-pointer ${className}`}
+        <div className={`flex flex-shrink-0 h-[6rem] border-gray-400 border-[1px] shadow-[inset_-1px_-1px_7px_1px] hover:bg-gray-200 active:shadow-[inset_-1px_-1px_9px_1px] cursor-pointer ${className}`}
             onClick={onClick}>
             <div className="w-[35%] h-full flex justify-center items-center rounded-full overflow-hidden">
                 <img

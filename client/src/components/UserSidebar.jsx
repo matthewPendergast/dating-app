@@ -17,20 +17,30 @@ const styles = {
         overflow-x-hidden overflow-y-auto custom-scrollbar-sidebar`,
 };
 
-const RenderMessagePreviews = ({ users, activeMessage, setActiveMessage }) => {
-    return users.map(user => (
-        <MessagePreview
-            key={user.id}
-            name={user.name ?? "Error"}
-            image={user.profilePic ?? "/images/default-profile.webp"}
-            message={user.message ?? "No message available"}
-            onClick={() => setActiveMessage(user.id)}
-            className={user.id === activeMessage ? "bg-gray-200 shadow-[inset_-1px_-1px_9px_1px]" : "bg-white shadow-[inset_-1px_-1px_7px_1px]"}
-        />
-    ));
+const RenderMessagePreviews = ({ users, activeMessage, setActiveMessage, setActiveSection, isMobile }) => {
+    return users.map(user => {
+        const isActive = user.id === activeMessage;
+        return (
+            <MessagePreview
+                key={user.id}
+                name={user.name ?? "Error"}
+                image={user.profilePic ?? "/images/default-profile.webp"}
+                message={user.message ?? "No message available"}
+                onClick={() => {
+                    setActiveMessage(user.id);
+                    if (isMobile) setActiveSection("right");
+                }}
+                className={`p-2 transition-colors duration-200 cursor-pointer ${
+                    isActive 
+                        ? "bg-gray-200 shadow-[inset_-1px_-1px_9px_1px]" 
+                        : "bg-white shadow-[inset_-1px_-1px_7px_1px]"
+                }`}
+            />
+        );
+    });
 };
 
-const UserSidebar = ({ activeMessage, setActiveMessage, setSelectedMatch, setActiveView }) => {
+const UserSidebar = ({ activeMessage, setActiveMessage, setSelectedMatch, setMatches, setActiveView, setActiveSection, isMobile }) => {
     const [data, setData] = useState({ self: [], likes: [], matches: [] });
     const [activeTab, setActiveTab] = useState("matches");
 
@@ -42,17 +52,18 @@ const UserSidebar = ({ activeMessage, setActiveMessage, setSelectedMatch, setAct
                 const likes = users.filter(user => user.type === "like");
                 const matches = users.filter(user => user.type === "match");
                 setData({ self, likes, matches });
+                setMatches(matches);
             })
             .catch(error => console.error("Error loading user data:", error));
     }, []);
 
     useEffect(() => {
         const users = activeTab === "likes" ? data.likes : data.matches;
-        if (users.length > 0) {
+        if (users.length > 0 && !activeMessage) {
             setActiveMessage(users[0].id);
         }
-    }, [data, activeTab, setActiveMessage]);
-
+    }, [data, activeTab, activeMessage, setActiveMessage]);
+    
     return (
         <div className="flex flex-col max-h-[100vh]">
             <div className={styles.header} onClick={() => {
@@ -81,13 +92,14 @@ const UserSidebar = ({ activeMessage, setActiveMessage, setSelectedMatch, setAct
                 <RenderMessagePreviews 
                     users={activeTab === "likes" ? data.likes : data.matches} 
                     activeMessage={activeMessage} 
-                    setActiveMessage={setActiveMessage} 
+                    setActiveMessage={setActiveMessage}
+                    setActiveSection={setActiveSection}
+                    isMobile={isMobile}
                 />
             </div>
             <div className="h-[2vh] shadow-[inset_0px_0px_6px_1px]" />
         </div>
     );
 };
-
 
 export default UserSidebar;

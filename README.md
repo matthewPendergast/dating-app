@@ -1,9 +1,9 @@
 <div align="center">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" height="50" title="React" alt="React"/>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" height="50" title="Tailwind CSS" alt="Tailwind CSS"/>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" height="50" title="Node.js" alt="Node.js"/>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" height="50" title="Express.js" alt="Express.js"/>
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" height="50" title="PostgreSQL" alt="PostgreSQL"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" height="30" title="React" alt="React"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" height="30" title="Tailwind CSS" alt="Tailwind CSS"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" height="30" title="Node.js" alt="Node.js"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/express/express-original.svg" height="30" title="Express.js" alt="Express.js"/>
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" height="30" title="PostgreSQL" alt="PostgreSQL"/>
 </div>
 
 <h1>Overview</h1>
@@ -40,7 +40,8 @@
     <ul>
         <p>✅ Image interactions (modals, Match Sidebar image slider)</p>
         <p>✅ Make Match 'View Profile' interface</p>
-        <p>✅ Make user profile interface</p>
+        <p>✅ Make User 'View Profile' interface</p>
+        <p>✅ Improve mobile UI</p>
         <p>⬜ Messaging interface (view Like/Match messages)</p>
         <p>⬜ Implement quasi-functional Match sidebar buttons</p>
     </ul>
@@ -48,7 +49,7 @@
     <p>⬜ Signup page</p>
 </ul>
 
-<h3>Expand Backend</h3>
+<h3>Expand Functionality</h3>
 <ul>
     <p>⬜ Implement basic messaging system</p>
     <p>⬜ Store message history</p>

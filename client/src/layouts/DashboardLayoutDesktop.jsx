@@ -1,4 +1,4 @@
-const DashboardLayout = ({
+const DashboardLayoutDesktop = ({
     leftContent, centerContent, rightContent,
     leftClassName = "",
     centerClassName = "",
@@ -19,4 +19,4 @@ const DashboardLayout = ({
     );
 }
 
-export default DashboardLayout;
+export default DashboardLayoutDesktop;
