@@ -7,7 +7,6 @@ node_modules
 _dev/
 build/
 template_index.html
-reference.js
 
 # Migration (temporary)
 server/views

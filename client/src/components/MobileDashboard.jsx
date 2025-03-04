@@ -14,14 +14,15 @@ const MobileDashboard = ({
     setSelectedMatch, 
     handlers, 
     activeSection,
-    setActiveSection 
+    setActiveSection,
+    isMobile
 }) => {
     const [activeSection, setActiveSection] = useState("center");
 
     return (
         <div {...handlers} className="flex flex-col h-screen w-screen overflow-hidden bg-gray-100">
             <Header />
-            <div className="flex-1 flex justify-center items-center p-4">
+            <div className="flex justify-center items-center p-4">
                 {activeSection === "left" && <UserSidebar 
                     activeMessage={activeMessage}
                     setActiveMessage={setActiveMessage}
@@ -33,26 +34,13 @@ const MobileDashboard = ({
                     selectedMatch={selectedMatch}
                     setActiveView={setActiveView}
                     setSelectedImage={setSelectedImage}
+                    isMobile={isMobile}
                 />}
                 {activeSection === "right" && <MatchSidebar
                     activeMessage={activeMessage}
                     setActiveView={setActiveView}
                     setSelectedMatch={setSelectedMatch}
                 />}
-            </div>
-            <div className="flex justify-between p-4 bg-gray-300">
-                <button className={`px-4 py-2 rounded ${activeSection === "left" ? "bg-gray-600 text-white" : "bg-gray-400"}`}
-                        onClick={() => setActiveSection("left")}>
-                    Users
-                </button>
-                <button className={`px-4 py-2 rounded ${activeSection === "center" ? "bg-gray-600 text-white" : "bg-gray-400"}`}
-                        onClick={() => setActiveSection("center")}>
-                    Chat
-                </button>
-                <button className={`px-4 py-2 rounded ${activeSection === "right" ? "bg-gray-600 text-white" : "bg-gray-400"}`}
-                        onClick={() => setActiveSection("right")}>
-                    Matches
-                </button>
             </div>
         </div>
     );

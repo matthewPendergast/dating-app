@@ -3,7 +3,6 @@ import { useSwipeable } from "react-swipeable";
 import useScreenSize from "../hooks/useScreenSize";
 import DesktopLayout from "../layouts/DashboardLayoutDesktop";
 import MobileLayout from "../layouts/DashboardLayoutMobile";
-import Header from "../components/Header";
 import UserSidebar from "../components/UserSidebar";
 import CenterContent from "../components/CenterContent";
 import MatchSidebar from "../components/MatchSidebar";
@@ -50,12 +49,12 @@ const Dashboard = () => {
         />
     ) : activeSection === "center" ? (
         <>
-            <Header />
             <CenterContent 
                 activeView={activeView}
                 selectedMatch={selectedMatch}
                 setActiveView={setActiveView}
                 setSelectedImage={setSelectedImage}
+                isMobile={isMobile}
             />
         </>
     ) : (
@@ -74,24 +73,11 @@ const Dashboard = () => {
     return (
         isMobile ? (
             <>
-            <div className="flex justify-between p-4 bg-black">
-                <button className={`w-[25%] px-4 py-2 rounded ${activeSection === "left" ? "bg-gray-500 text-white" : "bg-gray-200"}`}
-                        onClick={() => setActiveSection("left")}>
-                    Users
-                </button>
-                <button className={`w-[25%] px-4 py-2 rounded ${activeSection === "center" ? "bg-gray-500 text-white" : "bg-gray-200"}`}
-                        onClick={() => setActiveSection("center")}>
-                    Chat
-                </button>
-                <button className={`w-[25%] px-4 py-2 rounded ${activeSection === "right" ? "bg-gray-500 text-white" : "bg-gray-200"}`}
-                        onClick={() => setActiveSection("right")}>
-                    Matches
-                </button>
-            </div>
             <MobileLayout 
                 {...handlers}
                 content={mobileContent}
                 className={mobileClassName}
+                isMobile={isMobile}
             />
         </>
         ) : (
@@ -107,7 +93,6 @@ const Dashboard = () => {
             }
             centerContent={
                 <>
-                    <Header />
                     <CenterContent 
                         activeView={activeView}
                         selectedMatch={selectedMatch}
