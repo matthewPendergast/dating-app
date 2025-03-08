@@ -1,10 +1,20 @@
 import { useState } from "react";
 import MessageWindow from "./MessageWindow";
+import headerStyles from "../../../assets/styles/sidebarHeaderStyles.js";
+
+const styles = {
+    buttons: `flex justify-center items-center gap-2 h-16 w-1/2 py-1 shadow-[inset_0px_0px_5px_1px]
+        hover:bg-gray-200 cursor-pointer active:shadow-[inset_0px_0px_8px_1px]`,
+    buttonIn: `bg-gray-200 shadow-[inset_0px_0px_8px_1px]`,
+    buttonOut: `bg-white shadow-[inset_0px_0px_5px_1px]`,
+};
 
 const UserSidebar = ({
     width = "w-full",
     userConnections,
     isMainView = false,
+    setSelectedUser,
+    setCenterView,
 }) => {
     const [activeTab, setActiveTab] = useState("matches");
     const profilePic = userConnections?.self?.[0]?.profilePic || "/images/default-profile.webp";
@@ -12,30 +22,40 @@ const UserSidebar = ({
     const matchesTotal = userConnections?.matches?.length || 0;
 
     return (
-        <aside className={`${isMainView ? "" : "hidden"} lg:flex flex-col h-full ${width} overflow-hidden`}>
-            <div className="flex flex-col justify-center items-center h-28 bg-blue-400">
-                <img className="h-[60%]" src={profilePic} alt="" />
-                <p>My Profile</p>
+        <aside className={`${isMainView ? "flex" : "hidden"} lg:flex flex-col h-full ${width} overflow-hidden`}>
+            {/* Header */}
+            <div
+                className={`${headerStyles.header}`}
+                onClick={() => setSelectedUser(userConnections.self[0])}    
+            >
+                <div className={`${headerStyles.headerPicWrapper}`}>
+                    <img className={`${headerStyles.headerPic}`} src={profilePic} alt="" />
+                </div>
+                <p className="font-semibold">My Profile</p>
             </div>
+            {/* Likes/Matches Toggle */}
             <div className="flex h-16 bg-gray-400">
                 <button
-                    className="flex justify-center items-center gap-2 h-full w-1/2 py-1 border bg-white"
+                    className={`${styles.buttons} ${activeTab === "likes" ? styles.buttonIn : styles.buttonOut}`}
                     onClick={() => setActiveTab("likes")}
                 >
-                    <p>Likes</p>
-                    <p className="bg-red-200 rounded-full px-2 py-1">{likesTotal}</p>
+                    <p className="font-semibold">Likes</p>
+                    <p className="rounded-full px-2 py-1 text-white font-semibold bg-[#fe94bc]">{likesTotal}</p>
                 </button>
                 <button
-                    className="flex justify-center items-center gap-2 h-full w-1/2 py-1 border bg-white"
+                    className={`${styles.buttons} ${activeTab === "matches" ? styles.buttonIn : styles.buttonOut}`}
                     onClick={() => setActiveTab("matches")}
                 >
-                    <p>Matches</p>
-                    <p className="bg-red-200 rounded-full px-2 py-1">{matchesTotal}</p>
+                    <p className="font-semibold">Matches</p>
+                    <p className="rounded-full px-2 py-1 text-white font-semibold bg-[#fe94bc]">{matchesTotal}</p>
                 </button>
             </div>
+            {/* Message Window */}
             <MessageWindow 
                 userConnections={userConnections}
                 activeTab={activeTab}
+                setSelectedUser={setSelectedUser}
+                setCenterView={setCenterView}
             />
         </aside>
     );

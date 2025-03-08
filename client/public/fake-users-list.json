@@ -20,11 +20,11 @@
         "smoking": "Never",
         "workout": "Often",
         "profilePic": "/images/fake-users/portrait-1.webp",
-        "message": "",
         "type": "self",
         "images": [
             "/images/fake-users/portrait-1.webp"
-        ]
+        ],
+        "messages": []
     },
     {
         "id": 2,
@@ -46,8 +46,7 @@
         "drinking": "Sometimes",
         "smoking": "Never",
         "workout": "Often",
-        "profilePic": "/images/fake-users/daniel-3.webp",
-        "message": "Sign up for free!",
+        "profilePic": "/images/fake-users/daniel-2.webp",
         "type": "match",
         "images": [
             "/images/fake-users/daniel-1.webp",
@@ -55,6 +54,26 @@
             "/images/fake-users/daniel-3.webp",
             "/images/fake-users/daniel-4.webp",
             "/images/fake-users/daniel-5.webp"
+        ],
+        "messages": [
+            {
+                "sender": "user",
+                "type": "image",
+                "timestamp": "2025-03-06T23:32:00Z",
+                "content": "/images/fake-users/portrait-1.webp"
+            },
+            {
+                "sender": "profile",
+                "type": "image",
+                "timestamp": "2025-03-07T00:16:00Z",
+                "content": "/images/fake-users/daniel-3.webp"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-07T00:17:00Z",
+                "content": "Sign up for free!"
+            }
         ]
     },
     {
@@ -78,13 +97,20 @@
         "smoking": "Never",
         "workout": "Everyday",
         "profilePic": "/images/fake-users/felipe-2.webp",
-        "message": "Hey",
         "type": "match",
         "images": [
             "/images/fake-users/felipe-1.webp",
             "/images/fake-users/felipe-2.webp",
             "/images/fake-users/felipe-3.webp"
 
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T00:48:00Z",
+                "content": "Hey"
+            }
         ]
     },
     {
@@ -108,12 +134,25 @@
         "smoking": "Sometimes",
         "workout": "Often",
         "profilePic": "/images/fake-users/orlando-2.webp",
-        "message": "hbu?",
         "type": "match",
         "images": [
             "/images/fake-users/orlando-1.webp",
             "/images/fake-users/orlando-2.webp",
             "/images/fake-users/orlando-3.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-05T01:31:00Z",
+                "content": "man im having the best day, you dont even know"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-05T01:37:00Z",
+                "content": "hbu?"
+            }
         ]
     },
     {
@@ -137,11 +176,24 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/jameson-2.webp",
-        "message": "Lol yeah same 😂",
         "type": "match",
         "images": [
             "/images/fake-users/jameson-1.webp",
             "/images/fake-users/jameson-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T21:04:00Z",
+                "content": "Jameson Liked your prompt"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T21:05:00Z",
+                "content": "Lol yeah same 😂"
+            }
         ]
     },
     {
@@ -165,12 +217,25 @@
         "smoking": "Never",
         "workout": "",
         "profilePic": "/images/fake-users/ashley-2.webp",
-        "message": "omg SO true",
         "type": "match",
         "images": [
             "/images/fake-users/ashley-1.webp",
             "/images/fake-users/ashley-2.webp",
             "/images/fake-users/ashley-3.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-07T18:13:00Z",
+                "content": "Ashley Liked your prompt"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-07T18:13:00Z",
+                "content": "omg SO true"
+            }
         ]
     },
     {
@@ -194,11 +259,30 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/ellie-2.webp",
-        "message": "How about Thursday?",
         "type": "match",
         "images": [
             "/images/fake-users/ellie-1.webp",
             "/images/fake-users/ellie-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-04T21:27:00Z",
+                "content": "I prefer to skip the small talk and find out right away if we have chemistry or not"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-04T21:27:00Z",
+                "content": "So, if you'd like, how about we grab a drink together something this week?"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-04T21:29:00Z",
+                "content": "How about Thursday?"
+            }
         ]
     },
     {
@@ -222,11 +306,18 @@
         "smoking": "Never",
         "workout": "Sometimes",
         "profilePic": "/images/fake-users/nathan-2.webp",
-        "message": "You up?",
         "type": "match",
         "images": [
             "/images/fake-users/nathan-1.webp",
             "/images/fake-users/nathan-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T06:52:00Z",
+                "content": "You up?"
+            }
         ]
     },
     {
@@ -240,7 +331,7 @@
         "lastActive": "",
         "jobTitle": "fry cook at the Krusty Krab",
         "school": "go hawks",
-        "about": "honestly I have no idea who made this profile lmao. It might have even been me, hard telling",
+        "about": "honestly I have no idea who made this profile lmao it might have even been me, hard telling",
         "hasInfo": true,
         "zodiac": "",
         "education": "",
@@ -250,11 +341,30 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/wes-2.webp",
-        "message": "thats wild",
         "type": "match",
         "images": [
             "/images/fake-users/wes-1.webp",
             "/images/fake-users/wes-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-06T19:07:00Z",
+                "content": "yoooooo remember me??? from jake's"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-06T19:10:00Z",
+                "content": "u look totally diffrent in your profile tho"
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-06T19:13:00Z",
+                "content": "thats wild"
+            }
         ]
     },
     {
@@ -278,11 +388,30 @@
         "smoking": "Sometimes",
         "workout": "Never",
         "profilePic": "/images/fake-users/aidan-2.webp",
-        "message": "I'm here. Where are you?",
         "type": "match",
         "images": [
             "/images/fake-users/aidan-1.webp",
             "/images/fake-users/aidan-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-05T14:56:00Z",
+                "content": "I'll meet you at Café Mignon this Saturday at 5:30 p.m."
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T00:17:00Z",
+                "content": "Please confirm your plan to meet me tomorrow. Thanks."
+            },
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T23:31:00Z",
+                "content": "I'm here. Where are you?"
+            }
         ]
     },
     {
@@ -306,11 +435,18 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/samuel-2.webp",
-        "message": "yowza",
         "type": "match",
         "images": [
             "/images/fake-users/samuel-1.webp",
             "/images/fake-users/samuel-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T09:58:00Z",
+                "content": "yowza"
+            }
         ]
     },
     {
@@ -334,11 +470,18 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/rico-2.webp",
-        "message": "hey i know this might sound crazy but",
         "type": "like",
         "images": [
             "/images/fake-users/rico-1.webp",
             "/images/fake-users/rico-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-02T12:42:00Z",
+                "content": "hey i know this might sound crazy but i think i saw you at the triathlon downtown last weekend . are you going to be at the 5k in the park tomorrow ?"
+            }
         ]
     },
     {
@@ -362,11 +505,18 @@
         "smoking": "",
         "workout": "Everyday",
         "profilePic": "/images/fake-users/lane-2.webp",
-        "message": "👍",
         "type": "like",
         "images": [
             "/images/fake-users/lane-1.webp",
             "/images/fake-users/lane-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-09T02:08:00Z",
+                "content": "👍"
+            }
         ]
     },
     {
@@ -390,11 +540,18 @@
         "smoking": "Never",
         "workout": "Never",
         "profilePic": "/images/fake-users/george-2.webp",
-        "message": "Good Evening.",
         "type": "like",
         "images": [
             "/images/fake-users/george-1.webp",
             "/images/fake-users/george-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-03T23:14:00Z",
+                "content": "Good Evening."
+            }
         ]
     },
     {
@@ -418,11 +575,18 @@
         "smoking": "Never",
         "workout": "Never",
         "profilePic": "/images/fake-users/janice-2.webp",
-        "message": "ummm hi",
         "type": "like",
         "images": [
             "/images/fake-users/janice-1.webp",
             "/images/fake-users/janice-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-05T16:22:00Z",
+                "content": "ummm hi"
+            }
         ]
     },
     {
@@ -446,10 +610,17 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/kalen-1.webp",
-        "message": "ATTENTION: You owe $193.22 for failing to",
         "type": "like",
         "images": [
             "/images/fake-users/kalen-1.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-04T19:33:00Z",
+                "content": "ATTENTION: You owe $193.22 for failing to settle your balance with Local Medical Care. Perhaps you forgot about this balance?"
+            }
         ]
     },
     {
@@ -473,11 +644,18 @@
         "smoking": "",
         "workout": "",
         "profilePic": "/images/fake-users/trev-2.webp",
-        "message": "wat up",
         "type": "like",
         "images": [
             "/images/fake-users/trev-1.webp",
             "/images/fake-users/trev-2.webp"
+        ],
+        "messages": [
+            {
+                "sender": "profile",
+                "type": "text",
+                "timestamp": "2025-03-08T08:50:00Z",
+                "content": "wat up"
+            }
         ]
     }
 ]
