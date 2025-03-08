@@ -36,7 +36,7 @@ const MatchSidebar = ({
                 <p className="font-semibold">{matchName}</p>
             </div>
             {/* Gallery */}
-            <div className="relative flex justify-center items-center h-[30rem] w-full overflow-hidden">
+            <div className="relative flex justify-center items-center h-[25rem] md:h-[35rem] w-full overflow-hidden">
                 <button
                     className="absolute bottom-0 left-2 text-white hover:brightness-90"
                     onClick={() => 
@@ -45,10 +45,10 @@ const MatchSidebar = ({
                         )
                     }
                 >
-                    <i className="text-2xl fa-regular fa-square-caret-left"></i>
+                    <i className="text-4xl fa-regular fa-square-caret-left"></i>
                 </button>
                 <img
-                    className="h-full w-full object-cover object-center cursor-pointer"
+                    className="h-full w-full object-cover object-top md:object-center cursor-pointer"
                     src={mainImage}
                     onClick={() => setModalImage(mainImage)}
                     alt="" />
@@ -60,7 +60,7 @@ const MatchSidebar = ({
                         )
                     }    
                 >
-                    <i className="text-2xl fa-regular fa-square-caret-right"></i>
+                    <i className="text-4xl fa-regular fa-square-caret-right"></i>
                 </button>
             </div>
             {/* Buttons */}

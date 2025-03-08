@@ -42,8 +42,11 @@
         <p>✅ Make Match 'View Profile' interface</p>
         <p>✅ Make User 'View Profile' interface</p>
         <p>✅ Improve mobile UI</p>
-        <p>⬜ Messaging interface (view Like/Match messages)</p>
-        <p>⬜ Implement quasi-functional Match sidebar buttons</p>
+        <p>✅ Messaging interface (view Like/Match messages)</p>
+        <p>🔄 Implement quasi-functional Match sidebar buttons</p>
+        <p>⬜ Add interface for browsing userbase</p>
+        <p>⬜ Implement preference filters for browsing interface</p>
+        <p>⬜ Allow for editing of user profile (add images, edit personal information)</p>
     </ul>
     <p>⬜ Login page</p>
     <p>⬜ Signup page</p>

@@ -113,7 +113,7 @@ const Home = () => {
                     className="flex justify-center items-center h-screen w-screen fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md"
                     onClick={() => setModalImage(null)}
                 >
-                    <img className="max-h-[80%] max-w-[80%] rounded-md shadow-lg" src={modalImage} alt="" />
+                    <img className="max-h-[90%] max-w-[90%] rounded-md shadow-lg" src={modalImage} alt="" />
                 </dialog>
             )}
             </>

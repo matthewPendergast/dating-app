@@ -45,10 +45,10 @@ const ProfileView = ({
                             )
                         }
                     >
-                        <i className="text-2xl fa-regular fa-square-caret-left"></i>
+                        <i className="text-4xl fa-regular fa-square-caret-left"></i>
                     </button>
                     <img
-                        className="h-[30rem] object-cover rounded-lg shadow-[0px_0px_5px_2px] cursor-pointer"
+                        className="h-[20rem] md:h-[30rem] object-cover rounded-lg shadow-[0px_0px_5px_2px] cursor-pointer"
                         src={mainImage}
                         alt=""
                         onClick={() => setModalImage(mainImage)}
@@ -61,7 +61,7 @@ const ProfileView = ({
                             )
                         }
                     >
-                        <i className="text-2xl fa-regular fa-square-caret-right"></i>
+                        <i className="text-4xl fa-regular fa-square-caret-right"></i>
                     </button>
                 </div>
                 {/* Profile - Basics */}
