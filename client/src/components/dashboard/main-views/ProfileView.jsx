@@ -3,7 +3,7 @@ import "../../../assets/styles/scrollbar.css";
 import { useEffect, useState } from "react";
 
 const styles = {
-    wrapper: `h-full py-2 bg-gradient-to-b from-[#a44d6d] to-[#fe94bc]
+    wrapper: `h-full py-1 bg-gradient-to-b from-[#a44d6d] to-[#fe94bc]
         shadow-[inset_0px_0px_7px_2px] overflow-x-hidden overflow-y-auto custom-scrollbar`,
     profileBubble: `flex flex-col justify-center items-center w-[90%]
         py-3 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] bg-white`,
