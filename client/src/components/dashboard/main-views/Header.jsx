@@ -10,8 +10,9 @@ const styles = {
         bg-gradient-to-b from-[#a44d6d] to-[#fe94bc] bg-clip-text text-transparent
         drop-shadow-[0_0_2px_pink] leading-none
         hover:brightness-90 cursor-pointer`,
-    login: `absolute bottom-3 right-3 h-14 w-14 rounded-full text-white bg-[#fe94bc]
-        shadow-[inset_0px_0px_5px] hover:brightness-90`,
+    login: `absolute bottom-3 right-3 h-14 w-14 text-white
+        bg-[#fe94bc] rounded-full shadow-[inset_-1px_-2px_1px_black]
+        hover:brightness-90 active:shadow-[inset_-1px_-1px_4px_black]`,
 };
 
 const Header = () => {

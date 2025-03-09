@@ -60,8 +60,13 @@ const MessagesView = ({
     const textareaRef = useRef(null);
     const messagesContainerRef = useRef(null);
 
+    // Pulls message history from localStorage when selected user changes, except initially
     useEffect(() => {
-        setMessages(processMessageTimestamps(selectedUser?.messages || []));
+        if (!selectedUser) return;
+        const cachedMessages = localStorage.getItem(`messages_${selectedUser.id}`);
+        setMessages(
+            cachedMessages ? JSON.parse(cachedMessages) : processMessageTimestamps(selectedUser.messages || [])
+        );
     }, [selectedUser]);
     
     // Auto-resizes textarea element based on content
@@ -82,9 +87,12 @@ const MessagesView = ({
             content: inputText.trim(),
         };
     
+        // Updates message history in localStorage
         setMessages((prevMessages) => {
             const updatedMessages = processMessageTimestamps([...prevMessages, newMessage]);
     
+            localStorage.setItem(`messages_${selectedUser.id}`, JSON.stringify(updatedMessages));
+
             // Scrolls to the bottom when message is sent
             setTimeout(() => {
                 if (messagesContainerRef.current) {
@@ -95,6 +103,7 @@ const MessagesView = ({
             return updatedMessages;
         });
     
+        // Clears message input area after message is sent
         setInputText("");
     };
 

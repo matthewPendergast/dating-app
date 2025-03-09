@@ -11,7 +11,7 @@ const Home = () => {
     const [userConnections, setUserConnections] = useState({ self: [], likes: [], matches: [] });
     const [selectedUser, setSelectedUser] = useState(null);
     const [modalImage, setModalImage] = useState(null);
-    const [centerView, setCenterView] = useState(isMobile ? "messages" : "profile");
+    const [centerView, setCenterView] = useState("messages");
 
     const viewComponents = {
         profile: <ProfileView
