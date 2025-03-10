@@ -9,18 +9,49 @@ const styles = {
 const MatchSidebar = ({
     width = "w-full",
     isMainView = false,
+    isMobile,
+    centerView,
     selectedUser,
     setModalImage,
     setCenterView,
 }) => {
-    const profilePic = selectedUser?.profilePic || "/images/default-profile.webp";
+
     const matchName = selectedUser?.name || "No user selected"
     const [imageIndex, setImageIndex] = useState(0);
-    const mainImage = selectedUser?.images[imageIndex] || "/images/default-profile.webp";
+    const [profilePic, setProfilePic] = useState(() => 
+        selectedUser?.profilePic || "/images/default-profile.webp"
+    );
+    const [mainImage, setMainImage] = useState(() => 
+        selectedUser?.images?.[imageIndex] || "/images/default-profile.webp"
+    );
+    
+    // Fix display issue from changing window sizes
+    if (centerView === "matchSidebar" && !isMobile) {
+        setCenterView("profile");
+    }
 
     // Reset image index to 0 when selectedUser changes
     useEffect(() => {
         setImageIndex(0);
+    }, [selectedUser]);
+
+    useEffect(() => {
+        setImageIndex(0);
+        setProfilePic(selectedUser?.profilePic || "/images/default-profile.webp");
+        setMainImage(selectedUser?.images?.[0] || "/images/default-profile.webp");
+    }, [selectedUser]);
+
+    useEffect(() => {
+        const handleProfilePicUpdate = () => {
+            const userImages = JSON.parse(localStorage.getItem("userImages")) || [];
+            if (selectedUser?.type === "self") {
+                setProfilePic(userImages.length > 0 ? userImages[0] : "/images/default-profile.webp");
+                setMainImage(userImages.length > 0 ? userImages[0] : "/images/default-profile.webp");
+            }
+        };
+    
+        window.addEventListener("profilePicUpdated", handleProfilePicUpdate);
+        return () => window.removeEventListener("profilePicUpdated", handleProfilePicUpdate);
     }, [selectedUser]);
 
     return (
@@ -38,14 +69,14 @@ const MatchSidebar = ({
             {/* Gallery */}
             <div className="relative flex justify-center items-center h-[35rem] w-full overflow-hidden">
                 <button
-                    className="absolute bottom-0 left-2 text-white hover:brightness-90"
+                    className="absolute bottom-1 left-1 text-white hover:brightness-90"
                     onClick={() => 
                         setImageIndex((prev) => 
                             (prev === 0 ? selectedUser?.images?.length - 1 : prev - 1)
                         )
                     }
                 >
-                    <i className="text-4xl fa-regular fa-square-caret-left"></i>
+                    <i className="text-4xl bg-black p-2 rounded-full fa-regular fa-square-caret-left"></i>
                 </button>
                 <img
                     className="h-full w-full object-cover object-top lg:object-center cursor-pointer"
@@ -53,14 +84,14 @@ const MatchSidebar = ({
                     onClick={() => setModalImage(mainImage)}
                     alt="" />
                 <button
-                    className="absolute bottom-0 right-2 text-white hover:brightness-90"
+                    className="absolute bottom-1 right-1 text-white hover:brightness-90"
                     onClick={() =>
                         setImageIndex((prev) =>
                             ((prev + 1) % selectedUser?.images?.length)
                         )
                     }    
                 >
-                    <i className="text-4xl fa-regular fa-square-caret-right"></i>
+                    <i className="text-4xl bg-black p-2 rounded-full fa-regular fa-square-caret-right"></i>
                 </button>
             </div>
             {/* Buttons */}

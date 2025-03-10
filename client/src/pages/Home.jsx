@@ -27,13 +27,17 @@ const Home = () => {
         userSidebar: <UserSidebar 
             width="w-full"
             isMainView={true}
+            isMobile={isMobile}
+            centerView={centerView}
             userConnections={userConnections}
             setSelectedUser={setSelectedUser}
             setCenterView={setCenterView}
         />,
         matchSidebar: <MatchSidebar 
             width="w-full"
-            isMainView={true}
+            isMainView={isMobile}
+            isMobile={isMobile}
+            centerView={centerView}
             selectedUser={selectedUser}
             setModalImage={setModalImage}
             setCenterView={setCenterView}

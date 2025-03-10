@@ -60,6 +60,11 @@ const MessagesView = ({
     const textareaRef = useRef(null);
     const messagesContainerRef = useRef(null);
 
+    // Fix display issue where user can message self
+    if (selectedUser?.type === "self") {
+        setCenterView("profile");
+    };
+
     // Pulls message history from localStorage when selected user changes, except initially
     useEffect(() => {
         if (!selectedUser) return;
@@ -116,7 +121,7 @@ const MessagesView = ({
                 <Header />
                 <div className="flex flex-col justify-center items-center mt-2">
                     <div
-                        className="h-10 lg:16 w-10 lg:16 rounded-full shadow-[0px_0px_5px_2px] overflow-hidden"
+                        className="h-14 w-14 rounded-full shadow-[0px_0px_5px_2px] overflow-hidden cursor-pointer hover:brightness-90"
                         onClick={() => setCenterView("profile")}        
                     >
                         <img className="h-full w-full object-cover" src={selectedUser?.profilePic || "/images/default-profile.webp"} alt="" />

@@ -16,53 +16,119 @@ const ProfileView = ({
     selectedUser,
     setModalImage
 }) => {
-    const [imageIndex, setImageIndex] = useState(0);
-    const mainImage = selectedUser?.images[imageIndex] || "/images/default-profile.webp";
-
-    // Set image index to profilePic when selectedUser changes
-    useEffect(() => {
-        let index = 0
-        for (let i = 0; i < selectedUser?.images.length; i++) {
-            if (selectedUser?.profilePic === selectedUser?.images[i]) {
-                index = i;
-                break;
-            }
+    const [userImages, setUserImages] = useState(() => {
+        if (selectedUser?.type === "self") {
+            return JSON.parse(localStorage.getItem("userImages")) || [];
         }
-        setImageIndex(index);
+        return [];
+    });    
+    const [imageIndex, setImageIndex] = useState(0);
+    const mainImage = (selectedUser?.type === "self" && userImages.length > 0)
+        ? userImages[imageIndex] 
+        : selectedUser?.images?.[imageIndex] || "/images/default-profile.webp";
+
+    // Retrieves user's localStorage images when selectedUser is self
+    useEffect(() => {
+        if (selectedUser?.type === "self") {
+            const savedImages = JSON.parse(localStorage.getItem("userImages")) || [];
+            setUserImages(savedImages);
+        } else {
+            setUserImages([]);
+        }
     }, [selectedUser]);
+
+    // Sets image index to profilePic when selectedUser changes
+    useEffect(() => {
+        if (!selectedUser?.images || selectedUser.images.length === 0) {
+            setImageIndex(0);
+            return;
+        }
+    
+        let index = selectedUser.images.findIndex(img => img === selectedUser.profilePic);
+        setImageIndex(index !== -1 ? index : 0);
+    }, [selectedUser]);    
+
+    const handleImageUpload = (event) => {
+        if (selectedUser?.type !== "self") return;
+    
+        const files = Array.from(event.target.files);
+        const readFileAsDataURL = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        };
+    
+        Promise.all(files.map(readFileAsDataURL)).then((newImages) => {
+            setUserImages((prevImages) => {
+                const updatedImages = [...prevImages, ...newImages].slice(0, 5);
+                localStorage.setItem("userImages", JSON.stringify(updatedImages));
+                window.dispatchEvent(new Event("profilePicUpdated"));
+                return updatedImages;
+            });
+        });
+
+        setImageIndex(userImages.length);
+    };    
 
     return (
         <main className={`${width} ${styles.wrapper}`}>
             <Header />
             <div className="flex flex-col items-center gap-3 my-3">
                 {/* Gallery */}
-                <div className="relative flex justify-center max-w-[90%] mt-2">
-                    <button
-                        className="absolute bottom-0 left-2 text-white"
-                        onClick={() => 
-                            setImageIndex((prev) => 
-                                (prev === 0 ? selectedUser?.images?.length - 1 : prev - 1)
-                            )
-                        }
-                    >
-                        <i className="text-4xl fa-regular fa-square-caret-left"></i>
-                    </button>
+                <div className="relative flex justify-center w-[90%] mt-2 rounded-[2rem] bg-black overflow-hidden">
+                    {/* Allow user to upload up to 5 images */}
+                    {(selectedUser?.type === "self" && userImages.length < 5) && (
+                        <button
+                            className="absolute top-4 right-4"
+                            onClick={() => document.getElementById("fileInput").click()}
+                        >
+                            <i className="text-3xl text-white bg-black p-2 pl-3 pb-3 rounded-full fa-solid fa-pen-to-square"></i>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                id="fileInput"
+                                className="hidden"
+                            />
+                        </button>
+                    )}
+                    {/* Only show image change buttons if the selected user has more than 1 image uploaded */}
+                    {((selectedUser?.images.length > 1 && selectedUser.type !== "self") ||
+                        userImages.length > 1 && selectedUser.type === "self") && (
+                            <button
+                                className="absolute bottom-4 left-4"
+                                onClick={() => 
+                                    setImageIndex((prev) => 
+                                        prev === 0 ? (userImages.length || selectedUser?.images?.length) - 1 : prev - 1
+                                    )
+                                }
+                            >
+                                <i className="text-4xl text-white bg-black p-2 rounded-full fa-regular fa-square-caret-left"></i>
+                            </button>
+                    )}
                     <img
                         className="h-[20rem] md:h-[25rem] object-cover rounded-lg shadow-[0px_0px_5px_2px] cursor-pointer"
                         src={mainImage}
                         alt=""
                         onClick={() => setModalImage(mainImage)}
                     />
-                    <button
-                        className="absolute bottom-0 right-2 text-white"
-                        onClick={() =>
-                            setImageIndex((prev) =>
-                                ((prev + 1) % selectedUser?.images?.length)
-                            )
-                        }
-                    >
-                        <i className="text-4xl fa-regular fa-square-caret-right"></i>
-                    </button>
+                    {/* Only show image change buttons if the selected user has more than 1 image uploaded */}
+                    {((selectedUser?.images.length > 1 && selectedUser.type !== "self") ||
+                        userImages.length > 1 && selectedUser.type === "self") && (
+                            <button
+                                className="absolute bottom-4 right-4"
+                                onClick={() =>
+                                    setImageIndex((prev) =>
+                                        (prev + 1) % (userImages.length || selectedUser?.images?.length)                        
+                                    )
+                                }
+                            >
+                                <i className="text-4xl text-white bg-black p-2 rounded-full fa-regular fa-square-caret-right"></i>
+                            </button>
+                    )}
                 </div>
                 {/* Profile - Basics */}
                 <div className={`${styles.profileBubble}`}>

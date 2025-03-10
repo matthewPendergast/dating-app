@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MessageWindow from "./MessageWindow";
 import headerStyles from "../../../assets/styles/sidebarHeaderStyles.js";
 
@@ -13,13 +13,39 @@ const UserSidebar = ({
     width = "w-full",
     userConnections,
     isMainView = false,
+    isMobile,
+    centerView,
     setSelectedUser,
     setCenterView,
 }) => {
     const [activeTab, setActiveTab] = useState("matches");
-    const profilePic = userConnections?.self?.[0]?.profilePic || "/images/default-profile.webp";
+    const [profilePic, setProfilePic] = useState("/images/default-profile.webp");
     const likesTotal = userConnections?.likes?.length || 0;
     const matchesTotal = userConnections?.matches?.length || 0;
+
+    // Fix display issue from changing window sizes
+    if (centerView === "userSidebar" && !isMobile) {
+        setCenterView("messages");
+    }
+
+    const updateProfilePic = () => {
+        const userImages = JSON.parse(localStorage.getItem("userImages")) || [];
+        const fallbackImage = userConnections?.self?.[0]?.profilePic || "/images/default-profile.webp";
+        setProfilePic(userImages.length > 0 ? userImages[0] : fallbackImage);
+    };
+
+    useEffect(() => {
+        updateProfilePic();
+    }, [userConnections]);
+
+    useEffect(() => {
+        const handleStorageChange = () => {
+            updateProfilePic();
+        };
+
+        window.addEventListener("profilePicUpdated", handleStorageChange);
+        return () => window.removeEventListener("profilePicUpdated", handleStorageChange);
+    }, []);
 
     return (
         <aside className={`${isMainView ? "flex" : "hidden"} lg:flex flex-col h-full ${width} overflow-hidden`}>
