@@ -14,46 +14,49 @@ const MatchSidebar = ({
     selectedUser,
     setModalImage,
     setCenterView,
+    userImages,
 }) => {
-
-    const matchName = selectedUser?.name || "No user selected"
     const [imageIndex, setImageIndex] = useState(0);
-    const [profilePic, setProfilePic] = useState(() => 
-        selectedUser?.profilePic || "/images/default-profile.webp"
-    );
-    const [mainImage, setMainImage] = useState(() => 
-        selectedUser?.images?.[imageIndex] || "/images/default-profile.webp"
-    );
-    
-    // Fix display issue from changing window sizes
-    if (centerView === "matchSidebar" && !isMobile) {
-        setCenterView("profile");
-    }
-
-    // Reset image index to 0 when selectedUser changes
-    useEffect(() => {
-        setImageIndex(0);
-    }, [selectedUser]);
+    const [numUserImages, setNumUserImages] = useState(0);
+    const [profilePic, setProfilePic] = useState("/images/default-profile.webp");
+    const [mainImage, setMainImage] = useState("/images/default-profile.webp");
+    const matchName = selectedUser?.name || "No user selected";
 
     useEffect(() => {
+        if (selectedUser?.type === "self") {
+            const images = JSON.parse(localStorage.getItem("userImages")) || [];
+            setProfilePic(images.length > 0 ? images[0] : selectedUser?.profilePic || "/images/default-profile.webp");
+            setMainImage(images.length > 0 ? images[imageIndex] : selectedUser?.images?.[imageIndex] || "/images/default-profile.webp");
+        } else {
+            setProfilePic(selectedUser?.profilePic || "/images/default-profile.webp");
+            setMainImage(selectedUser?.images?.[imageIndex] || "/images/default-profile.webp");
+        }
+    }, [selectedUser, imageIndex]);
+
+    useEffect(() => {
         setImageIndex(0);
-        setProfilePic(selectedUser?.profilePic || "/images/default-profile.webp");
-        setMainImage(selectedUser?.images?.[0] || "/images/default-profile.webp");
     }, [selectedUser]);
 
     useEffect(() => {
         const handleProfilePicUpdate = () => {
-            const userImages = JSON.parse(localStorage.getItem("userImages")) || [];
             if (selectedUser?.type === "self") {
-                setProfilePic(userImages.length > 0 ? userImages[0] : "/images/default-profile.webp");
-                setMainImage(userImages.length > 0 ? userImages[0] : "/images/default-profile.webp");
+                const images = JSON.parse(localStorage.getItem("userImages")) || [];
+                setProfilePic(images[0] || "/images/default-profile.webp");
+                setMainImage(images[0] || "/images/default-profile.webp");
+                setImageIndex(0);
+                setNumUserImages(images.length);
             }
         };
     
-        window.addEventListener("profilePicUpdated", handleProfilePicUpdate);
-        return () => window.removeEventListener("profilePicUpdated", handleProfilePicUpdate);
-    }, [selectedUser]);
+        window.addEventListener("userUploadedImage", handleProfilePicUpdate);
+        return () => window.removeEventListener("userUploadedImage", handleProfilePicUpdate);
+    }, [selectedUser, userImages]);
 
+    // Fix display issue from changing window sizes
+    if (centerView === "matchSidebar" && !isMobile) {
+        setCenterView("profile");
+    }
+    
     return (
         <aside className={`${isMainView ? "flex" : "hidden"} lg:flex flex-col h-full ${width} overflow-hidden`}>
             {/* Header */}
@@ -68,31 +71,35 @@ const MatchSidebar = ({
             </div>
             {/* Gallery */}
             <div className="relative flex justify-center items-center h-[35rem] w-full overflow-hidden">
-                <button
-                    className="absolute bottom-1 left-1 text-white hover:brightness-90"
-                    onClick={() => 
-                        setImageIndex((prev) => 
-                            (prev === 0 ? selectedUser?.images?.length - 1 : prev - 1)
-                        )
-                    }
-                >
-                    <i className="text-4xl bg-black p-2 rounded-full fa-regular fa-square-caret-left"></i>
-                </button>
+                {((selectedUser?.images?.length > 1 && selectedUser.type !== "self") ||
+                        numUserImages > 1 && selectedUser.type === "self") && (
+                    <button
+                        className="absolute bottom-2 left-2 hover:brightness-90"
+                        onClick={() => setImageIndex((prev) =>
+                            prev === 0
+                                ? (((selectedUser?.type === "self" && numUserImages > 0) ? numUserImages : selectedUser?.images?.length) - 1)
+                                : prev - 1
+                        )}
+                    >
+                        <i className="text-xl text-white bg-black px-3 py-2 rounded-full fa-regular fa-square-caret-left"></i>
+                    </button>
+                )}
                 <img
                     className="h-full w-full object-cover object-top lg:object-center cursor-pointer"
                     src={mainImage}
                     onClick={() => setModalImage(mainImage)}
                     alt="" />
-                <button
-                    className="absolute bottom-1 right-1 text-white hover:brightness-90"
-                    onClick={() =>
-                        setImageIndex((prev) =>
-                            ((prev + 1) % selectedUser?.images?.length)
-                        )
-                    }    
-                >
-                    <i className="text-4xl bg-black p-2 rounded-full fa-regular fa-square-caret-right"></i>
-                </button>
+                {((selectedUser?.images?.length > 1 && selectedUser.type !== "self") ||
+                        numUserImages > 1 && selectedUser.type === "self") && (
+                    <button
+                        className="absolute bottom-2 right-2 text-white hover:brightness-90"
+                        onClick={() => setImageIndex((prev) =>
+                            (prev + 1) % ((selectedUser?.type === "self" && numUserImages > 0) ? numUserImages : selectedUser?.images?.length)
+                        )}
+                    >
+                        <i className="text-xl text-white bg-black px-3 py-2 rounded-full fa-regular fa-square-caret-right"></i>
+                    </button>
+                )}
             </div>
             {/* Buttons */}
             <div className="flex flex-wrap flex-grow min-h-[20vh]">

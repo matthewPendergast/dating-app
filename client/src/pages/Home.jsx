@@ -12,12 +12,51 @@ const Home = () => {
     const [selectedUser, setSelectedUser] = useState(null);
     const [modalImage, setModalImage] = useState(null);
     const [centerView, setCenterView] = useState("messages");
+    const [userImages, setUserImages] = useState(() => {
+        return JSON.parse(localStorage.getItem("userImages")) || [];
+    });    
+    const [numUserImages, setNumUserImages] = useState(0);
+
+    // Utility function for pulling user-uploaded images from localStorage
+    const getUserImages = () => {
+        const images = JSON.parse(localStorage.getItem("userImages")) || [];
+        if (images.length === 0) {
+            return [];
+        }
+        setNumUserImages(images.length);
+        return images;
+    };
+
+    // Recalculate number of user-uploaded images when the array changes
+    useEffect(() => {
+        setNumUserImages(userImages.length);
+    }, [userImages]);
+
+    useEffect(() => {
+        if (selectedUser?.type === "self") {
+            setUserImages(getUserImages());
+        }
+    }, [selectedUser]);
+
+    useEffect(() => {
+        const updateUserImages = () => {
+            if (selectedUser?.type === "self") {
+                setUserImages(getUserImages());
+            }
+        };
+    
+        window.addEventListener("userUploadedImage", updateUserImages);
+        return () => window.removeEventListener("userUploadedImage", updateUserImages);
+    }, [selectedUser]);    
 
     const viewComponents = {
         profile: <ProfileView
             width={isMobile ? "w-full" : "w-[60vw]"}
             selectedUser={selectedUser}
             setModalImage={setModalImage}
+            userImages={userImages}
+            setUserImages={setUserImages}
+            numUserImages={numUserImages}
         />,
         messages: <MessagesView
             width={isMobile ? "w-full" : "w-[60vw]"}
@@ -41,6 +80,7 @@ const Home = () => {
             selectedUser={selectedUser}
             setModalImage={setModalImage}
             setCenterView={setCenterView}
+            userImages={userImages}
         />
     };
 

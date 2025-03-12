@@ -29,9 +29,10 @@ const UserSidebar = ({
     }
 
     const updateProfilePic = () => {
-        const userImages = JSON.parse(localStorage.getItem("userImages")) || [];
-        const fallbackImage = userConnections?.self?.[0]?.profilePic || "/images/default-profile.webp";
-        setProfilePic(userImages.length > 0 ? userImages[0] : fallbackImage);
+        const images = JSON.parse(localStorage.getItem("userImages")) || [];
+        setProfilePic(images.length > 0
+            ? images[0]
+            : userConnections?.self?.[0]?.profilePic || "/images/default-profile.webp");
     };
 
     useEffect(() => {
@@ -43,8 +44,8 @@ const UserSidebar = ({
             updateProfilePic();
         };
 
-        window.addEventListener("profilePicUpdated", handleStorageChange);
-        return () => window.removeEventListener("profilePicUpdated", handleStorageChange);
+        window.addEventListener("userUploadedImage", handleStorageChange);
+        return () => window.removeEventListener("userUploadedImage", handleStorageChange);
     }, []);
 
     return (

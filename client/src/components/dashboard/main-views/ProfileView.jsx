@@ -14,64 +14,61 @@ const styles = {
 const ProfileView = ({
     width = "w-full",
     selectedUser,
-    setModalImage
+    setModalImage,
+    userImages,
+    setUserImages,
+    numUserImages,
 }) => {
-    const [userImages, setUserImages] = useState(() => {
-        if (selectedUser?.type === "self") {
-            return JSON.parse(localStorage.getItem("userImages")) || [];
-        }
-        return [];
-    });    
     const [imageIndex, setImageIndex] = useState(0);
-    const mainImage = (selectedUser?.type === "self" && userImages.length > 0)
-        ? userImages[imageIndex] 
-        : selectedUser?.images?.[imageIndex] || "/images/default-profile.webp";
-
-    // Retrieves user's localStorage images when selectedUser is self
-    useEffect(() => {
+    const mainImage = (() => {
         if (selectedUser?.type === "self") {
-            const savedImages = JSON.parse(localStorage.getItem("userImages")) || [];
-            setUserImages(savedImages);
-        } else {
-            setUserImages([]);
+            return numUserImages > 0 
+                ? userImages[imageIndex] 
+                : selectedUser?.images?.[imageIndex] || "/images/default-profile.webp";
         }
-    }, [selectedUser]);
-
+        return selectedUser?.images?.[imageIndex] || "/images/default-profile.webp";
+    })();
+    
     // Sets image index to profilePic when selectedUser changes
     useEffect(() => {
-        if (!selectedUser?.images || selectedUser.images.length === 0) {
-            setImageIndex(0);
-            return;
-        }
-    
-        let index = selectedUser.images.findIndex(img => img === selectedUser.profilePic);
-        setImageIndex(index !== -1 ? index : 0);
-    }, [selectedUser]);    
+        setImageIndex(0);
+    }, [selectedUser]);
 
     const handleImageUpload = (event) => {
         if (selectedUser?.type !== "self") return;
-    
+        
+        // Convert FileList to array to be processed with map function
         const files = Array.from(event.target.files);
+        // Converts files into Base64-encoded data URL so they can be stored in localStorage
         const readFileAsDataURL = (file) => {
             return new Promise((resolve, reject) => {
+                // Use JavaScript FileReader API, which reads files
                 const reader = new FileReader();
+                // Resolve the promise with the file's data URL when reading is complete
                 reader.onloadend = () => resolve(reader.result);
+                // Error handling, reject promise if it fails
                 reader.onerror = reject;
+                // Reads file as Base64 string
                 reader.readAsDataURL(file);
             });
         };
     
+        // Map each file into a promise that resolves to a Base64 string
         Promise.all(files.map(readFileAsDataURL)).then((newImages) => {
+            // Calls setUserImages function from Home.jsx to update userImages state
             setUserImages((prevImages) => {
-                const updatedImages = [...prevImages, ...newImages].slice(0, 5);
+                const uniqueImages = Array.from(new Set([...prevImages, ...newImages])); // Prevent duplicates
+                // Combines previous userImages with new image; limit of 5
+                const updatedImages = uniqueImages.slice(0, 5);
+                // Store userImages in localStorage
                 localStorage.setItem("userImages", JSON.stringify(updatedImages));
-                window.dispatchEvent(new Event("profilePicUpdated"));
+                // Custom dispatch event to notify other components
+                window.dispatchEvent(new Event("userUploadedImage"));
+                setImageIndex(updatedImages.length - 1);
                 return updatedImages;
             });
         });
-
-        setImageIndex(userImages.length);
-    };    
+    };
 
     return (
         <main className={`${width} ${styles.wrapper}`}>
@@ -80,12 +77,12 @@ const ProfileView = ({
                 {/* Gallery */}
                 <div className="relative flex justify-center w-[90%] mt-2 rounded-[2rem] bg-black overflow-hidden">
                     {/* Allow user to upload up to 5 images */}
-                    {(selectedUser?.type === "self" && userImages.length < 5) && (
+                    {(selectedUser?.type === "self" && numUserImages < 5) && (
                         <button
-                            className="absolute top-4 right-4"
+                            className="absolute top-2 right-2"
                             onClick={() => document.getElementById("fileInput").click()}
                         >
-                            <i className="text-3xl text-white bg-black p-2 pl-3 pb-3 rounded-full fa-solid fa-pen-to-square"></i>
+                            <i className="text-xl text-white bg-black px-3 py-2 rounded-full fa-solid fa-pen-to-square"></i>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -96,17 +93,17 @@ const ProfileView = ({
                         </button>
                     )}
                     {/* Only show image change buttons if the selected user has more than 1 image uploaded */}
-                    {((selectedUser?.images.length > 1 && selectedUser.type !== "self") ||
-                        userImages.length > 1 && selectedUser.type === "self") && (
+                    {((selectedUser?.images?.length > 1 && selectedUser.type !== "self") ||
+                        numUserImages > 1 && selectedUser.type === "self") && (
                             <button
-                                className="absolute bottom-4 left-4"
-                                onClick={() => 
-                                    setImageIndex((prev) => 
-                                        prev === 0 ? (userImages.length || selectedUser?.images?.length) - 1 : prev - 1
-                                    )
-                                }
+                                className="absolute bottom-2 left-2"
+                                onClick={() => setImageIndex((prev) =>
+                                    prev === 0
+                                        ? (((selectedUser?.type === "self" && numUserImages > 0) ? numUserImages : selectedUser?.images?.length) - 1)
+                                        : prev - 1
+                                )}
                             >
-                                <i className="text-4xl text-white bg-black p-2 rounded-full fa-regular fa-square-caret-left"></i>
+                                <i className="text-xl text-white bg-black px-3 py-2 rounded-full fa-regular fa-square-caret-left"></i>
                             </button>
                     )}
                     <img
@@ -117,16 +114,14 @@ const ProfileView = ({
                     />
                     {/* Only show image change buttons if the selected user has more than 1 image uploaded */}
                     {((selectedUser?.images.length > 1 && selectedUser.type !== "self") ||
-                        userImages.length > 1 && selectedUser.type === "self") && (
+                        numUserImages > 1 && selectedUser.type === "self") && (
                             <button
-                                className="absolute bottom-4 right-4"
-                                onClick={() =>
-                                    setImageIndex((prev) =>
-                                        (prev + 1) % (userImages.length || selectedUser?.images?.length)                        
-                                    )
-                                }
+                                className="absolute bottom-2 right-2"
+                                onClick={() => setImageIndex((prev) =>
+                                    (prev + 1) % ((selectedUser?.type === "self" && numUserImages > 0) ? numUserImages : selectedUser?.images?.length)
+                                )}
                             >
-                                <i className="text-4xl text-white bg-black p-2 rounded-full fa-regular fa-square-caret-right"></i>
+                                <i className="text-xl text-white bg-black px-3 py-2 rounded-full fa-regular fa-square-caret-right"></i>
                             </button>
                     )}
                 </div>
