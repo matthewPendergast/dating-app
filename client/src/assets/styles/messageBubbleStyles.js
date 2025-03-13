@@ -1,6 +1,6 @@
 const messageBubbleStyles = {
     bubble: `relative flex justify-center items-center p-2 md:p-3 mb-3 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] bg-white`,
-    imgBubble: "h-28 md:h-40 lg:h-44",
+    imgBubble: "h-28 md:h-40 lg:h-44 min-w-[4rem]",
     textBubble: "max-w-[45%] min-w-[4rem] px-4 text-center",
     after: `after:content-[''] after:absolute after:bottom-[-7px] after:w-[10px] after:h-[7px]
         after:shadow-md after:border-[2px] after:border-gray-400 after:[border-style:none_outset_outset_outset] after:bg-white`,

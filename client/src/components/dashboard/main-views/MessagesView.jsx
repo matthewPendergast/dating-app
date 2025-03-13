@@ -113,7 +113,7 @@ const MessagesView = ({
     };
 
     return (
-        <main className={`relative h-full ${width}`}>
+        <main className={`relative h-full ${width} overflow-hidden`}>
             <div className="h-[90%] pt-1 pb-4 bg-gradient-to-b from-[#a44d6d] to-[#fe94bc]
                 shadow-[inset_0px_0px_7px_2px] overflow-x-hidden overflow-auto custom-scrollbar"
                 ref={messagesContainerRef}

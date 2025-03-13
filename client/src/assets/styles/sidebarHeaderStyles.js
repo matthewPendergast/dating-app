@@ -4,7 +4,7 @@ const sidebarHeaderStyles = {
         hover:brightness-90 cursor-pointer`,
     headerPicWrapper: `flex justify-center items-center flex-shrink-0 h-20 w-20
         rounded-full shadow-[0px_0px_5px_2px] overflow-hidden`,
-    headerPic: `h-full w-full object-cover`,
+    headerPic: `h-full w-full object-cover bg-white`,
 };
 
 export default sidebarHeaderStyles;
