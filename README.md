@@ -33,8 +33,8 @@ It is being built with React, Tailwind, Node, Express, and PostgreSQL, and both 
         - ✅ Make User 'View Profile' interface
         - ✅ Improve mobile UI
         - ✅ Messaging interface (view Like/Match messages)
+        - ✅ Allow for editing of user profile (add images, edit personal information)
         - 🔄 Implement quasi-functional Match sidebar buttons
-        - 🔄 Allow for editing of user profile (add images, edit personal information)
         - ⬜ Add interface for browsing userbase
         - ⬜ Implement preference filters for browsing interface
     - ⬜ Login page

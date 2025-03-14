@@ -20,11 +20,26 @@ const MatchSidebar = ({
     const [numUserImages, setNumUserImages] = useState(0);
     const [profilePic, setProfilePic] = useState("/images/default-profile.webp");
     const [mainImage, setMainImage] = useState("/images/default-profile.webp");
-    const matchName = selectedUser?.name || "No user selected";
+    const [matchName, setMatchname] = useState(selectedUser?.name || "No user selected")
+
+    // useEffect(() => {
+    //     if (selectedUser?.type === "self") {
+    //         const storedProfile = localStorage.getItem("userProfile");
+    //         if (storedProfile) {
+    //             setUserProfile(JSON.parse(storedProfile));
+    //         } else {
+    //             setUserProfile(selfUser);
+    //         }
+    //     }
+    // }, [selectedUser, selfUser]);
 
     useEffect(() => {
         if (selectedUser?.type === "self") {
             const images = JSON.parse(localStorage.getItem("userImages")) || [];
+            const storedProfile = JSON.parse(localStorage.getItem("userProfile"));
+            if (storedProfile) {
+                setMatchname(storedProfile.name);
+            }
             setProfilePic(images.length > 0 ? images[0] : selectedUser?.profilePic || "/images/default-profile.webp");
             setMainImage(images.length > 0 ? images[imageIndex] : selectedUser?.images?.[imageIndex] || "/images/default-profile.webp");
         } else {
@@ -37,6 +52,7 @@ const MatchSidebar = ({
         setImageIndex(0);
     }, [selectedUser]);
 
+    // Event listeners for user editing profile
     useEffect(() => {
         const handleProfilePicUpdate = () => {
             if (selectedUser?.type === "self") {
@@ -47,8 +63,16 @@ const MatchSidebar = ({
                 setNumUserImages(images.length);
             }
         };
+
+        const handleNameChange = () => {
+            const storedProfile = JSON.parse(localStorage.getItem("userProfile"));
+            if (storedProfile) {
+                setMatchname(storedProfile.name);
+            }
+        };
     
         window.addEventListener("userUploadedImage", handleProfilePicUpdate);
+        window.addEventListener("profileUpdated", handleNameChange);
         return () => window.removeEventListener("userUploadedImage", handleProfilePicUpdate);
     }, [selectedUser, userImages]);
 

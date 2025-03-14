@@ -21,9 +21,9 @@ const infoOptions = {
         { value: "libra", label: "Libra" },
         { value: "scorpio", label: "Scorpio" },
         { value: "sagittarius", label: "Sagittarius" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
-    school: [
+    education: [
         { value: "highSchool", label: "High School" },
         { value: "inCollege", label: "In College" },
         { value: "trade", label: "Trade School" },
@@ -31,19 +31,19 @@ const infoOptions = {
         { value: "bachelors", label: "Bachelors" },
         { value: "masters", label: "Masters" },
         { value: "phd", label: "PhD" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
     kids: [
         { value: "have", label: "Have kids" },
         { value: "dont", label: "Don't have kids" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
     familyPlans: [
         { value: "want", label: "Want kids" },
         { value: "dont", label: "Don't want kids" },
         { value: "open", label: "Open to kids" },
         { value: "notSure", label: "Not sure" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
     pets: [
         { value: "dog", label: "Dog" },
@@ -55,28 +55,28 @@ const infoOptions = {
         { value: "allergic", label: "Allergic" },
         { value: "petFree", label: "Pet-free" },
         { value: "other", label: "Other" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
     drinking: [
         { value: "everyday", label: "Everyday" },
         { value: "often", label: "Often" },
         { value: "sometimes", label: "Sometimes" },
         { value: "never", label: "Never" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
     smoking: [
         { value: "everyday", label: "Everyday" },
         { value: "often", label: "Often" },
         { value: "sometimes", label: "Sometimes" },
         { value: "never", label: "Never" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
     workout: [
         { value: "everyday", label: "Everyday" },
         { value: "often", label: "Often" },
         { value: "sometimes", label: "Sometimes" },
         { value: "never", label: "Never" },
-        { value: "empty", label: " " },
+        { value: "empty", label: "" },
     ],
 };
 
@@ -102,14 +102,11 @@ const InputLine = ({labelFor, labelValue, align="text-left", type, name, placeho
     );
 };
 
-const InfoButton = ({ selectName, selectDefault, infoOptionArray }) => {
+const InfoButton = ({ selectName, selectDefault, onChange, infoOptionArray }) => {
     return (
-        <select className="outline-none" name={selectName} id={selectName} defaultValue={selectDefault}>
+        <select className="outline-none" name={selectName} id={selectName} defaultValue={selectDefault} onChange={onChange}>
             {infoOptionArray.map((option) => (
-                <option
-                    key={option.value}
-                    value={option.value}
-                >
+                <option key={option.value} value={option.label}>
                     {option.label}
                 </option>
             ))}
@@ -286,7 +283,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-scale-balanced`}></i>
                     <InfoButton
                         selectName={"zodiac"}
-                        selectDefault={"libra"}
+                        selectDefault={userProfile.zodiac}
                         infoOptionArray={infoOptions.zodiac}
                         onChange={handleInputChange}
                     />
@@ -294,9 +291,9 @@ const ProfileInfoEdit = ({
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-graduation-cap`}></i>
                     <InfoButton
-                        selectName={"school"}
-                        selectDefault={"bachelors"}
-                        infoOptionArray={infoOptions.school}
+                        selectName={"education"}
+                        selectDefault={userProfile.education}
+                        infoOptionArray={infoOptions.education}
                         onChange={handleInputChange}
                     />
                 </p>
@@ -304,7 +301,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-children`}></i>
                     <InfoButton
                         selectName={"kids"}
-                        selectDefault={"dont"}
+                        selectDefault={userProfile.kids}
                         infoOptionArray={infoOptions.kids}
                         onChange={handleInputChange}
                     />
@@ -313,7 +310,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-baby-carriage`}></i>
                     <InfoButton
                         selectName={"familyPlans"}
-                        selectDefault={"want"}
+                        selectDefault={userProfile.familyPlans}
                         infoOptionArray={infoOptions.familyPlans}
                         onChange={handleInputChange}
                     />
@@ -322,7 +319,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-paw`}></i>
                     <InfoButton
                         selectName={"pets"}
-                        selectDefault={"cat"}
+                        selectDefault={userProfile.pets}
                         infoOptionArray={infoOptions.pets}
                         onChange={handleInputChange}
                     />
@@ -331,7 +328,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-martini-glass`}></i>
                     <InfoButton
                         selectName={"drinking"}
-                        selectDefault={"sometimes"}
+                        selectDefault={userProfile.drinking}
                         infoOptionArray={infoOptions.drinking}
                         onChange={handleInputChange}
                     />
@@ -340,7 +337,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-smoking`}></i>
                     <InfoButton
                         selectName={"smoking"}
-                        selectDefault={"never"}
+                        selectDefault={userProfile.smoking}
                         infoOptionArray={infoOptions.smoking}
                         onChange={handleInputChange}
                     />
@@ -349,7 +346,7 @@ const ProfileInfoEdit = ({
                     <i className={`${styles.infoIcon} fa-dumbbell`}></i>
                     <InfoButton
                         selectName={"workout"}
-                        selectDefault={"often"}
+                        selectDefault={userProfile.workout}
                         infoOptionArray={infoOptions.workout}
                         onChange={handleInputChange}
                     />
