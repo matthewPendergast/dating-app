@@ -52,6 +52,7 @@ const Home = () => {
     const viewComponents = {
         profile: <ProfileView
             width={isMobile ? "w-full" : "w-[60vw]"}
+            selfUser={userConnections.self[0]}
             selectedUser={selectedUser}
             setModalImage={setModalImage}
             userImages={userImages}

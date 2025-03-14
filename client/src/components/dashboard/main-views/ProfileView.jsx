@@ -11,13 +11,15 @@ const styles = {
 
 const ProfileView = ({
     width = "w-full",
+    selfUser,
     selectedUser,
     setModalImage,
     userImages,
     setUserImages,
     numUserImages,
 }) => {
-    const [isUserEditing, SetIsUserEditing] = useState(false);
+    const [userProfile, setUserProfile] = useState(null);
+    const [isUserEditing, setIsUserEditing] = useState(false);
     const [imageIndex, setImageIndex] = useState(0);
     const mainImage = (() => {
         if (selectedUser?.type === "self") {
@@ -27,6 +29,18 @@ const ProfileView = ({
         }
         return selectedUser?.images?.[imageIndex] || "/images/default-profile.webp";
     })();
+
+    // Check localStorage for custom user profile
+    useEffect(() => {
+        if (selectedUser?.type === "self") {
+            const storedProfile = localStorage.getItem("userProfile");
+            if (storedProfile) {
+                setUserProfile(JSON.parse(storedProfile));
+            } else {
+                setUserProfile(selfUser);
+            }
+        }
+    }, [selectedUser, selfUser]);
     
     // Sets image index to profilePic when selectedUser changes
     useEffect(() => {
@@ -126,13 +140,14 @@ const ProfileView = ({
                 </div>
                 {(isUserEditing && selectedUser?.type === "self") ?
                     <ProfileInfoEdit
-                        selectedUser={selectedUser}
-                        SetIsUserEditing={SetIsUserEditing}
+                        userProfile={userProfile}
+                        setIsUserEditing={setIsUserEditing}
+                        setUserProfile={setUserProfile}
                     />
                 :
                     <ProfileInfoDisplay
-                        selectedUser={selectedUser}
-                        SetIsUserEditing={SetIsUserEditing}
+                        selectedUser={selectedUser?.type === "self" ? userProfile : selectedUser}
+                        setIsUserEditing={setIsUserEditing}
                     />
                 }
             </div>

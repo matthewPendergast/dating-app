@@ -7,7 +7,82 @@ const styles = {
     infoIcon: `fa-solid pr-2`,
 };
 
-const InputLine = ({labelFor, labelValue, align="text-left", type, name, placeholder="", min="", max=""}) => {
+const infoOptions = {
+    zodiac: [
+        { value: "capricorn", label: "Capricorn" },
+        { value: "aquarius", label: "Aquarius" },
+        { value: "pisces", label: "Pisces" },
+        { value: "aries", label: "Aries" },
+        { value: "taurus", label: "Taurus" },
+        { value: "gemini", label: "Gemini" },
+        { value: "cancer", label: "Cancer" },
+        { value: "leo", label: "Leo" },
+        { value: "virgo", label: "Virgo" },
+        { value: "libra", label: "Libra" },
+        { value: "scorpio", label: "Scorpio" },
+        { value: "sagittarius", label: "Sagittarius" },
+        { value: "empty", label: " " },
+    ],
+    school: [
+        { value: "highSchool", label: "High School" },
+        { value: "inCollege", label: "In College" },
+        { value: "trade", label: "Trade School" },
+        { value: "associates", label: "Associates" },
+        { value: "bachelors", label: "Bachelors" },
+        { value: "masters", label: "Masters" },
+        { value: "phd", label: "PhD" },
+        { value: "empty", label: " " },
+    ],
+    kids: [
+        { value: "have", label: "Have kids" },
+        { value: "dont", label: "Don't have kids" },
+        { value: "empty", label: " " },
+    ],
+    familyPlans: [
+        { value: "want", label: "Want kids" },
+        { value: "dont", label: "Don't want kids" },
+        { value: "open", label: "Open to kids" },
+        { value: "notSure", label: "Not sure" },
+        { value: "empty", label: " " },
+    ],
+    pets: [
+        { value: "dog", label: "Dog" },
+        { value: "cat", label: "Cat" },
+        { value: "fish", label: "Fish" },
+        { value: "bird", label: "Bird" },
+        { value: "multiple", label: "Multiple" },
+        { value: "none", label: "None" },
+        { value: "allergic", label: "Allergic" },
+        { value: "petFree", label: "Pet-free" },
+        { value: "other", label: "Other" },
+        { value: "empty", label: " " },
+    ],
+    drinking: [
+        { value: "everyday", label: "Everyday" },
+        { value: "often", label: "Often" },
+        { value: "sometimes", label: "Sometimes" },
+        { value: "never", label: "Never" },
+        { value: "empty", label: " " },
+    ],
+    smoking: [
+        { value: "everyday", label: "Everyday" },
+        { value: "often", label: "Often" },
+        { value: "sometimes", label: "Sometimes" },
+        { value: "never", label: "Never" },
+        { value: "empty", label: " " },
+    ],
+    workout: [
+        { value: "everyday", label: "Everyday" },
+        { value: "often", label: "Often" },
+        { value: "sometimes", label: "Sometimes" },
+        { value: "never", label: "Never" },
+        { value: "empty", label: " " },
+    ],
+};
+
+// Internal Components
+
+const InputLine = ({labelFor, labelValue, align="text-left", type, name, placeholder="", min="", max="", value, onChange}) => {
     return (
         <div className="flex items-center gap-1 w-[85%] mx-auto overflow-hidden">
             <label
@@ -20,16 +95,66 @@ const InputLine = ({labelFor, labelValue, align="text-left", type, name, placeho
                 placeholder={placeholder}
                 min={min}
                 max={max}
+                value={value}
+                onChange={onChange}
             />
         </div>
     );
 };
 
+const InfoButton = ({ selectName, selectDefault, infoOptionArray }) => {
+    return (
+        <select className="outline-none" name={selectName} id={selectName} defaultValue={selectDefault}>
+            {infoOptionArray.map((option) => (
+                <option
+                    key={option.value}
+                    value={option.value}
+                >
+                    {option.label}
+                </option>
+            ))}
+        </select>
+    );
+};
+
+// Main Component
+
 const ProfileInfoEdit = ({
-    selectedUser,
-    SetIsUserEditing,
+    userProfile,
+    setIsUserEditing,
+    setUserProfile,
 }) => {
+    const [unsavedProfile, setUnsavedProfile] = useState(userProfile);
     const [heightUnit, setHeightUnit] = useState("Imperial");
+
+    const handleInputChange = (e) => {
+        const { name, value} = e.target;
+        let newProfile = { ...unsavedProfile, [name]: value};
+
+        // Recalculate height values
+        if (name === "heightft" || name === "heightin") {
+            const feet = parseInt(newProfile.heightft || 0, 10);
+            const inches = parseInt(newProfile.heightin || 0, 10);
+            const totalInches = feet * 12 + inches;
+            newProfile.heightcm = Math.round(totalInches * 2.54);
+        } else if (name === "heightcm") {
+            const totalInches = Math.round(parseInt(value || 0, 10) / 2.54);
+            newProfile.heightft = Math.floor(totalInches / 12);
+            newProfile.heightin = totalInches % 12;
+        }
+
+        setUnsavedProfile(newProfile);
+    };
+
+    const handleSaveProfile = () => {
+        setUserProfile(prevProfile => {
+            const updatedProfile = { ...prevProfile, ...unsavedProfile };
+            localStorage.setItem("userProfile", JSON.stringify(updatedProfile));
+            window.dispatchEvent(new Event("profileUpdated"));
+            return updatedProfile;
+        });
+        setIsUserEditing(false);
+    };
 
     return (
         <>
@@ -38,7 +163,7 @@ const ProfileInfoEdit = ({
             {/* Save Button */}
             <button
                 className="absolute top-4 right-4 border border-black rounded-full p-2 bg-green-300"
-                onClick={() => SetIsUserEditing(false)}
+                onClick={handleSaveProfile}
             >
                 Save
             </button>
@@ -47,8 +172,9 @@ const ProfileInfoEdit = ({
                 labelFor="name"
                 labelValue="Name"
                 type="text"
-                name="text"
-                placeholder="Elizabeth"
+                name="name"
+                placeholder={userProfile.name}
+                onChange={handleInputChange}
             />
             {/* Age */}
             <InputLine
@@ -57,9 +183,10 @@ const ProfileInfoEdit = ({
                 align="text-center"
                 type="number"
                 name="age"
-                placeholder="24"
+                placeholder={userProfile.age}
                 min={18}
                 max={130}
+                onChange={handleInputChange}
             />
             {/* Height */}
             {heightUnit === "Imperial" ?
@@ -75,18 +202,20 @@ const ProfileInfoEdit = ({
                             className="text-center rounded-lg bg-gray-100"
                             type="number"
                             name="heightft"
-                            placeholder={5}
+                            placeholder={userProfile.heightft}
                             min={0}
                             max={8}
+                            onChange={handleInputChange}
                         />
                         <p> ft </p>
                         <input
                             className="text-center rounded-lg bg-gray-100"
                             type="number"
-                            name="heightft"
-                            placeholder={6}
+                            name="heightin"
+                            placeholder={userProfile.heightin}
                             min={0}
                             max={11}
+                            onChange={handleInputChange}
                         />
                         <p> in</p>
                     </div>
@@ -103,9 +232,10 @@ const ProfileInfoEdit = ({
                             className="text-center rounded-lg bg-gray-100"
                             type="number"
                             name="heightcm"
-                            placeholder={168}
+                            placeholder={userProfile.heightcm}
                             min={1}
                             max={250}
+                            onChange={handleInputChange}
                         />
                         <p> cm</p>
                     </div>
@@ -119,11 +249,12 @@ const ProfileInfoEdit = ({
             </button>
             {/* Employment */}
             <InputLine
-                labelFor="job"
+                labelFor="jobTitle"
                 labelValue="Job Title"
                 type="text"
-                name="job"
-                placeholder="Behavior Analyst"
+                name="jobTitle"
+                placeholder={userProfile.jobTitle}
+                onChange={handleInputChange}
             />
             {/* School */}
             <InputLine
@@ -131,7 +262,8 @@ const ProfileInfoEdit = ({
                 labelValue="College"
                 type="text"
                 name="school"
-                placeholder="Local State University"
+                placeholder={userProfile.school}
+                onChange={handleInputChange}
             />
         </div>
         {/* About Me */}
@@ -141,7 +273,9 @@ const ProfileInfoEdit = ({
                 className="w-[95%] mx-auto text-center rounded-lg bg-gray-100"
                 name="about"
                 id="about"
-                placeholder={selectedUser?.about}>
+                placeholder={userProfile.about}
+                onChange={handleInputChange}
+            >
             </textarea>
         </div>
         {/* Optional Info */}
@@ -150,92 +284,75 @@ const ProfileInfoEdit = ({
             <div className="flex justify-center flex-wrap gap-2 w-[90%]">
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-scale-balanced`}></i>
-                    <select name="zodiac" id="zodiac">
-                        <option value="capricorn">Capricorn</option>
-                        <option value="aquarius">Aquarius</option>
-                        <option value="pisces">Pisces</option>
-                        <option value="aries">Aries</option>
-                        <option value="taurus">Taurus</option>
-                        <option value="gemini">Gemini</option>
-                        <option value="cancer">Cancer</option>
-                        <option value="leo">Leo</option>
-                        <option value="virgo">Virgo</option>
-                        <option value="libra">Libra</option>
-                        <option value="scorpio">Scorpio</option>
-                        <option value="sagittarius">Sagittarius</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"zodiac"}
+                        selectDefault={"libra"}
+                        infoOptionArray={infoOptions.zodiac}
+                        onChange={handleInputChange}
+                    />
                 </p>
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-graduation-cap`}></i>
-                    <select name="education" id="education">
-                        <option value="highSchool">High School</option>
-                        <option value="inCollege">In College</option>
-                        <option value="associates">Associates</option>
-                        <option value="bachelors">Bachelors</option>
-                        <option value="masters">Masters</option>
-                        <option value="phd">PhD</option>
-                        <option value="trade">Trade School</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"school"}
+                        selectDefault={"bachelors"}
+                        infoOptionArray={infoOptions.school}
+                        onChange={handleInputChange}
+                    />
+                </p>
+                <p className={`${styles.infoBubble}`}>
+                    <i className={`${styles.infoIcon} fa-children`}></i>
+                    <InfoButton
+                        selectName={"kids"}
+                        selectDefault={"dont"}
+                        infoOptionArray={infoOptions.kids}
+                        onChange={handleInputChange}
+                    />
                 </p>
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-baby-carriage`}></i>
-                    <select name="children" id="children">
-                        <option value="wantA">Want children</option>
-                        <option value="wantB">Don't have but want</option>
-                        <option value="haveA">Have children, want more</option>
-                        <option value="haveB">Have children, don't want more</option>
-                        <option value="no">Don't want children</option>
-                        <option value="notSure">Not sure</option>
-                        <option value="open">Open to children</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"familyPlans"}
+                        selectDefault={"want"}
+                        infoOptionArray={infoOptions.familyPlans}
+                        onChange={handleInputChange}
+                    />
                 </p>
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-paw`}></i>
-                    <select name="pets" id="pets">
-                        <option value="dog">Dog</option>
-                        <option value="cat">Cat</option>
-                        <option value="fish">Fish</option>
-                        <option value="bird">Bird</option>
-                        <option value="multiple">Multiple</option>
-                        <option value="none">None</option>
-                        <option value="allergic">Allergic</option>
-                        <option value="petFree">Pet-free</option>
-                        <option value="other">Other</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"pets"}
+                        selectDefault={"cat"}
+                        infoOptionArray={infoOptions.pets}
+                        onChange={handleInputChange}
+                    />
                 </p>
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-martini-glass`}></i>
-                    <select name="drinking" id="drinking">
-                        <option value="everyday">Everyday</option>
-                        <option value="often">Often</option>
-                        <option value="sometimes">Sometimes</option>
-                        <option value="never">Never</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"drinking"}
+                        selectDefault={"sometimes"}
+                        infoOptionArray={infoOptions.drinking}
+                        onChange={handleInputChange}
+                    />
                 </p>
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-smoking`}></i>
-                    <select name="smoking" id="smoking">
-                        <option value="everyday">Everyday</option>
-                        <option value="often">Often</option>
-                        <option value="sometimes">Sometimes</option>
-                        <option value="never">Never</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"smoking"}
+                        selectDefault={"never"}
+                        infoOptionArray={infoOptions.smoking}
+                        onChange={handleInputChange}
+                    />
                 </p>
                 <p className={`${styles.infoBubble}`}>
                     <i className={`${styles.infoIcon} fa-dumbbell`}></i>
-                    <select name="workout" id="workout">
-                        <option value="everyday">Everyday</option>
-                        <option value="often">Often</option>
-                        <option value="sometimes">Sometimes</option>
-                        <option value="never">Never</option>
-                        <option value="empty">Leave blank</option>
-                    </select>
+                    <InfoButton
+                        selectName={"workout"}
+                        selectDefault={"often"}
+                        infoOptionArray={infoOptions.workout}
+                        onChange={handleInputChange}
+                    />
                 </p>
             </div>
         </div>

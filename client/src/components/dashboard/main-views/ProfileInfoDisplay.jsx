@@ -1,14 +1,31 @@
+import { useEffect } from "react";
+
 const styles = {
     profileBubble: `flex flex-col justify-center items-center w-[90%]
-        py-3 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] bg-white`,
+        py-3 rounded-[2rem] shadow-[inset_-1px_-1px_5px_1px] bg-white overflow-hidden`,
     infoBubble: `text-center py-1 px-3 border border-black rounded-full shadow-[inset_-1px_-1px_3px]`,
     infoIcon: `fa-solid pr-2`,
 };
 
 const ProfileInfoDisplay = ({
     selectedUser,
-    SetIsUserEditing,
+    setIsUserEditing,
 }) => {
+
+    useEffect(() => {
+        const handleProfileUpdate = () => {
+            if (selectedUser?.type === "self") {
+                const updatedProfile = localStorage.getItem("userProfile");
+                if (updatedProfile) {
+                    selectedUser = updatedProfile;
+                }
+            }
+        };
+
+        window.addEventListener("profileUpdated", handleProfileUpdate);
+        return () => window.removeEventListener("profileUpdated", handleProfileUpdate);
+    });
+
     return (
         <>
         {/* Profile - Basics */}
@@ -17,7 +34,7 @@ const ProfileInfoDisplay = ({
             {selectedUser?.type === "self" && 
                 <button
                     className="absolute top-4 right-4 border border-black rounded-full p-2 bg-green-300"
-                    onClick={() => SetIsUserEditing(true)}
+                    onClick={() => setIsUserEditing(true)}
                 >
                     Edit
                 </button>
@@ -81,10 +98,15 @@ const ProfileInfoDisplay = ({
                             <i className={`${styles.infoIcon} fa-graduation-cap`}></i>
                             {selectedUser.education}
                         </p>)}
-                    {selectedUser?.children && (
+                    {selectedUser?.kids && (
+                        <p className={`${styles.infoBubble}`}>
+                            <i className={`${styles.infoIcon} fa-children`}></i>
+                            {selectedUser.kids}
+                        </p>)}
+                    {selectedUser?.familyPlans && (
                         <p className={`${styles.infoBubble}`}>
                             <i className={`${styles.infoIcon} fa-baby-carriage`}></i>
-                            {selectedUser.children}
+                            {selectedUser.familyPlans}
                         </p>)}
                     {selectedUser?.pets && (
                         <p className={`${styles.infoBubble}`}>
