@@ -54,6 +54,8 @@ const MessagesView = ({
     width="w-full",
     selectedUser,
     setCenterView,
+    isMobile,
+    handleMatches,
 }) => {
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState("");
@@ -143,6 +145,9 @@ const MessagesView = ({
             <div className={`absolute flex bottom-0 max-h-[30vh] min-h-[10%] w-full
                 p-4 shadow-[inset_0px_0px_6px_1px] bg-white overflow-hidden
             `}>
+                {selectedUser?.type === "match" ?
+                (
+                <>
                 <textarea
                     ref={textareaRef}
                     value={inputText}
@@ -166,6 +171,23 @@ const MessagesView = ({
                 >
                     <i className="fa-solid fa-paper-plane text-white"></i>
                 </button>
+                </>
+                ) :(
+                    <div className="flex justify-center items-center w-full">
+                        {isMobile ?
+                        (
+                            <button
+                                className=""
+                                onClick={handleMatches(selectedUser)}
+                            >
+                                Match with {selectedUser?.name}
+                            </button>
+                        ) : (
+                            <p>Match with {selectedUser?.name} to enable messaging!</p>
+                        )}
+                    </div>
+                )}
+                
             </div>
 
         </main>

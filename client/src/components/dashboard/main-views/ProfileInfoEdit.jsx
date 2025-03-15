@@ -104,7 +104,7 @@ const InputLine = ({labelFor, labelValue, align="text-left", type, name, placeho
 
 const InfoButton = ({ selectName, selectDefault, onChange, infoOptionArray }) => {
     return (
-        <select className="outline-none" name={selectName} id={selectName} defaultValue={selectDefault} onChange={onChange}>
+        <select className="outline-none cursor-pointer" name={selectName} id={selectName} defaultValue={selectDefault} onChange={onChange}>
             {infoOptionArray.map((option) => (
                 <option key={option.value} value={option.label}>
                     {option.label}
@@ -144,12 +144,23 @@ const ProfileInfoEdit = ({
     };
 
     const handleSaveProfile = () => {
-        setUserProfile(prevProfile => {
-            const updatedProfile = { ...prevProfile, ...unsavedProfile };
-            localStorage.setItem("userProfile", JSON.stringify(updatedProfile));
-            window.dispatchEvent(new Event("profileUpdated"));
-            return updatedProfile;
-        });
+        const infoFields = [
+            "zodiac", "education", "kids", "familyPlans", 
+            "pets", "drinking", "smoking", "workout"
+        ];
+        
+        // Check if infoFields are empty
+        const allEmpty = infoFields.every(field => !unsavedProfile[field] || unsavedProfile[field] === "");
+
+        const updatedProfile = {
+            ...userProfile,
+            ...unsavedProfile,
+            hasInfo: !allEmpty
+        };
+
+        setUserProfile(updatedProfile);
+        localStorage.setItem("userProfile", JSON.stringify(updatedProfile));
+        window.dispatchEvent(new Event("profileUpdated"));
         setIsUserEditing(false);
     };
 
@@ -267,7 +278,7 @@ const ProfileInfoEdit = ({
         <div className={`${styles.profileBubble}`}>
             <h2 className="font-semibold">About Me:</h2>
             <textarea
-                className="w-[95%] mx-auto text-center rounded-lg bg-gray-100"
+                className="w-[95%] mx-auto mb-2 text-center rounded-lg bg-gray-100"
                 name="about"
                 id="about"
                 placeholder={userProfile.about}

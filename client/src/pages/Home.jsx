@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useScreenSize from "../hooks/useScreenSize";
+import LandingView from "../components/dashboard/main-views/LandingView";
 import ProfileView from "../components/dashboard/main-views/ProfileView";
 import MessagesView from "../components/dashboard/main-views/MessagesView";
 import UserSidebar from "../components/dashboard/user-sidebar/UserSidebar";
@@ -35,7 +36,11 @@ const Home = () => {
             setUserConnections({
                 self: parsedConnections.self,
                 likes: parsedConnections.likes,
-                matches: parsedConnections.matches});
+                matches: parsedConnections.matches
+            });
+            if (!selectedUser) {
+                setSelectedUser(parsedConnections.matches[0] || null);
+            }
         } else {
             fetch("/fake-users-list.json")
             .then(res => res.json())
@@ -46,6 +51,9 @@ const Home = () => {
                 const newConnections = { self, likes, matches };
                 setUserConnections(newConnections);
                 localStorage.setItem("userConnections", JSON.stringify(newConnections));
+                if (!selectedUser) {
+                    setSelectedUser(matches[0] || null);
+                }
             })
             .catch(error => console.error("Error loading fake-users-list: ", error));
         }
@@ -80,6 +88,7 @@ const Home = () => {
         if (selectedUser.type === "like") {
             const userIndex = userConnections.likes.findIndex(user => user.id === selectedUser.id);
             const matchedUser = userConnections.likes[userIndex];
+            if (userIndex === -1) return;
 
             const likesList = [...userConnections.likes];
             likesList.splice(userIndex, 1);
@@ -109,6 +118,9 @@ const Home = () => {
 
             setUserConnections(updatedConnections);
             localStorage.setItem("userConnections", JSON.stringify(updatedConnections));
+            if (matchesList.length === 0) {
+                setSelectedUser(userConnections.self[0]);
+            }
         }
     };
 
@@ -122,11 +134,18 @@ const Home = () => {
             setUserImages={setUserImages}
             numUserImages={numUserImages}
         />,
-        messages: <MessagesView
-            width={isMobile ? "w-full" : "w-[60vw]"}
-            selectedUser={selectedUser}
-            setCenterView={setCenterView}
-        />,
+        messages: selectedUser ? 
+            (<MessagesView
+                width={isMobile ? "w-full" : "w-[60vw]"}
+                selectedUser={selectedUser}
+                setCenterView={setCenterView}
+                isMobile={isMobile}
+                handleMatches={handleMatches}
+            />) :
+            (<LandingView
+                width={isMobile ? "w-full" : "w-[60vw]"}
+                setCenterView={setCenterView}
+            />),
         userSidebar: <UserSidebar 
             width="w-full"
             isMainView={true}

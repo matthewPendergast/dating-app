@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import Header from "../../dashboard/main-views/Header";
 import ProfileInfoDisplay from "./ProfileInfoDisplay";
 import ProfileInfoEdit from "./ProfileInfoEdit";
 import "../../../assets/styles/scrollbar.css";
-import { useEffect, useState } from "react";
 
 const styles = {
     wrapper: `h-full py-1 bg-gradient-to-b from-[#a44d6d] to-[#fe94bc]
