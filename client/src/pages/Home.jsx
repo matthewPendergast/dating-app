@@ -27,17 +27,43 @@ const Home = () => {
         return images;
     };
 
+    // Fetch data for user's connections
+    useEffect(() => {
+        const storedConnections = localStorage.getItem("userConnections");
+        if (storedConnections) {
+            const parsedConnections = JSON.parse(storedConnections);
+            setUserConnections({
+                self: parsedConnections.self,
+                likes: parsedConnections.likes,
+                matches: parsedConnections.matches});
+        } else {
+            fetch("/fake-users-list.json")
+            .then(res => res.json())
+            .then(users => {
+                const self = users.filter(user => user.type === "self");
+                const likes = users.filter(user => user.type === "like");
+                const matches = users.filter(user => user.type === "match");
+                const newConnections = { self, likes, matches };
+                setUserConnections(newConnections);
+                localStorage.setItem("userConnections", JSON.stringify(newConnections));
+            })
+            .catch(error => console.error("Error loading fake-users-list: ", error));
+        }
+    }, []);
+
     // Recalculate number of user-uploaded images when the array changes
     useEffect(() => {
         setNumUserImages(userImages.length);
     }, [userImages]);
 
+    // Handle user images when selected user changes
     useEffect(() => {
         if (selectedUser?.type === "self") {
             setUserImages(getUserImages());
         }
     }, [selectedUser]);
 
+    // Handle user images when the user uploads a new image
     useEffect(() => {
         const updateUserImages = () => {
             if (selectedUser?.type === "self") {
@@ -47,7 +73,44 @@ const Home = () => {
     
         window.addEventListener("userUploadedImage", updateUserImages);
         return () => window.removeEventListener("userUploadedImage", updateUserImages);
-    }, [selectedUser]);    
+    }, [selectedUser]);
+
+    const handleMatches = (selectedUser) => {
+        // Match with a user
+        if (selectedUser.type === "like") {
+            const userIndex = userConnections.likes.findIndex(user => user.id === selectedUser.id);
+            const matchedUser = userConnections.likes[userIndex];
+
+            const likesList = [...userConnections.likes];
+            likesList.splice(userIndex, 1);
+
+            const updatedUser = { ...matchedUser, type: "match" };
+            const matchesList = [updatedUser, ...userConnections.matches];
+
+            const updatedConnections = {
+                ...userConnections,
+                likes: likesList,
+                matches: matchesList
+            };
+
+            setUserConnections(updatedConnections);
+            localStorage.setItem("userConnections", JSON.stringify(updatedConnections));
+        }
+        // Unmatch a user
+        if (selectedUser.type === "match") {
+            const userIndex = userConnections.matches.findIndex(user => user.id === selectedUser.id);
+            const matchesList = [...userConnections.matches];
+            matchesList.splice(userIndex, 1);
+
+            const updatedConnections = {
+                ...userConnections,
+                matches: matchesList
+            };
+
+            setUserConnections(updatedConnections);
+            localStorage.setItem("userConnections", JSON.stringify(updatedConnections));
+        }
+    };
 
     const viewComponents = {
         profile: <ProfileView
@@ -79,27 +142,12 @@ const Home = () => {
             isMobile={isMobile}
             centerView={centerView}
             selectedUser={selectedUser}
+            userImages={userImages}
             setModalImage={setModalImage}
             setCenterView={setCenterView}
-            userImages={userImages}
+            handleMatches={handleMatches}
         />
     };
-
-    // Fetch data for user's connections
-    useEffect(() => {
-        fetch("/fake-users-list.json")
-            .then(res => res.json())
-            .then(users => {
-                const self = users.filter(user => user.type === "self");
-                const likes = users.filter(user => user.type === "like");
-                const matches = users.filter(user => user.type === "match");
-                setUserConnections({ self, likes, matches });
-                if (matches.length >= 1) {
-                    setSelectedUser(matches[0]);
-                }
-            })
-            .catch(error => console.error("Error loading fake-users-list: ", error));
-    }, []);
 
     return (
         isMobile ? (
@@ -137,6 +185,7 @@ const Home = () => {
                     selectedUser={selectedUser}
                     setModalImage={setModalImage}
                     setCenterView={setCenterView}
+                    handleMatches={handleMatches}
                 />
             </div>
             <footer className="flex items-center min-h-[10vh] bg-black">

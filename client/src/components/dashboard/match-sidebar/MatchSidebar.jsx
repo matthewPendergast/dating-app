@@ -4,6 +4,7 @@ import headerStyles from "../../../assets/styles/sidebarHeaderStyles.js";
 const styles = {
     button: `h-1/2 w-1/2 shadow-[inset_0px_0px_5px_1px] bg-white
         hover:brightness-90 active:shadow-[inset_0px_0px_8px_1px]`,
+    disabledButton: `h-1/2 w-1/2 shadow-[inset_0px_0px_8px_1px] bg-gray-300`,
 };
 
 const MatchSidebar = ({
@@ -12,45 +13,36 @@ const MatchSidebar = ({
     isMobile,
     centerView,
     selectedUser,
+    userImages,
     setModalImage,
     setCenterView,
-    userImages,
+    handleMatches,
 }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const [numUserImages, setNumUserImages] = useState(0);
     const [profilePic, setProfilePic] = useState("/images/default-profile.webp");
     const [mainImage, setMainImage] = useState("/images/default-profile.webp");
-    const [matchName, setMatchname] = useState(selectedUser?.name || "No user selected")
+    const [matchName, setMatchName] = useState("No user selected");
 
-    // useEffect(() => {
-    //     if (selectedUser?.type === "self") {
-    //         const storedProfile = localStorage.getItem("userProfile");
-    //         if (storedProfile) {
-    //             setUserProfile(JSON.parse(storedProfile));
-    //         } else {
-    //             setUserProfile(selfUser);
-    //         }
-    //     }
-    // }, [selectedUser, selfUser]);
-
+    // Handle profile switches and changes to user's profile
     useEffect(() => {
         if (selectedUser?.type === "self") {
             const images = JSON.parse(localStorage.getItem("userImages")) || [];
             const storedProfile = JSON.parse(localStorage.getItem("userProfile"));
             if (storedProfile) {
-                setMatchname(storedProfile.name);
+                setMatchName(storedProfile.name);
+            } else {
+                setMatchName(selectedUser?.name);
             }
             setProfilePic(images.length > 0 ? images[0] : selectedUser?.profilePic || "/images/default-profile.webp");
             setMainImage(images.length > 0 ? images[imageIndex] : selectedUser?.images?.[imageIndex] || "/images/default-profile.webp");
         } else {
             setProfilePic(selectedUser?.profilePic || "/images/default-profile.webp");
             setMainImage(selectedUser?.images?.[imageIndex] || "/images/default-profile.webp");
+            setMatchName(selectedUser?.name);
         }
-    }, [selectedUser, imageIndex]);
-
-    useEffect(() => {
         setImageIndex(0);
-    }, [selectedUser]);
+    }, [selectedUser, imageIndex]);
 
     // Event listeners for user editing profile
     useEffect(() => {
@@ -67,7 +59,7 @@ const MatchSidebar = ({
         const handleNameChange = () => {
             const storedProfile = JSON.parse(localStorage.getItem("userProfile"));
             if (storedProfile) {
-                setMatchname(storedProfile.name);
+                setMatchName(storedProfile.name);
             }
         };
     
@@ -129,7 +121,13 @@ const MatchSidebar = ({
             <div className="flex flex-wrap flex-grow min-h-[20vh]">
                 <button className={`${styles.button}`} onClick={() => setCenterView("profile")}>View Profile</button>
                 <button className={`${styles.button}`}>Video Call</button>
-                <button className={`${styles.button}`}>Unmatch</button>
+                <button
+                    className={`${selectedUser?.type === "self" ? styles.disabledButton : styles.button}`}
+                    disabled={selectedUser?.type === "self"}
+                    onClick={() => handleMatches(selectedUser)}
+                >
+                    {selectedUser?.type === "match" ? ("Unmatch") : ("Match")}
+                </button>
                 <button className={`${styles.button}`}>Report</button>
             </div>
         </aside>
