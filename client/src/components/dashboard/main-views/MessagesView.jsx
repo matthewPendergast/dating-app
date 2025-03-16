@@ -178,7 +178,7 @@ const MessagesView = ({
                         (
                             <button
                                 className=""
-                                onClick={handleMatches(selectedUser)}
+                                onClick={() => handleMatches(selectedUser)}
                             >
                                 Match with {selectedUser?.name}
                             </button>

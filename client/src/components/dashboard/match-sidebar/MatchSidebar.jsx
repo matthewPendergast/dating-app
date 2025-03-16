@@ -4,7 +4,7 @@ import headerStyles from "../../../assets/styles/sidebarHeaderStyles.js";
 const styles = {
     button: `h-1/2 w-1/2 shadow-[inset_0px_0px_5px_1px] bg-white
         hover:brightness-90 active:shadow-[inset_0px_0px_8px_1px]`,
-    disabledButton: `h-1/2 w-1/2 shadow-[inset_0px_0px_8px_1px] bg-gray-300`,
+    disabledButton: `h-1/2 w-1/2 shadow-[inset_0px_0px_8px_1px] bg-gray-300 cursor-pointer`,
 };
 
 const MatchSidebar = ({
@@ -120,7 +120,13 @@ const MatchSidebar = ({
             {/* Buttons */}
             <div className="flex flex-wrap flex-grow min-h-[20vh]">
                 <button className={`${styles.button}`} onClick={() => setCenterView("profile")}>View Profile</button>
-                <button className={`${styles.button}`}>Video Call</button>
+                <button
+                    className={`${(selectedUser?.type === "self" || selectedUser?.type === "like") ? styles.disabledButton : styles.button}`}
+                    disabled={selectedUser?.type === "self" || selectedUser?.type === "like"}
+                    onClick={() => setCenterView("videoCall")}
+                >
+                    Video Call
+                </button>
                 <button
                     className={`${selectedUser?.type === "self" ? styles.disabledButton : styles.button}`}
                     disabled={selectedUser?.type === "self"}

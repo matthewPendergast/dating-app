@@ -5,6 +5,7 @@ import ProfileView from "../components/dashboard/main-views/ProfileView";
 import MessagesView from "../components/dashboard/main-views/MessagesView";
 import UserSidebar from "../components/dashboard/user-sidebar/UserSidebar";
 import MatchSidebar from "../components/dashboard/match-sidebar/MatchSidebar";
+import VideoCall from "../components/dashboard/main-views/VideoCallView";
 import Nav from "../components/dashboard/Nav";
 
 const Home = () => {
@@ -165,6 +166,11 @@ const Home = () => {
             setModalImage={setModalImage}
             setCenterView={setCenterView}
             handleMatches={handleMatches}
+        />,
+        videoCall: <VideoCall
+            width={isMobile ? "w-full" : "w-[60vw]"}
+            selectedUser={selectedUser}
+            setCenterView={setCenterView}
         />
     };
 
