@@ -41,8 +41,12 @@ const MatchSidebar = ({
             setMainImage(selectedUser?.images?.[imageIndex] || "/images/default-profile.webp");
             setMatchName(selectedUser?.name);
         }
-        setImageIndex(0);
     }, [selectedUser, imageIndex]);
+
+    // Reset image index when selected user changes
+    useEffect(() => {
+        setImageIndex(0);
+    }, [selectedUser]);
 
     // Event listeners for user editing profile
     useEffect(() => {
@@ -134,7 +138,7 @@ const MatchSidebar = ({
                 >
                     {selectedUser?.type === "match" ? ("Unmatch") : ("Match")}
                 </button>
-                <button className={`${styles.button}`}>Report</button>
+                <button className={`${styles.button}`} onClick={() => setCenterView("report")}>Report</button>
             </div>
         </aside>
     );

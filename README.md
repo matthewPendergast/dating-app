@@ -13,11 +13,11 @@ It is being built with React, Tailwind, Node, Express, and PostgreSQL, and both 
 
 ## Current Progress
 
-As of March 2025, development is on pace to meet the anticipated completion date of June 2025.
+As of April 2025, development is on pace to meet the anticipated completion date of June 2025.
 
-Presently, the project is in the process of building out the core features of the "User Dashboard" interface, such as creating a custom profile, browsing the userbase, connecting with and messaging other users, and more. The Home page is intended to be a showcase for these features without requiring the visitor to sign up.
+Presently, the project is in the process of building out the core features of the "User Dashboard" interface, such as creating a custom profile, browsing the userbase, connecting with and messaging other users, and more. The Home page is intended to be a showcase of these features without requiring the visitor to sign up.
 
-After the core features have been implemented, development will shift to restoring signup/login functionality and proper backend integration--which is projected to begin in the first half of April.
+After the core features have been implemented, development will shift to restoring signup/login functionality and proper backend integration--which is projected to begin in the second half of April.
 
 ## Roadmap
 
@@ -42,7 +42,7 @@ After the core features have been implemented, development will shift to restori
         - ✅ Improve mobile UI
         - ✅ Messaging interface (view Like/Match messages)
         - ✅ Allow for editing of user profile (add images, edit personal information)
-        - 🔄 Implement quasi-functional Match sidebar buttons
+        - ✅ Implement quasi-functional Match sidebar buttons
         - ⬜ Build simulated chat system utilizing external API
         - ⬜ Add interface for browsing userbase
         - ⬜ Implement preference filters for browsing interface
