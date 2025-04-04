@@ -138,7 +138,13 @@ const MatchSidebar = ({
                 >
                     {selectedUser?.type === "match" ? ("Unmatch") : ("Match")}
                 </button>
-                <button className={`${styles.button}`} onClick={() => setCenterView("report")}>Report</button>
+                <button
+                    className={`${selectedUser?.type === "self" ? styles.disabledButton : styles.button}`}
+                    disabled={selectedUser?.type === "self"}
+                    onClick={() => setCenterView("report")}
+                >
+                    Report
+                </button>
             </div>
         </aside>
     );

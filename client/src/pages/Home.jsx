@@ -126,6 +126,29 @@ const Home = () => {
         }
     };
 
+    const handleUserReport = (reportedUser) => {
+        let updatedConnections = { ...userConnections };
+
+        if (reportedUser.type === "like") {
+            const index = updatedConnections.likes.findIndex(user => user.id === reportedUser.id);
+            updatedConnections.likes.splice(index, 1);
+            if (updatedConnections.likes.length === 0) {
+                setSelectedUser(updatedConnections.self[0]);
+            }
+        }
+
+        if (reportedUser.type === "match") {
+            const index = updatedConnections.matches.findIndex(user => user.id === reportedUser.id);
+            updatedConnections.matches.splice(index, 1);
+            if (updatedConnections.matches.length === 0) {
+                setSelectedUser(updatedConnections.self[0]);
+            }
+        }
+        
+        setUserConnections(updatedConnections);
+        localStorage.setItem("userConnections", JSON.stringify(updatedConnections));
+    };
+
     const viewComponents = {
         profile: <ProfileView
             width={isMobile ? "w-full" : "w-[60vw]"}
@@ -172,7 +195,7 @@ const Home = () => {
             width={isMobile ? "w-full" : "w-[60vw]"}
             selectedUser={selectedUser}
             setCenterView={setCenterView}
-            handleMatches={handleMatches}
+            handleUserReport={handleUserReport}
         />,
         videoCall: <VideoCall
             width={isMobile ? "w-full" : "w-[60vw]"}

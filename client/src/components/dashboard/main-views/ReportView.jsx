@@ -2,11 +2,11 @@ const ReportView = ({
     width="w-full",
     selectedUser,
     setCenterView,
-    handleMatches,
+    handleUserReport,
 }) => {
     const handleSubmit = (event) => {
         event.preventDefault();
-        handleMatches(selectedUser);
+        handleUserReport(selectedUser);
         setCenterView("userSidebar");
     };
 
