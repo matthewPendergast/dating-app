@@ -1,23 +1,15 @@
 # Overview
 
-This is a solo project I am working on to learn full-stack web development, with plans to incorporate personalized AI conversational interactivity via an external API.
+This is a solo project I worked on to learn full-stack web development. The idea of it was to create a functional dating app clone from the ground up that allows users to:
+- Browse, match, and interact with artificial users
+- Edit your own personal profile and have the changes persist locally
+- Represent a real-world dating app in appearance and function
 
-The idea of it is to create a functional dating app clone from the ground up that allows users to:
-- Sign up securely and create a custom profile
-- Browse, filter, and match with artificial users
-- Message AI-generated users with distinct personalities and active hours
+Although it is a full-stack project, the frontend is far more developed than the backend. Functionality for signing up and logging in does exist in the codebase, but I decided not to fully implement that capability for this project. I originally planned to expand the backend much more, but I have since moved on to other projects that better suit my current learning goals.
 
-It is being built with React, Tailwind, Node, Express, and PostgreSQL, and both the frontend and backend are currently hosted on Render.
+It was built with React, Tailwind, Node, Express, and PostgreSQL, and it is hosted on Render. Please note, however, that the free tier of Render is fairly limited, and as such the project can take a minute or two to fully load. The website itself is not meant for real-world production--just to showcase a project that I have built.
 
 [View project here](https://dating-app-ppif.onrender.com/)
-
-## Current Progress
-
-As of April 2025, development is on pace to meet the anticipated completion date of June 2025.
-
-Presently, the project is in the process of building out the core features of the "User Dashboard" interface, such as creating a custom profile, browsing the userbase, connecting with and messaging other users, and more. The Home page is intended to be a showcase of these features without requiring the visitor to sign up.
-
-After the core features have been implemented, development will shift to restoring signup/login functionality and proper backend integration--which is projected to begin in the second half of April.
 
 ## Roadmap
 
@@ -35,7 +27,7 @@ After the core features have been implemented, development will shift to restori
 
 - **Implement Frontend (React, Tailwind CSS)**
     - ✅ Dashboard page (mockup)
-    - 🔄 Implement Dashboard functionality
+    - ✅ Implement Dashboard functionality
         - ✅ Image interactions (modals, Match Sidebar image slider)
         - ✅ Make Match 'View Profile' interface
         - ✅ Make User 'View Profile' interface
@@ -43,21 +35,3 @@ After the core features have been implemented, development will shift to restori
         - ✅ Messaging interface (view Like/Match messages)
         - ✅ Allow for editing of user profile (add images, edit personal information)
         - ✅ Implement quasi-functional Match sidebar buttons
-        - ⬜ Build simulated chat system utilizing external API
-        - ⬜ Add interface for browsing userbase
-        - ⬜ Implement preference filters for browsing interface
-    - ⬜ Login page
-    - ⬜ Signup page
-
-- **Restore Backend Functionality**
-    - ⬜ Store user information in the database
-        - ⬜ Optimize database queries
-    - ⬜ Create basic matching system
-        - ⬜ Matching algorithm
-
-- **Future Plans**
-    - ⬜ Get feedback on interface and polish design, bring it to production quality
-    - ⬜ Optimize/refactor existing codebase and improve error handling
-    - ⬜ Test cross-browser and device compatiblity
-    - ⬜ Add proper documentation
-    - ⬜ Possibly create a mobile app version (React Native or Swift)
